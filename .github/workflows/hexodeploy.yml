@@ -1,66 +1,48 @@
-name: Blog CI/CD
-
-# 触发条件：在 push 到 hexo-blog-backup 分支后触发
+name: GitHub Actions Build and Deploy
 on:
   push:
-    branches: 
-      - hexo-blog-backup
+    branches:
 
-env:
-  TZ: Asia/Shanghai
+      - master
 
 jobs:
-  blog-cicd:
-    name: Hexo blog build & deploy
-    runs-on: ubuntu-latest # 使用最新的 Ubuntu 系统作为编译部署的环境
-
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout codes
-      uses: actions/checkout@v2
 
-    - name: Setup node
-      # 设置 node.js 环境
+    - name: 1. git checkout...
+
+      uses: actions/checkout@v1
+
+    - name: 2. setup nodejs...
+
       uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
 
-    - name: Cache node modules
-      # 设置包缓存目录，避免每次下载
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - name: 3. install hexo...
 
-    - name: Install hexo dependencies
-      # 下载 hexo-cli 脚手架及相关安装包
       run: |
-        npm install hexo-cli gulp -g
+        npm install hexo-cli -g
+        npm i -S hexo-prism-plugin -g
+        npm install hexo-generator-search --save -g
+        npm i hexo-permalink-pinyin  -g
+        npm i --save hexo-wordcount -g
+        npm install hexo-filter-github-emojis  -g
+        npm install hexo-generator-feed  -g
         npm install
 
-    - name: Generate files
-      # 编译 markdown 文件
+    - name: 4. hexo generate public files...
+
       run: |
         hexo clean
-        hexo generate
+        hexo g
+    
+    # 提交到我们的存放静态资源的仓库
 
-    - name: Execute gulp task
-      run: gulp
+    - name: Build and Deploy
 
-    - name: Deploy hexo blog
-      env: 
-        # Github 仓库
-        GITHUB_REPO: github.com/luxinhua/luxinhua.github.io
-        # # Coding 仓库
-        # CODING_REPO: e.coding.net/luxinhua/blogs.git
-        # # Gitee 仓库
-        # GITEE_REPO: gitee.com/luxinhua/luxinhua.gitee.io
-      # 将编译后的博客文件推送到指定仓库
-      run: |
-        cd ./public && git init && git add .
-        git config user.name "xhlu"
-        git config user.email "2846154596@qq.com"
-        git add .
-        git commit -m "GitHub Actions Auto Builder at $(date +'%Y-%m-%d %H:%M:%S')"
-        git push --force --quiet "https://${{ secrets.ACCESS_TOKEN }}@$GITHUB_REPO" master:master
-        # git push --force --quiet "https://RoYFbFDSfM:${{ secrets.CODING_TOKEN }}@$CODING_REPO" master:master
-        # git push --force --quiet "https://luxinhua:${{ secrets.GITEE_ACCESS_TOKEN }}@$GITEE_REPO" master:master
+      uses: y4code/hexo-deploy-action@master
+      env:
+        PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        PUBLISH_REPOSITORY: luxinhua/luxinhua.github.io # The repository the action should deploy to.
+        BRANCH: master  # The branch the action should deploy to.
+        PUBLISH_DIR: ./public # The folder the action should deploy.
