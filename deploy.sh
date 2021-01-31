@@ -1,3 +1,6 @@
+git add .
+git commit -a -m "update source code."
+git push origin main
 rm -rf ../public
 mkdir ../public
 git checkout source_dev
