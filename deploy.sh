@@ -1,3 +1,5 @@
+hexo clean 
+hexo g
 git add .
 git commit -a -m "update source code."
 git push origin main
