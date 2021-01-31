@@ -6,3 +6,4 @@ cp ../public/* . -rf
 git add .
 git commit -a -m "update article."
 git push origin source_dev
+git checkout main
