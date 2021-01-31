@@ -1,7 +1,7 @@
 rm -rf ../public
 mkdir ../public
-cp ./public/* ../public -rf 
 git checkout source_dev
+cp ./public/* ../public -rf 
 cp ../public/* . -rf
 git add .
 git commit -a -m "update article."
