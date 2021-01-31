@@ -1,1 +1,1 @@
-hexo new post $1
+hexo new $1
