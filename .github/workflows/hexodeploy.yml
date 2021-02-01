@@ -40,7 +40,7 @@ jobs:
       id: deploy
       uses: sma11black/hexo-action@v1.0.0
       with:
-        deploy_key: ${{ secrets.DEPLOY_KEY }}
+        deploy_key: ${{ secrets.HEXO_VERITY }}
         user_name: xhlu
         user_email: 2846154596@qq.com
 
