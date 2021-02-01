@@ -12,7 +12,7 @@ jobs:
     - name: git checkout...
       uses: actions/checkout@v1
 
-    - name: git checkout...
+    - name: git version...
       run: |
         git --version
 
@@ -39,14 +39,13 @@ jobs:
     #   run: |
     #     hexo clean
     #     hexo g
-    
 
-    # - name: Git init
-    #   run: 
-    #     git config --global user.name xhlu
-    #     git config --global user.email 2846154596@qq.com
-    #     echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials
-    #     git config --global credential.helper store --file ~/.my-credentials
+    - name: Git init
+      run: 
+        git config --global user.name xhlu
+        git config --global user.email 2846154596@qq.com
+        echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials
+        git config --global credential.helper store --file ~/.my-credentials
 
     # - name: Build and Deploy
     #   run: 
