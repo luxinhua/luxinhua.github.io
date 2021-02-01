@@ -49,9 +49,9 @@ jobs:
     - name: Git config secrets.HEXO_VERITY
       run:         
         echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials && cat ~/.my-credentials 
-    # - name: Git config store credential
-    #   run:         
-    #     git config --global credential.helper store --file ~/.my-credentials
+    - name: Git config store credential
+      run:         
+        git config --global credential.helper store ${{ secrets.HEXO_VERITY }} 
 
     # - name: Build and Deploy
     #   run: 
