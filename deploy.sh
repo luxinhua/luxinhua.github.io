@@ -1,7 +1,7 @@
-hexo clean 
-hexo g
+# hexo clean 
+# hexo g
 # npm install --save hexo-deployer-git
-hexo d 
+# hexo d 
 
 git add .
 git commit -a -m "update source code."

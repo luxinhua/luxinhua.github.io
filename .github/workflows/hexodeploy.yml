@@ -35,9 +35,5 @@ jobs:
     # 提交到我们的存放静态资源的仓库
 
     - name: Build and Deploy
-      uses: y4code/hexo-deploy-action@master
-      env:
-        PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        PUBLISH_REPOSITORY: luxinhua/luxinhua.github.io # The repository the action should deploy to.
-        BRANCH: source_dev  # The branch the action should deploy to.
-        PUBLISH_DIR: ./public # The folder the action should deploy.
+      run: 
+        hexo d
