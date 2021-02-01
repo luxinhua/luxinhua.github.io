@@ -35,15 +35,15 @@ jobs:
       run: |
         npm install  --registry https://registry.npm.taobao.org
 
-    - name: hexo generate public files...
-      run: |
-        hexo clean
-        hexo g
+    # - name: hexo generate public files...
+    #   run: |
+    #     hexo clean
+    #     hexo g
 
     - name: Git config user.name
       run: 
         git config --global user.name xhlu
-        
+
     - name: Git config user.email
       run:         
         git config --global user.email 2846154596@qq.com
@@ -54,4 +54,7 @@ jobs:
 
     - name: Build and Deploy
       run: 
+        hexo clean
+        rm -rf .deploy_git
+        hexo g
         hexo d
