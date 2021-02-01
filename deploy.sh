@@ -4,6 +4,7 @@ git checkout main
 
 hexo clean 
 hexo g
+npm install --save hexo-deployer-git
 hexo d 
 
 git add .
