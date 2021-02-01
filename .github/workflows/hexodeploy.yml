@@ -2,24 +2,20 @@ name: GitHub Actions Build and Deploy
 on:
   push:
     branches:
-
-      - master
+    - main    
+    - master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-
     - name: 1. git checkout...
-
       uses: actions/checkout@v1
 
     - name: 2. setup nodejs...
-
       uses: actions/setup-node@v1
 
     - name: 3. install hexo...
-
       run: |
         npm install hexo-cli -g
         npm i -S hexo-prism-plugin -g
@@ -28,10 +24,10 @@ jobs:
         npm i --save hexo-wordcount -g
         npm install hexo-filter-github-emojis  -g
         npm install hexo-generator-feed  -g
+        npm install --save hexo-deployer-git
         npm install
 
     - name: 4. hexo generate public files...
-
       run: |
         hexo clean
         hexo g
@@ -39,10 +35,9 @@ jobs:
     # 提交到我们的存放静态资源的仓库
 
     - name: Build and Deploy
-
       uses: y4code/hexo-deploy-action@master
       env:
         PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         PUBLISH_REPOSITORY: luxinhua/luxinhua.github.io # The repository the action should deploy to.
-        BRANCH: master  # The branch the action should deploy to.
-        PUBLISH_DIR: ./ # The folder the action should deploy.
+        BRANCH: source_dev  # The branch the action should deploy to.
+        PUBLISH_DIR: ./public # The folder the action should deploy.
