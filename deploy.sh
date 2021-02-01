@@ -1,6 +1,6 @@
 hexo clean 
 hexo g
-npm install --save hexo-deployer-git
+# npm install --save hexo-deployer-git
 hexo d 
 
 git add .
