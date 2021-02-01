@@ -49,13 +49,7 @@ jobs:
 
     - name: hexo clean
       run: 
-        hexo clean
-    - name: rm -rf .deploy_git
-      run:         
-        rm -rf .deploy_git
-    - name: hexo g
-      run:         
-        hexo g
-    - name: hexo d
-      run: 
+        hexo clean &&
+        rm -rf .deploy_git  &&
+        hexo g && 
         hexo d
