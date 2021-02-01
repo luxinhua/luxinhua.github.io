@@ -20,14 +20,15 @@ jobs:
         npm install hexo-cli -g  --registry https://registry.npm.taobao.org
         
     - name: 4. install hexo-wordcount...
-      run: 
+      run: | 
         npm i --save hexo-wordcount -g  --registry https://registry.npm.taobao.org 
 
     - name: 5. install hexo-deployer-git...
-      run:
+      run: |
         npm install --save hexo-deployer-git  --registry https://registry.npm.taobao.org
 
     - name: 6. install npm depandence...
+      run: |
         npm install  --registry https://registry.npm.taobao.org
 
     - name: 4. hexo generate public files...
