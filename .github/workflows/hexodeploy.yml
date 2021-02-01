@@ -36,15 +36,16 @@ jobs:
         hexo clean
         hexo g
     
-    - name: Deploy to github.io
-      id: deploy
-      uses: sma11black/hexo-action@v1.0.0
-      with:
-        deploy_key: ${{ secrets.HEXO_VERITY }}
-        user_name: xhlu
-        user_email: 2846154596@qq.com
+    - name: Git Version
+      uses: codacy/git-version@2.2.0
 
+    - name: Git init
+      run: 
+        git config --global user.name xhlu
+        git config --global user.email 2846154596@qq.com
+        echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials
+        git config --global credential.helper store --file ~/.my-credentials
 
-        #     - name: Build and Deploy
-        #       run: 
-        #         hexo d
+    - name: Build and Deploy
+      run: 
+        hexo d
