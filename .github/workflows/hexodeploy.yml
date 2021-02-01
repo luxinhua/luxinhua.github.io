@@ -12,40 +12,42 @@ jobs:
     - name: git checkout...
       uses: actions/checkout@v1
 
-    - name: setup nodejs...
-      uses: actions/setup-node@v1
-
-    - name: install hexo...
+    - name: git checkout...
       run: |
-        npm install hexo-cli -g  --registry https://registry.npm.taobao.org
+        git --version
+
+    # - name: setup nodejs...
+    #   uses: actions/setup-node@v1
+
+    # - name: install hexo...
+    #   run: |
+    #     npm install hexo-cli -g  --registry https://registry.npm.taobao.org
         
-    - name: install hexo-wordcount...
-      run: | 
-        npm i --save hexo-wordcount -g  --registry https://registry.npm.taobao.org 
+    # - name: install hexo-wordcount...
+    #   run: | 
+    #     npm i --save hexo-wordcount -g  --registry https://registry.npm.taobao.org 
 
-    - name: install hexo-deployer-git...
-      run: |
-        npm install --save hexo-deployer-git  --registry https://registry.npm.taobao.org
+    # - name: install hexo-deployer-git...
+    #   run: |
+    #     npm install --save hexo-deployer-git  --registry https://registry.npm.taobao.org
 
-    - name: install npm depandence...
-      run: |
-        npm install  --registry https://registry.npm.taobao.org
+    # - name: install npm depandence...
+    #   run: |
+    #     npm install  --registry https://registry.npm.taobao.org
 
-    - name: hexo generate public files...
-      run: |
-        hexo clean
-        hexo g
+    # - name: hexo generate public files...
+    #   run: |
+    #     hexo clean
+    #     hexo g
     
-    - name: Git Version
-      uses: codacy/git-version@2.2.0
 
-    - name: Git init
-      run: 
-        git config --global user.name xhlu
-        git config --global user.email 2846154596@qq.com
-        echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials
-        git config --global credential.helper store --file ~/.my-credentials
+    # - name: Git init
+    #   run: 
+    #     git config --global user.name xhlu
+    #     git config --global user.email 2846154596@qq.com
+    #     echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials
+    #     git config --global credential.helper store --file ~/.my-credentials
 
-    - name: Build and Deploy
-      run: 
-        hexo d
+    # - name: Build and Deploy
+    #   run: 
+    #     hexo d
