@@ -40,18 +40,18 @@ jobs:
     #     hexo clean
     #     hexo g
 
-    - name: Git config user.name
-      run: 
-        git config --global user.name xhlu
-    - name: Git config user.email
-      run:         
-        git config --global user.email 2846154596@qq.com
+    # - name: Git config user.name
+    #   run: 
+    #     git config --global user.name xhlu
+    # - name: Git config user.email
+    #   run:         
+    #     git config --global user.email 2846154596@qq.com
     - name: Git config secrets.HEXO_VERITY
       run:         
-        echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials
-    - name: Git config store credential
-      run:         
-        git config --global credential.helper store --file ~/.my-credentials
+        echo ${{ secrets.HEXO_VERITY }} >  ~/.my-credentials && cat ~/.my-credentials 
+    # - name: Git config store credential
+    #   run:         
+    #     git config --global credential.helper store --file ~/.my-credentials
 
     # - name: Build and Deploy
     #   run: 
