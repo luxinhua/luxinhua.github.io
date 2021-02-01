@@ -1,5 +1,7 @@
 hexo clean 
 hexo g
+hexo d 
+
 git add .
 git commit -a -m "update source code."
 git push origin main
@@ -16,5 +18,3 @@ git commit -a -m "update article."
 git push origin resp_md_file
 
 git checkout main
-
-hexo d
