@@ -36,6 +36,10 @@ jobs:
         hexo clean
         hexo g
 
+    - name:  git push --set-upstream origin master
+      run: | 
+         git push --set-upstream origin master
+
     - name: Push md file to Github resp_md_file branch...
       uses: x-actions/gh-pages@release/v1
       with:
