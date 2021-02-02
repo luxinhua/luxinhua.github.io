@@ -36,10 +36,9 @@ jobs:
         hexo clean
         hexo g
 
-    - name:  git push --set-upstream origin master
+    - name:  git config --global credential.helper store
       run: | 
-        touch deploy.sh
-        git push --set-upstream origin master
+        git config --global credential.helper store
 
     - name: Push md file to Github resp_md_file branch...
       uses: x-actions/gh-pages@release/v1
@@ -51,16 +50,11 @@ jobs:
         PUBLISH_DIR: ./source/_posts
         DEPLOY_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
-
-    - name: Push Web to Github source_dev branch...
-      uses: x-actions/gh-pages@release/v1
-      with:
-        GITHUB_EMAIL: "2846154596@qq.com"
-        GITHUB_USERNAME: "xhlu"
-        PUBLISH_REPO: https://${{ secrets.HEXO_VERITY }}@github.com/luxinhua/luxinhua.github.io.git
-        PUBLISH_BRANCH: source_dev
-        PUBLISH_DIR: ./public
-        DEPLOY_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+    - name: Gen and Deploy Hexo...
+      run: |
+        hexo clean
+        hexo g      
+        hexo d
 
     - name: Finished to deploy
       run: |
