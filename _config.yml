@@ -104,6 +104,6 @@ theme: hexo-theme-pure
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/luxinhua/luxinhua.github.io
+  repo: https://xhlu:Qualcomm01@github.com/luxinhua/luxinhua.github.io.git      ## https://github.com/luxinhua/luxinhua.github.io
   branch: source_dev
   message: udpate aritcle
