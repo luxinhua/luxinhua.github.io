@@ -41,7 +41,7 @@ jobs:
         git config --global credential.helper store
 
     - name: Push md file to Github resp_md_file branch...
-      uses: x-actions/gh-pages@release/v1
+      uses: x-actions/gh-pages@release/v3
       with:
         GITHUB_EMAIL: "2846154596@qq.com"
         GITHUB_USERNAME: "xhlu"
