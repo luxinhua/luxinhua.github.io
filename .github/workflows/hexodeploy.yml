@@ -58,7 +58,7 @@ jobs:
       env:
         GITHUB_EMAIL: "2846154596@qq.com"
         GITHUB_USERNAME: "xhlu"
-        PUBLISH_REPO: https://${{ secrets.HEXO_VERITY }}@github.com/owner/repo.git
+        PUBLISH_REPO: https://${{ secrets.HEXO_VERITY }}@github.com/luxinhua/luxinhua.github.io.git
         PUBLISH_BRANCH: resp_md_file
         PUBLISH_DIR: ./source/_posts
         DEPLOY_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
