@@ -16,8 +16,8 @@ jobs:
     #   run: |
     #     git --version
 
-    - name: setup nodejs...
-      uses: actions/setup-node@v1
+    # - name: setup nodejs...
+    #   uses: actions/setup-node@v1
 
     # - name: install hexo...
     #   run: |
@@ -53,22 +53,33 @@ jobs:
     #     hexo g
     #     hexo d
     
-    - name: Setup Hexo git env
+    - name: Push to Github
+      uses: x-actions/gh-pages@release/v1
       env:
-        ACTION_DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }}
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        git config --global user.name 'xhlu'
-        git config --global user.email '2846154596@qq.com'
-        npm i -g hexo-cli --registry https://registry.npm.taobao.org
-        npm i --save hexo-deployer-git  --registry https://registry.npm.taobao.org
-        npm i --registry https://registry.npm.taobao.org
+        GITHUB_EMAIL: "2846154596@qq.com"
+        GITHUB_USERNAME: "xhlu"
+        PUBLISH_REPO: https://${{ secrets.HEXO_VERITY }}@github.com/owner/repo.git
+        PUBLISH_BRANCH: resp_md_file
+        PUBLISH_DIR: ./source/_posts
+        DEPLOY_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
-    - name: Deploy
-      run: |
-        hexo clean
-        rm -rf .deploy_git
-        hexo g -d
+    # - name: Setup Hexo git env
+    #   env:
+    #     ACTION_DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }}
+    #   run: |
+    #     mkdir -p ~/.ssh/
+    #     echo "$ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
+    #     echo "${{ secrets.PUBLIC_KEY }}" > ~/.ssh/id_rsa.pub
+    #     chmod 600 ~/.ssh/id_rsa
+    #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+    #     git config --global user.name 'xhlu'
+    #     git config --global user.email '2846154596@qq.com'
+    #     npm i -g hexo-cli --registry https://registry.npm.taobao.org
+    #     npm i --save hexo-deployer-git  --registry https://registry.npm.taobao.org
+    #     npm i --registry https://registry.npm.taobao.org
+
+    # - name: Deploy
+    #   run: |
+    #     hexo clean
+    #     rm -rf .deploy_git
+    #     hexo g -d
