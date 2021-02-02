@@ -55,7 +55,7 @@ jobs:
     
     - name: Setup Hexo git env
       env:
-        ACTION_DEPLOY_KEY: ${{ secrets.HEXO_VERITY }}
+        ACTION_DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }}
       run: |
         mkdir -p ~/.ssh/
         echo "$ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
