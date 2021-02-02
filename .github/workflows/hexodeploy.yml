@@ -50,11 +50,11 @@ jobs:
         PUBLISH_DIR: ./source/_posts
         DEPLOY_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
-    - name: Gen and Deploy Hexo...
-      run: |
-        hexo clean
-        hexo g      
-        hexo d
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2
+      with:
+        github_token: ${{ secrets.HEXO_VERITY }}
+        publish_dir: ./public
 
     - name: Finished to deploy
       run: |
