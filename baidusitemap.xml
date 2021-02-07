@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://example.com/2021/02/07/first_article/</loc>
+    <loc>http://example.com/2021/02/07/00_hello_world/</loc>
     <lastmod>2021-02-07</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/02/07/hello_world/</loc>
+    <loc>http://example.com/2021/02/07/01_first_article/</loc>
     <lastmod>2021-02-07</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/02/07/hexo_%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/</loc>
+    <loc>http://example.com/2021/02/07/02_hexo_%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/</loc>
     <lastmod>2021-02-07</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/02/07/language_markdown_ref/</loc>
+    <loc>http://example.com/2021/02/07/03_language_markdown_ref/</loc>
+    <lastmod>2021-02-07</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2021/02/07/04_UFEI_protocol/</loc>
     <lastmod>2021-02-07</lastmod>
   </url>
 </urlset> 
