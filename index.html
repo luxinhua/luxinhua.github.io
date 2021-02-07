@@ -63,15 +63,15 @@
 
   
     
-    <h3 class="article-title"><a href="/2021/02/06/README/"><span>HEXO Hacker 主题英文说明</span></a></h3>
+    <h3 class="article-title"><a href="/2021/02/07/first_article/"><span>Linux kernel feature --- workquence</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2021/02/06/README/" rel="bookmark">
-        <time class="entry-date published" datetime="2021-02-06T19:33:26.040Z">
-          2021-02-06
+      <a href="/2021/02/07/first_article/" rel="bookmark">
+        <time class="entry-date published" datetime="2021-02-07T04:03:28.573Z">
+          2021-02-07
         </time>
       </a>
     </span>
@@ -83,33 +83,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <h1 id="Hacker-中文版文档"><a href="#Hacker-中文版文档" class="headerlink" title="Hacker | 中文版文档"></a>Hacker | <a href="/README_zh-CN.md">中文版文档</a></h1><p><a target="_blank" rel="noopener" href="https://github.com/ellerbrock/open-source-badge/"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Open Source Love"></a>  <a target="_blank" rel="noopener" href="https://opensource.org/licenses/GPL-2.0"><img src="https://badges.frapsoft.com/os/gpl/gpl.svg?v=103" alt="GPL Licence"></a>  </p>
-<p><strong>Hacker is a simple blog theme focused on writing. In such a trend of complex typography, choose the return to origins, focusing on writing this matter.</strong>  </p>
-<p>The beginning is <a target="_blank" rel="noopener" href="http://liuxinyu.me/">moyo</a> created a theme of Wordpress , by DaraW transplanted to Hexo.</p>
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>You can refer to my blog: <a target="_blank" rel="noopener" href="http://blog.daraw.cn/">DaraW</a>.<br>Also, you can try auto-deployment with TravisCI, refer to <a target="_blank" rel="noopener" href="https://github.com/CodeDaraW/Blog">CodeDaraW/Blog</a>。</p>
-<p><img src="https://ooo.0o0.ooo/2016/08/04/57a306f56bee2.png"></p>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Firstly get the theme files, <code>git clone</code> or <code>download zip</code> both are ok.  </p>
-<p>Create a folder named <code>Hacker</code> in the folder <code>themes</code>, and copy all the theme files to the folder <code>Hacker</code>.  </p>
-<p>Then apply the theme in the hexo global configuration file <code>_config.yml</code>:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">Hacker</span></span><br></pre></td></tr></table></figure>
-<p>Now all are in order, just enjoy~</p>
-<p><strong>Notice: After every update, you’d better run command <code>hexo clean</code> to clean cache files before Hexo generating, in case of some problems cache files bring.</strong></p>
-<h2 id="Configure"><a href="#Configure" class="headerlink" title="Configure"></a>Configure</h2><h3 id="Enable-comments-and-Google-Analytics"><a href="#Enable-comments-and-Google-Analytics" class="headerlink" title="Enable comments and Google Analytics"></a>Enable comments and Google Analytics</h3><p>Refering to the example configuration file <code>_config.example.yml</code>,<br>create the theme configuration file <code>_config.yml</code> and edit it:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gitment</span></span><br><span class="line"><span class="attr">gitment:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">gitment_owner:</span></span><br><span class="line"><span class="attr">gitment_repo:</span></span><br><span class="line"><span class="attr">gitment_client_id:</span></span><br><span class="line"><span class="attr">gitment_client_secret:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># gitalk</span></span><br><span class="line"><span class="attr">gitalk:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">gitalk_owner:</span></span><br><span class="line"><span class="attr">gitalk_admin:</span> []</span><br><span class="line"><span class="attr">gitalk_repo:</span></span><br><span class="line"><span class="attr">gitalk_client_id:</span></span><br><span class="line"><span class="attr">gitalk_client_secret:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># valine comment</span></span><br><span class="line"><span class="attr">valine:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">leancloud_id:</span></span><br><span class="line"><span class="attr">leancloud_key:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># disqus comment</span></span><br><span class="line"><span class="attr">disqus:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">disqus_shortname:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># google analytics</span></span><br><span class="line"><span class="attr">googleTrackId:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># baidu analytics</span></span><br><span class="line"><span class="attr">baiduTrackId:</span></span><br></pre></td></tr></table></figure>
-<p><code>gitment</code>: <code>boolean</code>，use gitment or not<br><code>gitment_owner</code>: <code>string</code>，your GitHub ID<br><code>gitment_repo</code>: <code>string</code>，the repo to store comment data<br><code>gitment_client_id</code>: <code>string</code>，your client ID<br><code>gitment_client_secret</code>: <code>string</code>，your client secret  </p>
-<p><code>gitalk</code>: <code>boolean</code>，use gitalk or not<br><code>gitalk_owner</code>: <code>string</code>，your GitHub ID<br><code>gitalk_admin</code>: <code>array</code>，all the admin GitHub IDs<br><code>gitalk_repo</code>: <code>string</code>，the repo to store comment data<br><code>gitalk_client_id</code>: <code>string</code>，your client ID<br><code>gitalk_client_secret</code>: <code>string</code>，your client secret  </p>
-<p><code>valine</code>: <code>boolean</code>, use Valine or not<br><code>leancloud_id</code>: <code>string</code>, your leancloud ID<br><code>leancloud_key</code>: <code>string</code>, your leancloud Key  </p>
-<p><code>disqus</code>: <code>boolean</code>, use disqus or not;<br><code>disqus_shortname</code>: your disqus site shortname.</p>
-<p><code>googleTrackId</code>: your Google Analytics ID, Hacker will not use Google Analytics if it’s empty.<br><code>baiduTrackId</code>: your Baidu Analytics ID, Hacker will not use Baidu Analytics if it’s empty.</p>
-<h3 id="Enable-Categories-and-Tags-pages"><a href="#Enable-Categories-and-Tags-pages" class="headerlink" title="Enable Categories and Tags pages"></a>Enable Categories and Tags pages</h3><p>Categories Page: run <code>hexo new page categories</code>，then modify the generated file <code>source/categories/index.md</code>：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: categories</span><br><span class="line">date: 2017-01-30 19:16:17</span><br><span class="line">layout: &quot;categories&quot;</span><br><span class="line">---  </span><br></pre></td></tr></table></figure>
-<p>If you need to close comments of this page , you can add a line <code>comments: false</code>; <code>title</code> corresponds to the title of the page.</p>
-<p>Tags Page: run <code>hexo new page tags</code>，then modify the generated file <code>source/tags/index.md</code>：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: tags</span><br><span class="line">date: 2017-01-30 19:16:17</span><br><span class="line">layout: &quot;tags&quot;</span><br><span class="line">---  </span><br></pre></td></tr></table></figure>
-<p>Configuration is the same as Categories Page.  </p>
-<p>Add links to the menu: Edit the <code>_config.yml</code> file of the theme, add <code>Categories: /categories</code> and <code>Tags: /tags</code> in <code>menu</code> like this：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">Home:</span> <span class="string">/</span></span><br><span class="line">  <span class="attr">Archives:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="attr">Categories:</span> <span class="string">/categories</span></span><br><span class="line">  <span class="attr">Tags:</span> <span class="string">/tags</span></span><br></pre></td></tr></table></figure>
-<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>GNU GPL(General Public License) v2.0</p>
+        <hr>
+<h3 id="workquence"><a href="#workquence" class="headerlink" title="workquence"></a>workquence</h3><hr>
+<p>fawefaeani: fawefawe</p>
 
       
     </div>
@@ -135,15 +111,69 @@
 
   
     
-    <h3 class="article-title"><a href="/2021/02/06/README_zh-CN/"><span>HEXO Hacker 主题中文说明</span></a></h3>
+    <h3 class="article-title"><a href="/2021/02/07/hello_world/"><span>Hello World</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2021/02/06/README_zh-CN/" rel="bookmark">
-        <time class="entry-date published" datetime="2021-02-06T19:33:26.040Z">
-          2021-02-06
+      <a href="/2021/02/07/hello_world/" rel="bookmark">
+        <time class="entry-date published" datetime="2021-02-07T04:03:28.573Z">
+          2021-02-07
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2021/02/07/hexo_中文手册/"><span>HEXO Hacker 主题中文说明</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2021/02/07/hexo_中文手册/" rel="bookmark">
+        <time class="entry-date published" datetime="2021-02-07T04:03:28.573Z">
+          2021-02-07
         </time>
       </a>
     </span>
@@ -207,15 +237,15 @@
 
   
     
-    <h3 class="article-title"><a href="/2021/02/06/first_article/"><span>Linux kernel feature --- workquence</span></a></h3>
+    <h3 class="article-title"><a href="/2021/02/07/language_markdown_ref/"><span>test article</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2021/02/06/first_article/" rel="bookmark">
-        <time class="entry-date published" datetime="2021-02-06T19:33:26.040Z">
-          2021-02-06
+      <a href="/2021/02/07/language_markdown_ref/" rel="bookmark">
+        <time class="entry-date published" datetime="2021-02-07T00:00:00.000Z">
+          2021-02-07
         </time>
       </a>
     </span>
@@ -227,63 +257,124 @@
   <div class="article-content">
     <div class="entry">
       
-        <hr>
-<h3 id="workquence"><a href="#workquence" class="headerlink" title="workquence"></a>workquence</h3><hr>
-<p>fawefaeani: fawefawe</p>
+        <p>[TOC]</p>
+<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><hr>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题  "></a>六级标题  <!--最多6级标题--></h6><hr>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">4</span> ;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="红色字体"><a href="#红色字体" class="headerlink" title="红色字体"></a>红色字体</h3><hr>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=<span class="string">&#x27;display: none&#x27;</span>&gt;</span><br><span class="line">哈哈我是注释，不会在浏览器中显示。</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
+<li><input disabled="" type="checkbox"> 任务一 未做任务 <code>- + 空格 + [ ]</code></li>
+<li><input checked="" disabled="" type="checkbox"> 任务二 已做任务 <code>- + 空格 + [x]</code></li>
+</ul>
+<hr>
+<h3 id="换行-后面空2格"><a href="#换行-后面空2格" class="headerlink" title="换行 (后面空2格)"></a>换行 (后面空2格)</h3><p>nihao<br>faweafe</p>
+<hr>
+<h3 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h3><p>在编辑的时候有多少个空行(只要这一行只有回车或者space没有其他的字符就算空行)，在渲染之后，只隔着一行。</p>
+<hr>
+<h3 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h3><center>行中心对齐</center>
+<p align="left">行左对齐</p>
+<p align="right">行右对齐</p>
 
-      
-    </div>
+<hr>
+<h3 id="斜体、粗体、删除线、下划线、背景高亮"><a href="#斜体、粗体、删除线、下划线、背景高亮" class="headerlink" title="斜体、粗体、删除线、下划线、背景高亮"></a>斜体、粗体、删除线、下划线、背景高亮</h3><p><em>斜体</em>或<em>斜体</em><br><strong>粗体</strong><br><strong><em>加粗斜体</em></strong><br><del>删除线</del><br>++下划线++<br>==背景高亮==</p>
+<hr>
+<h3 id="超链接、页内链接、自动链接"><a href="#超链接、页内链接、自动链接" class="headerlink" title="超链接、页内链接、自动链接"></a>超链接、页内链接、自动链接</h3><ul>
+<li>方法一<br>[]里写链接文字，()里写链接地址, ()中的””中可以为链接指定title属性，title属性可加可不加。title属性的效果是鼠标悬停在链接上会出现指定的 title文字，链接地址与title前有一个空格。</li>
+</ul>
+<p>作者：择势量投<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ebe52d2d468f">https://www.jianshu.com/p/ebe52d2d468f</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br>欢迎阅读 <a target="_blank" rel="noopener" href="https://www.jianshu.com/u/16d77399d3a7" title="择势勤">择势勤</a></p>
+<ul>
+<li>方法二<br>我经常去的几个网站<a target="_blank" rel="noopener" href="http://www.google.com/">Google</a>、<a target="_blank" rel="noopener" href="http://www.leanote.com/">Leanote</a>。</li>
+</ul>
+<hr>
+<h3 id="注脚"><a href="#注脚" class="headerlink" title="注脚"></a>注脚</h3><p>使用 Markdown<a href="Markdown%E6%98%AF%E4%B8%80%E7%A7%8D%E7%BA%AF%E6%96%87%E6%9C%AC%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">^1</a>可以效率的书写文档, 直接转换成 HTML[^2]。</p>
+<p>[^2]:HyperText Markup Language 超文本标记语言</p>
+<hr>
+<h3 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h3><p>Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用&lt;&gt;包起来， Markdown 就会自动把它转成链接。一般网址的链接文字就和链接地址一样，例如：<br>&lt;<a href="http://example.com/">http://example.com/</a>&gt; &emsp;&emsp;<br>&lt;<a href="mailto:&#97;&#x64;&#x64;&#114;&#x65;&#x73;&#115;&#x40;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#x6f;&#x6d;">&#97;&#x64;&#x64;&#114;&#x65;&#x73;&#115;&#x40;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#x6f;&#x6d;</a>&gt;</p>
+<hr>
+<h3 id="插图片"><a href="#插图片" class="headerlink" title="插图片"></a>插图片</h3><center>  <!--开始居中对齐-->
 
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2021/02/06/hello_world/"><span>Hello World</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2021/02/06/hello_world/" rel="bookmark">
-        <time class="entry-date published" datetime="2021-02-06T19:33:26.040Z">
-          2021-02-06
-        </time>
-      </a>
-    </span>
-  </div>
+<p><img src="http://zh.mweb.im/asset/img/set-up-git.gif" alt="GitHub set up" title="图片Title"><br>格式: <img src="%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80" alt="图片Alt" title="图片Title"></p>
+</center> <!--结束居中对齐-->
 
 
-  
+<hr>
+<h3 id="多级引用"><a href="#多级引用" class="headerlink" title="多级引用"></a>多级引用</h3><blockquote>
+<blockquote>
+<blockquote>
+<p>请问 Markdwon 怎么用？ - 小白<br>自己看教程！ - 愤青<br>教程在哪？ - 小白</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr>
+<h3 id="字体、字号、颜色"><a href="#字体、字号、颜色" class="headerlink" title="字体、字号、颜色"></a>字体、字号、颜色</h3><p><font face="黑体">我是黑体字</font><br><font face="微软雅黑">我是微软雅黑</font><br><font face="STCAIYUN">我是华文彩云</font><br><font color=#0099ff size=12 face="黑体">黑体</font><br><font color=gray size=5>gray</font><br><font color=#00ffff size=3>null</font></p>
+<hr>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p>在段落中填写 [TOC] 以显示全文内容的目录结构。<br>    [TOC]</p>
+<hr>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A--&gt;B</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">A-&gt;&gt;B: How are you?</span><br><span class="line">B-&gt;&gt;A: Great!</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<h3 id="HTML表单"><a href="#HTML表单" class="headerlink" title="HTML表单"></a>HTML表单</h3><center>
+<table>
+<tr>
+<th rowspan="2">值班人员</th>
+<th>星期一</th>
+<th>星期二</th>
+<th>星期三</th>
+</tr>
+<tr>
+<td>李强</td>
+<td>张明</td>
+<td>王平</td>
+</tr>
+</table>
 
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+</center>
+
+
+<hr>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody></table>
+<p>｜特殊字符 | 描述 | 字符的代|<br> |  —-  | —-  | —-  |<br>｜   | 空格符 |    &nbsp;|<br>｜&lt; | 小于号 |    &lt; |<br>｜ &gt; | 大于号 | &gt; |<br>｜&amp;     | 和号    | &amp;|<br>｜￥     | 人民币 | &yen;|<br>｜©     | 版权    | &copy;|<br>｜®     | 注册商标    | &reg;|<br>｜°C | 摄氏度 | &deg;|<br>｜±     | 正负号 | &plusmn;|<br>｜×    | 乘号 | &times;|<br>｜÷    | 除号 | &divide;|<br>｜²    | 平方（上标²）| &sup2;|<br>｜³    | 立方（上标³）| &sup3;|</p>
 
       
     </div>
