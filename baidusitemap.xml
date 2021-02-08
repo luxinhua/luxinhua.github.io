@@ -5,18 +5,6 @@
     <lastmod>2021-02-08</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/02/07/00_hello_world/</loc>
-    <lastmod>2021-02-08</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/2021/02/07/02_hexo_%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/</loc>
-    <lastmod>2021-02-08</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/2021/02/07/03_language_markdown_ref/</loc>
-    <lastmod>2021-02-08</lastmod>
-  </url>
-  <url>
     <loc>http://example.com/2021/02/07/04_UFEI_protocol/</loc>
     <lastmod>2021-02-08</lastmod>
   </url>
@@ -26,6 +14,18 @@
   </url>
   <url>
     <loc>http://example.com/2021/02/07/01_first_article/</loc>
+    <lastmod>2021-02-08</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2021/02/07/03_language_markdown_ref/</loc>
+    <lastmod>2021-02-08</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2021/02/07/02_hexo_%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/</loc>
+    <lastmod>2021-02-08</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2021/02/07/00_hello_world/</loc>
     <lastmod>2021-02-08</lastmod>
   </url>
 </urlset> 
