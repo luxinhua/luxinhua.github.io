@@ -72,6 +72,13 @@
   </url>
   
   <url>
+    <loc>http://example.com/links/index.html</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/repository/index.html</loc>
     
     <lastmod>2021-02-08</lastmod>
