@@ -2,56 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2021/02/08/06_Biso_interface_update/</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/index.html</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/repository/index.html</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/index.html</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2021/02/07/04_UFEI_protocol/</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2021/02/07/05_git_normal_cmd/</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/books/index.html</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>http://example.com/2021/02/07/test/00_hello_world/</loc>
     
     <lastmod>2021-02-08</lastmod>
     
@@ -72,6 +23,27 @@
   </url>
   
   <url>
+    <loc>http://example.com/2021/02/07/04_UFEI_protocol/</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/02/07/05_git_normal_cmd/</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/02/08/06_Biso_interface_update/</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/2021/02/07/02_hexo_%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/</loc>
     
     <lastmod>2021-02-08</lastmod>
@@ -79,7 +51,35 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/02/07/00_hello_world/</loc>
+    <loc>http://example.com/about/index.html</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/books/index.html</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/index.html</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/repository/index.html</loc>
+    
+    <lastmod>2021-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/index.html</loc>
     
     <lastmod>2021-02-08</lastmod>
     
@@ -95,14 +95,14 @@
 
   
   <url>
-    <loc>http://example.com/tags/test/</loc>
+    <loc>http://example.com/tags/linux/</loc>
     <lastmod>2021-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/linux/</loc>
+    <loc>http://example.com/tags/test/</loc>
     <lastmod>2021-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
