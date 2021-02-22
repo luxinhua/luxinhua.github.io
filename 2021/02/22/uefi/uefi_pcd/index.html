@@ -17,20 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>c binary 相关工具 | 嵌入式</title>
-  <meta name="description" content="strings 列出bin文件中的字符串 12345678910111213141516171819strings a.out &#x2F;lib64&#x2F;ld-linux-x86-64.so.2libc.so.6puts__cxa_finalizestrcmp__libc_start_mainGLIBC_2.2.5_ITM_deregisterTMCloneTable__gmon_start___ITM_r">
+  <title>UEFI --- PCD 语法 | 嵌入式</title>
+  <meta name="description" content="PCD 1TokenSpaceGuidCName.PcdCName TokenSpaceGuidCName是一个GUID，PcdCName是一个变量名，两者合起来构成了唯一的PCD变量 PCD 变量有如下类型 （ 主要是访问方式不同 ）：  FeatureFlag PCD：它最终返回的是一个TRUE或者FALSE，用于判断条件中；123456[PcdsFeatureFlag]  gUefiOem">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c binary 相关工具">
-<meta property="og:url" content="http://example.com/2021/02/08/tool/c_binary/index.html">
+<meta property="og:title" content="UEFI --- PCD 语法">
+<meta property="og:url" content="http://example.com/2021/02/22/uefi/uefi_pcd/index.html">
 <meta property="og:site_name" content="XINHUALU&#39;S BLOG">
-<meta property="og:description" content="strings 列出bin文件中的字符串 12345678910111213141516171819strings a.out &#x2F;lib64&#x2F;ld-linux-x86-64.so.2libc.so.6puts__cxa_finalizestrcmp__libc_start_mainGLIBC_2.2.5_ITM_deregisterTMCloneTable__gmon_start___ITM_r">
+<meta property="og:description" content="PCD 1TokenSpaceGuidCName.PcdCName TokenSpaceGuidCName是一个GUID，PcdCName是一个变量名，两者合起来构成了唯一的PCD变量 PCD 变量有如下类型 （ 主要是访问方式不同 ）：  FeatureFlag PCD：它最终返回的是一个TRUE或者FALSE，用于判断条件中；123456[PcdsFeatureFlag]  gUefiOem">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-02-08T00:00:00.000Z">
+<meta property="article:published_time" content="2021-02-22T00:00:00.000Z">
 <meta property="article:modified_time" content="2021-02-22T03:54:11.410Z">
 <meta property="article:author" content="XinHua Lu">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2021/02/08/tool/c_binary/index.html">
+  <link rel="canonical" href="http://example.com/2021/02/22/uefi/uefi_pcd/index.html">
   
     <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
   
@@ -316,25 +316,16 @@
 
   
   
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <nav id="toc" class="article-toc">
-      <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#strings"><span class="toc-number">1.</span> <span class="toc-text">strings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E8%BF%9B%E5%88%B6%E8%BD%AC16%E8%BF%9B%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">2进制转16进制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#file"><span class="toc-number">3.</span> <span class="toc-text">file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#addr2line"><span class="toc-number">4.</span> <span class="toc-text">addr2line</span></a></li></ol>
-    </nav>
-  </div>
-</aside>
-
 <main class="main" role="main">
   <div class="content">
-  <article id="post-tool/c_binary" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-uefi/uefi_pcd" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      c binary 相关工具
+      UEFI --- PCD 语法
     </h1>
   
 
@@ -342,43 +333,71 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/02/08/tool/c_binary/" class="article-date">
-	  <time datetime="2021-02-08T00:00:00.000Z" itemprop="datePublished">2021-02-08</time>
+	<a href="/2021/02/22/uefi/uefi_pcd/" class="article-date">
+	  <time datetime="2021-02-22T00:00:00.000Z" itemprop="datePublished">2021-02-22</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/tools/">tools</a>
+    <a class="article-category-link" href="/categories/uefi/">uefi</a>
   </span>
 
         
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/08/tool/c_binary/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/22/uefi/uefi_pcd/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <hr>
-<h3 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h3><hr>
-<p>列出bin文件中的字符串</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">strings a.out </span><br><span class="line"></span><br><span class="line">/lib64/ld-linux-x86-64.so.2</span><br><span class="line">libc.so.6</span><br><span class="line">puts</span><br><span class="line">__cxa_finalize</span><br><span class="line">strcmp</span><br><span class="line">__libc_start_main</span><br><span class="line">GLIBC_2.2.5</span><br><span class="line">_ITM_deregisterTMCloneTable</span><br><span class="line">__gmon_start__</span><br><span class="line">_ITM_registerTMCloneTable</span><br><span class="line">u+UH</span><br><span class="line">[]A\A]A^A_</span><br><span class="line">cheking passwd!</span><br><span class="line">ok you got me</span><br><span class="line">WRONG !</span><br><span class="line">Usage: &lt;key&gt;</span><br><span class="line">:*3$<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="2进制转16进制"><a href="#2进制转16进制" class="headerlink" title="2进制转16进制"></a>2进制转16进制</h3><hr>
+<h3 id="PCD"><a href="#PCD" class="headerlink" title="PCD"></a>PCD</h3><hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TokenSpaceGuidCName.PcdCName</span><br></pre></td></tr></table></figure>
+<p>TokenSpaceGuidCName是一个GUID，PcdCName是一个变量名，两者合起来构成了唯一的PCD变量</p>
+<p>PCD 变量有如下类型 （ 主要是访问方式不同 ）：</p>
+<ul>
+<li>FeatureFlag PCD：它最终返回的是一个TRUE或者FALSE，用于判断条件中；<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[PcdsFeatureFlag]</span><br><span class="line">  gUefiOemPkgTokenSpaceGuid.PcdTestFeatureVar|FALSE|BOOLEAN|0x30000001</span><br><span class="line"></span><br><span class="line">访问： </span><br><span class="line">DEBUG ((EFI_D_ERROR, <span class="string">&quot;[beni]PcdTestBooleanVar: %d\n&quot;</span>, FeaturePcdGet (PcdTestFeatureVar)));</span><br><span class="line">DEBUG ((EFI_D_ERROR, <span class="string">&quot;[beni]PcdTestBooleanVar: %d\n&quot;</span>, PcdGetBool (PcdTestFeatureVar)));</span><br></pre></td></tr></table></figure></li>
+<li>PatchableInModule PCD：这种变量的值可以在编译的时候确定，这个不算特别，特别的是它可以在编译完成的二进制文件上通过工具来修改值；<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[PcdsPatchableInModule]</span><br><span class="line">gUefiOemPkgTokenSpaceGuid.PcdPatchableVar|0x00ABCDEF|UINT32|0x50000001</span><br><span class="line"></span><br><span class="line">DEBUG ((EFI_D_ERROR, <span class="string">&quot;[beni]PcdPatchableVar: 0x%x\n&quot;</span>, PcdGet32 (PcdPatchableVar)));</span><br></pre></td></tr></table></figure></li>
+<li>FixedAtBuild PCD：静态值，在编译的时候确定，整个UEFI阶段不可变；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[PcdsFixedAtBuild]</span><br><span class="line">gUefiOemPkgTokenSpaceGuid.PcdTestVar1|0xA5|UINT8|0x20000001</span><br><span class="line">gUefiOemPkgTokenSpaceGuid.PcdTestVar2|0xA5A5|UINT16|0x20000002</span><br><span class="line">gUefiOemPkgTokenSpaceGuid.PcdTestVar3|0xA5A5A5A5|UINT32|0x20000003</span><br><span class="line">gUefiOemPkgTokenSpaceGuid.PcdTestVar4|0xA5A5A5A5A5A5A5A5|UINT64|0x20000004</span><br><span class="line"></span><br><span class="line">访问： </span><br><span class="line">DEBUG ((EFI_D_ERROR, &quot;[beni]PcdTestVar1: 0x%x.\n&quot;, PcdGet8 (PcdTestVar1)));</span><br><span class="line">DEBUG ((EFI_D_ERROR, &quot;[beni]PcdTestVar2: 0x%x.\n&quot;, PcdGet16 (PcdTestVar2)));</span><br><span class="line">DEBUG ((EFI_D_ERROR, &quot;[beni]PcdTestVar3: 0x%x.\n&quot;, PcdGet32 (PcdTestVar3)));</span><br><span class="line">DEBUG ((EFI_D_ERROR, &quot;[beni]PcdTestVar4: 0x%x.\n&quot;, PcdGet64 (PcdTestVar4)));</span><br></pre></td></tr></table></figure></li>
+<li>Dynamic PCD：前面的三种类型可以认为是静态的PCD，而这里以及之后的是动态的PCD；它的特点是可以在UEFI运行的过程中通过Set宏来修改值；在《edk-ii-build-specification.pdf》中有说明该种类型的PCD必须在DSC中在列一遍，但是实际使用似乎并不是必须的；<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[PcdsDynamic]</span><br><span class="line">gUefiOemPkgTokenSpaceGuid.PcdOemVersion|0xABCDDCBA|UINT32|0x40000001</span><br><span class="line"></span><br><span class="line">DEBUG ((EFI_D_ERROR, <span class="string">&quot;[beni]PcdOemVersion: 0x%x\n&quot;</span>, PcdGet32 (PcdOemVersion)));</span><br></pre></td></tr></table></figure></li>
+<li>DynamicEx PCD：跟Dynamic PCD类似，算是加强版，使用宏PcdGetEx/PcdSetEx来访问变量；</li>
+</ul>
+<p>PCD变量值的类型： </p>
+<ul>
+<li>BOOLEAN类型</li>
+<li>整型（UINT8，UINT16等）</li>
+<li>VOID *类型</li>
+</ul>
+<p>example : </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[PcdsDynamic]</span><br><span class="line">  gUefiOemPkgTokenSpaceGuid.PcdOemVersion|0xFFFFFFFF|UINT32|0x40000001</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PcdsDynamic PCD类型</li>
+<li>PcdOemVersion PCD变量名</li>
+<li>0xFFFFFFFF default 值</li>
+<li>UINT32 类型</li>
+<li>0x40000001  token–&gt; Token是一个32位的整型，在DEC中每个PCD都有一个独一无二的Token</li>
+</ul>
+<p>PCD 读写值: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PcdGet32(PcdOemVersion))</span><br></pre></td></tr></table></figure>
+<p>要使用读写函数，需要依赖pcd.inf模块：</p>
+<p>Pcd.inf模块分为PEI和DXE两个版本，分别放在PEI阶段和DXE阶段的最前面，只有整个模块初始化完成之后，才能够开始正常使用PCD宏来访问Dynamic PCD变量。</p>
+<p>以DXE阶段的Pcd.inf模块为例，它主要做了两件事情：</p>
 <ol>
-<li> vim 中 ：%！xxd   退回二进制： ：%！xxd  -r </li>
-<li> bash shell: xxd a.out &gt; 16.txt</li>
+<li><p>初始化该阶段使用的PCD数据库；</p>
+</li>
+<li><p>安装各种处理PCD需要的Protocol；</p>
+</li>
 </ol>
-<hr>
-<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~~~</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"><span class="comment">### readelf </span></span><br><span class="line">---</span><br><span class="line">查看程序段信息, [参考文档](https://blog.csdn.net/yfldyxl/article/details/81566279)</span><br><span class="line">~~~bash </span><br><span class="line">readelf -S a.out   <span class="comment">#  -S(section headers),sections </span></span><br></pre></td></tr></table></figure>
+<p>可能用到的protocol:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// This service abstracts the ability to set/get Platform Configuration Database (PCD).</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  PCD_PROTOCOL_SET_SKU              SetSku;</span><br><span class="line"> </span><br><span class="line">  PCD_PROTOCOL_GET8                 Get8;</span><br><span class="line">  PCD_PROTOCOL_GET16                Get16;</span><br><span class="line">  PCD_PROTOCOL_GET32                Get32;</span><br><span class="line">  PCD_PROTOCOL_GET64                Get64;</span><br><span class="line">  PCD_PROTOCOL_GET_POINTER          GetPtr;</span><br><span class="line">  PCD_PROTOCOL_GET_BOOLEAN          GetBool;</span><br><span class="line">  PCD_PROTOCOL_GET_SIZE             GetSize;</span><br><span class="line"> </span><br><span class="line">  PCD_PROTOCOL_GET_EX_8             Get8Ex;</span><br><span class="line">  PCD_PROTOCOL_GET_EX_16            Get16Ex;</span><br><span class="line">  PCD_PROTOCOL_GET_EX_32            Get32Ex;</span><br><span class="line">  PCD_PROTOCOL_GET_EX_64            Get64Ex;</span><br><span class="line">  PCD_PROTOCOL_GET_EX_POINTER       GetPtrEx;</span><br><span class="line">  PCD_PROTOCOL_GET_EX_BOOLEAN       GetBoolEx;</span><br><span class="line">  PCD_PROTOCOL_GET_EX_SIZE          GetSizeEx;</span><br><span class="line"> </span><br><span class="line">  PCD_PROTOCOL_SET8                 Set8;</span><br><span class="line">  PCD_PROTOCOL_SET16                Set16;</span><br><span class="line">  PCD_PROTOCOL_SET32                Set32;</span><br><span class="line">  PCD_PROTOCOL_SET64                Set64;</span><br><span class="line">  PCD_PROTOCOL_SET_POINTER          SetPtr;</span><br><span class="line">  PCD_PROTOCOL_SET_BOOLEAN          SetBool;</span><br><span class="line"> </span><br><span class="line">  PCD_PROTOCOL_SET_EX_8             Set8Ex;</span><br><span class="line">  PCD_PROTOCOL_SET_EX_16            Set16Ex;</span><br><span class="line">  PCD_PROTOCOL_SET_EX_32            Set32Ex;</span><br><span class="line">  PCD_PROTOCOL_SET_EX_64            Set64Ex;</span><br><span class="line">  PCD_PROTOCOL_SET_EX_POINTER       SetPtrEx;</span><br><span class="line">  PCD_PROTOCOL_SET_EX_BOOLEAN       SetBoolEx;</span><br><span class="line"> </span><br><span class="line">  PCD_PROTOCOL_CALLBACK_ONSET       CallbackOnSet;</span><br><span class="line">  PCD_PROTOCOL_CANCEL_CALLBACK      CancelCallback;</span><br><span class="line">  PCD_PROTOCOL_GET_NEXT_TOKEN       GetNextToken;</span><br><span class="line">  PCD_PROTOCOL_GET_NEXT_TOKENSPACE  GetNextTokenSpace;</span><br><span class="line">&#125; PCD_PROTOCOL;</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h3 id="addr2line"><a href="#addr2line" class="headerlink" title="addr2line"></a>addr2line</h3><hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
 
 
 
@@ -390,7 +409,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2021/02/08/tool/c_binary/" title="c binary 相关工具" target="_blank" rel="external">http://example.com/2021/02/08/tool/c_binary/</a>
+      <a href="http://example.com/2021/02/22/uefi/uefi_pcd/" title="UEFI --- PCD 语法" target="_blank" rel="external">http://example.com/2021/02/22/uefi/uefi_pcd/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -437,23 +456,14 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/02/08/tool/cscope/" title="cscope 安装 配置 使用"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/02/22/bios/06_Biso_interface_update/" title="BiosInterFace update 的思路"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/02/08/tool/vim/" title="vim plug"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/02/22/uefi/uefi_env/" title="UEFI --- env 语法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
-    
-    <li class="toggle-toc">
-      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
-        <span>[&nbsp;</span><span>文章目录</span>
-        <i class="text-collapsed icon icon-anchor"></i>
-        <i class="text-in icon icon-close"></i>
-        <span>]</span>
-      </a>
-    </li>
     
   </ul>
   
