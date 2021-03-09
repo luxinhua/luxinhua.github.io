@@ -17,16 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2021/2 | 嵌入式</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="XINHUALU&#39;S BLOG">
-<meta property="og:url" content="http://example.com/archives/2021/02/page/2/index.html">
+  <title>gdb 调试常用命令备忘 | 嵌入式</title>
+  <meta name="description" content="disassemble    &#x2F;&#x2F;gdb下使用可以查看汇编代码disassemble &#x2F;m 函数名      &#x2F;m 源码和汇编一起排列disassemble 不带参数，默认的反汇编范围是 所选择帧的pc附近的函数单个参数, 就是pc, 当然也可以是函数名，因为函数名 也是一个 地址; 这样范围就是该pc附近的函数两个参数，就是内存地址范围 使用display &#x2F;i $pc（结合display命令和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gdb 调试常用命令备忘">
+<meta property="og:url" content="http://example.com/2021/03/09/tool/gdb/index.html">
 <meta property="og:site_name" content="XINHUALU&#39;S BLOG">
+<meta property="og:description" content="disassemble    &#x2F;&#x2F;gdb下使用可以查看汇编代码disassemble &#x2F;m 函数名      &#x2F;m 源码和汇编一起排列disassemble 不带参数，默认的反汇编范围是 所选择帧的pc附近的函数单个参数, 就是pc, 当然也可以是函数名，因为函数名 也是一个 地址; 这样范围就是该pc附近的函数两个参数，就是内存地址范围 使用display &#x2F;i $pc（结合display命令和">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-09T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-09T10:38:07.822Z">
 <meta property="article:author" content="XinHua Lu">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/archives/2021/02/page/2/index.html">
+  <link rel="canonical" href="http://example.com/2021/03/09/tool/gdb/index.html">
   
     <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
   
@@ -312,155 +316,197 @@
 
   
   
-<main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2021/2</h1>
-	      <p class="text-muted">共 9 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
-    
-    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
       
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2021" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2021
-            </a>
-            <!-- <a href="/archives/2021" class="archive-year">2021</a> -->
-          </h3>
-        </div>
-        <div id="collapse2021" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2021">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2021/02/08/tool/youtuber_dll/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-08T00:00:00.000Z" itemprop="datePublished">2021-02-08</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Youtube-dl youtube视频批量下载
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/08/tool/c_binary/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-08T00:00:00.000Z" itemprop="datePublished">2021-02-08</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> c binary 相关工具
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/08/tool/Linux_screencut/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-08T00:00:00.000Z" itemprop="datePublished">2021-02-08</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> linux 上截图工具
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/07/hexo/02_hexo_%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-07T00:00:00.000Z" itemprop="datePublished">2021-02-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> HEXO Hacker 主题中文说明
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/07/git/05_git_normal_cmd/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-07T00:00:00.000Z" itemprop="datePublished">2021-02-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> git 常用命令列表
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/07/uefi/04_UFEI_protocol/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-07T00:00:00.000Z" itemprop="datePublished">2021-02-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> UEFI Protocol 机制
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/07/markdown/03_language_markdown_ref/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-07T00:00:00.000Z" itemprop="datePublished">2021-02-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> MarkDown Language Reference
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/07/liveoverflow/hack_binary_example/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-07T00:00:00.000Z" itemprop="datePublished">2021-02-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> hack binary example
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/02/07/uefi/hello_world/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-02-07T00:00:00.000Z" itemprop="datePublished">2021-02-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> UEFI hello world 模块
-</a>
-
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	
-    
-    <nav class="bar bar-footer clearfix" data-stick-bottom>
-        <div class="bar-inner">
-        <ul class="pager pull-left">
-            
-            <li class="prev">
-                <a href="/archives/2021/02/">
-                    <i class="icon icon-angle-left"></i>
-                    上一页
-                </a>
-            </li>
-            
-            
-            <li class="next disabled">
-                <a href="javascript:;">
-                    下一页
-                    <i class="icon icon-angle-right"></i>                    
-                </a>
-            </li>
-            
-        </ul>
-        <div class="total-article bar-right">Page 2 of 2</div>
-        </div>
     </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-tool/gdb" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
- 	
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gdb 调试常用命令备忘
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/09/tool/gdb/" class="article-date">
+	  <time datetime="2021-03-09T00:00:00.000Z" itemprop="datePublished">2021-03-09</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/tools/">tools</a>
+  </span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/09/tool/gdb/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>disassemble    //gdb下使用可以查看汇编代码<br>disassemble /m 函数名      /m 源码和汇编一起排列<br>disassemble 不带参数，默认的反汇编范围是 所选择帧的pc附近的函数<br>单个参数, 就是pc, 当然也可以是函数名，因为函数名 也是一个 地址; <br>这样范围就是该pc附近的函数<br>两个参数，就是内存地址范围</p>
+<p>使用display /i $pc（结合display命令和寄存器/pc内部变量）指令进行设置</p>
+<p>info register查看寄存器的情况，可以简写成i r<br>主要是%eip、%eax、%esp和%ebp<br> 列出的结果主要有三行<br>    最左边是寄存器名称外，中间是寄存器存的值（也就是一个内存地址），右边是这个值对应的内存<br>    地址中的值。打印一下$eax可验证</p>
+<p>si，ni：<br>    下一条语句遇到函数调用的时候，nexti不会跟踪进入函数，而是继续执行下面的语句，<br>    而step命令则会跟踪进入函数内部。<br>    si命令类似于s命令，ni命令类似于n命令。所不同的是，这两个命令（si/ni）所针对的是汇编指<br>    令，而s/n针对的是源代码。     <br>i代表指令（instruction）<br>     n(ext)i<br>     s(tep)i</p>
+<p>$pc   代表pc程序计数器的值</p>
+<p>set disassembly-flavor intel          gdb设置intel汇编 ，默认是att</p>
+<p>print其实是有计数器的，每次print打印，其实都有一个类似count++在内部发生，<br>使用print $num 能显示第num个打印结果，如上，p $3   //查看第三个值<br>  (gdb)p i<br>  (gdb)p/a i<br>  (gdb)p/c i<br>  (gdb)p/f i<br>  (gdb)p/x i<br>  (gdb)p/o i<br>  (gdb)p/d i<br>  (gdb)p/t i              <br>    f浮点，c字符，t为二进制，o八，x十六，d十<br>    a和x同样是打印十六进制,不同名但同功能</p>
+<p>调试运行中的程序：<br>   #ps -aux | grep execFile    //找到运行中的进程PID，<br>   使用<br>   #gdb execFile PID    <br>bt n(next)往下走是看不到已经运行完的错误的，所以就谈到bt（backtrace）命令——回溯。<br>info line main  //查看main的信息<br>   info line 0x…  //查看某一行信息<br>r是run的缩写     r 参数      以参数运行程序<br>quit,退出gdb调试<br>gdb -q 程序名      //这个操作可以不输出一些信息（gdb的一些版本信息说明之类的）   <br>gdb也支持运行linux命令的，可以在gdb的提示符中，输入shell，然后在输入你需要的命令就可以<br>了。例如：shell clear     清屏<br>b*0x…            //在逆向调试的时候，在某行指令下断点必须遵照这个格式  <br>x/i 可以查看指令<br>        例如： x/15i main  查看main函数中的第15条指令  <br> x/43bc 0xffffd190 指的是 0xffffd190后43个内存单元<br> <br>想边看汇编变调试就先：r 参数    ，然后使用layout asm，直接动态显示指令运行<br>       layout 几个参数：<br>               src   : Displays source and command windows.<br>               asm   : Displays disassembly and command windows.<br>               split : Displays source, disassembly and command windows.<br>               regs  : Displays register window. If existing layout<br>       c（continue）  可以让程序执行到下一个断点处<br>       p $eax   查看寄存器的值<br>       x/i $pc  查看当前指令的运行地址<br>修改寄存器值的两种方式(想要满足某个比较条件直接修改寄存器，可以跳到想跳的地方)：<br>      1)直接来：<br>               set $eax=value<br>      2)找到寄存器的地址通过这个地址修改值：<br>               p $rsp+0x714<br>               set *上一步的值=value      <br>x/  &lt;n/f/u&gt;  <addr>   //内存地址中的值，x即examine,3个参数顺序可变<br>     <br>   1)n是一个正整数，表示需要显示的内存单元的个数<br>   2)f表示显示的格式（有以下选项）：<br>       x （hexadecimal）按十六进制格式显示变量。 <br>       d （signed decimal）按十进制格式显示变量。 <br>       u （unsigned decimal）按十进制格式显示无符号整型。 <br>       o （octal）按八进制格式显示变量。 <br>       t （binary）按二进制格式显示变量。 <br>       a （address）按十六进制格式显示地址，并显示距离前继符号的偏移量(offset)。常用于定位未知 地址(变量)。 <br>       c （character）按字符格式显示变量。 <br>       f （floating）按浮点数格式显示变量。  <br>   3)u表示从当前地址往后请求的字节数单位，如果不指定的话，GDB默认是4个bytes：<br>       b表示单字节，<br>       h表示双字节，<br>       w表示四字节，<br>       g表示八字节   <br>x/10x $sp–&gt;打印stack的前10个元素   <br>reverse-stepi   //回退一条指令<br>info thread   // 查看所有线程</p>
+<p>continue         执行到下一暂停点或程序结束。<br>next         执行一行源代码但不进入函数内部。<br>step        执行一行源代码而且进入函数内部。<br>gdb 运行程序<br>例子程序名为prog，则在终端输入 gdb prog<br>gdb 设置参数<br>set args 可指定运行时参数。（如：set args 10 20 30 40 50） <br>show args 命令可以查看设置好的运行参数。 <br>若要再次修改参数，可再执行一遍 set args<br>运行<br>输入 r 运行 <br>出错后，输入 bt 查看运行堆栈<br>退出<br>输入 quit</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/03/09/tool/gdb/" title="gdb 调试常用命令备忘" target="_blank" rel="external">http://example.com/2021/03/09/tool/gdb/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/luxinhua" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/cat.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/luxinhua" target="_blank"><span class="text-dark">xhlu</span><small class="ml-1x">嵌入式开发</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/09/bios/06_Biso_interface_update/" title="BiosInterFace update 的思路"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/08/liveoverflow/c_example_param/" title="c 函数参数是怎么传递的，整个过程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -523,6 +569,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
