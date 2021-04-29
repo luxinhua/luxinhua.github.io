@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Pi-KVM | 嵌入式</title>
+  <meta name="description" content="Flashing the Arduino HIDTTL Firmware (the default option for v0 or v2)This operation can be done using your RPi (except Pi Zero W). Here the common steps:  Disconnect the RESET wire from the Arduino b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pi-KVM">
+<meta property="og:url" content="http://example.com/2021/03/02/pikvm/flashing_hid/index.html">
+<meta property="og:site_name" content="XINHUALU&#39;S BLOG">
+<meta property="og:description" content="Flashing the Arduino HIDTTL Firmware (the default option for v0 or v2)This operation can be done using your RPi (except Pi Zero W). Here the common steps:  Disconnect the RESET wire from the Arduino b">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-29T03:25:46.477Z">
+<meta property="article:author" content="XinHua Lu">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/03/02/pikvm/flashing_hid/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/luxinhua" target="_blank">
+          <img class="img-circle img-rotate" src="/images/cat.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xhlu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">嵌入式开发</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>个人站还在更新中 ！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pcie/">Pcie</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.477Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/00_bios_protect_mode_enable_flow/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/06_Biso_interface_update/" class="title">BiosInterFace update 的思路</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Pcie/">Pcie</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/01_PCie_summary/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/dev_utils/01_python_dev_lib_logger/" class="title">HEXO Hacker 主题中文说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T00:00:00.000Z" itemprop="datePublished">2021-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-pikvm/flashing_hid" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pi-KVM
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/02/pikvm/flashing_hid/" class="article-date">
+	  <time datetime="2021-03-02T00:00:00.000Z" itemprop="datePublished">2021-03-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Pi-KVM/">Pi-KVM</a>
+  </span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/02/pikvm/flashing_hid/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Flashing-the-Arduino-HID"><a href="#Flashing-the-Arduino-HID" class="headerlink" title="Flashing the Arduino HID"></a>Flashing the Arduino HID</h1><h2 id="TTL-Firmware-the-default-option-for-v0-or-v2"><a href="#TTL-Firmware-the-default-option-for-v0-or-v2" class="headerlink" title="TTL Firmware (the default option for v0 or v2)"></a>TTL Firmware (the default option for v0 or v2)</h2><p>This operation can be done using your RPi (except Pi Zero W). Here the common steps:</p>
+<ol>
+<li>Disconnect the RESET wire from the Arduino board.</li>
+<li>Connect the Arduino and RPi with a suitable USB cable.</li>
+<li>Log in to the Raspberry Pi using SSH (<code>ssh root@&lt;addr&gt;</code> with password <code>root</code> by default) or using keyboard and monitor. The Raspberry Pi obtains the network address over DHCP.</li>
+<li>Upload the firmware (USB keyboard &amp; mouse is used by default, on this step <a href="arduino_hid.md#ps2-keyboard">you can choose PS/2 keyboard</a>):<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@pikvm ~]# rw</span><br><span class="line">[root@pikvm ~]# systemctl stop kvmd</span><br><span class="line">[root@pikvm ~]# cp -r /usr/share/kvmd/hid ~</span><br><span class="line">[root@pikvm ~]# cd ~/hid</span><br><span class="line">[root@pikvm hid]# make</span><br><span class="line">[root@pikvm hid]# make install</span><br><span class="line">[root@pikvm hid]# reboot</span><br></pre></td></tr></table></figure></li>
+<li>Connect the RESET wire, disconnect the USB cable, and reboot the RPi.</li>
+</ol>
+<p>With a Pi Zero W, you may consider building the firmware on a faster system and programming using USB or booting from another SD card and following the build steps using a clone of the kvmd repo.</p>
+<h2 id="SPI-Firmware"><a href="#SPI-Firmware" class="headerlink" title="SPI Firmware"></a>SPI Firmware</h2><p>This operation can be done using your Raspberry Pi without disconnecting any wires:</p>
+<ol>
+<li>Connect the Arduino and RPi with a suitable USB cable.</li>
+<li>Log in to the Raspberry Pi using SSH (<code>ssh root@&lt;addr&gt;</code> with password <code>root</code> by default) or using keyboard and monitor. The Raspberry Pi obtains the network address over DHCP.</li>
+<li>Build and upload the firmware (USB keyboard &amp; mouse is used by default)<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@pikvm ~]# rw</span><br><span class="line">[root@pikvm ~]# systemctl stop kvmd</span><br><span class="line">[root@pikvm ~]# cp -r /usr/share/kvmd/hid ~</span><br><span class="line">[root@pikvm ~]# cd ~/hid</span><br><span class="line">[root@pikvm hid]# make spi</span><br><span class="line">[root@pikvm hid]# make install</span><br><span class="line">[root@pikvm hid]# reboot</span><br></pre></td></tr></table></figure>
+<h2 id="Common-Errors"><a href="#Common-Errors" class="headerlink" title="Common Errors"></a>Common Errors</h2></li>
+</ol>
+<h3 id="Circuit-Issues"><a href="#Circuit-Issues" class="headerlink" title="Circuit Issues"></a>Circuit Issues</h3><h4 id="Common-Reset-Wire"><a href="#Common-Reset-Wire" class="headerlink" title="Common - Reset Wire"></a>Common - Reset Wire</h4><p>Different pins are used for the reset wire but serve a similar function. For programming the TTL firmware over USB, the reset wire should be disconnected. When programming using SPI, the reset wire needs to be connected through a transistor circuit and connected to GPIO25 (pin 22 on the GPIO header)</p>
+<h4 id="SPI-specific-Wiring"><a href="#SPI-specific-Wiring" class="headerlink" title="SPI-specific Wiring"></a>SPI-specific Wiring</h4><p>The 3v3, ground, Reset (GPIO25), MISO, MOSI, SCLK, and CS1 need to be connected appropriately. SPIO_CS0 and SPIO_CS1 can both be used but the default configuration uses SPIO_CS1 for the Arduino Microcontroller (CS0 is used for another device on the v3). These generally follow a block as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pin  0        2         4</span><br><span class="line">      2        0         0</span><br><span class="line">      .........GR.C.......</span><br><span class="line">Row # 12345678901234567890</span><br><span class="line">      ........3MMS........</span><br><span class="line">Pin   0       1          3</span><br><span class="line">       1       7          9</span><br></pre></td></tr></table></figure>
+<p>The most common error is an “off-by-one” error where pins are shifted by a row. Some cases have non-standard GPIO layouts so please be careful when following these instructions using a case that has a modified pinout.</p>
+<h3 id="Library-Compatibility"><a href="#Library-Compatibility" class="headerlink" title="Library Compatibility"></a>Library Compatibility</h3><p>On <code>make install</code> you may encounter the following error:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;root&#x2F;.platformio&#x2F;packages&#x2F;tool-avrdude&#x2F;avrdude: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>Create a symlink for this library:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@pikvm ~]<span class="comment"># ln -s /usr/lib/libtinfo.so.6 /usr/lib/libtinfo.so.5</span></span><br></pre></td></tr></table></figure>
+<p>And run <code>make install</code> again.</p>
+<p>If you have any problems or questions, contact us using Discord: <a target="_blank" rel="noopener" href="https://discord.gg/bpmXfz5">https://discord.gg/bpmXfz5</a></p>
+<h3 id="Example-SPI-build-Flash"><a href="#Example-SPI-build-Flash" class="headerlink" title="Example SPI build + Flash"></a>Example SPI build + Flash</h3><details>
+ <summary>Here's an end-to-end build and flash of the SPI HID firmware using the default options as described above.</summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br></pre></td><td class="code"><pre><span class="line">[root@pikvm ~]<span class="comment"># rw</span></span><br><span class="line">[root@pikvm ~]<span class="comment"># systemctl stop kvmd</span></span><br><span class="line">[root@pikvm ~]<span class="comment"># cp -r /usr/share/kvmd/hid ~</span></span><br><span class="line">[root@pikvm ~]<span class="comment"># cd ~/hid</span></span><br><span class="line">[root@pikvm hid]<span class="comment"># make spi</span></span><br><span class="line">make _build E=spi</span><br><span class="line">make[1]: Entering directory <span class="string">&#x27;/root/hid&#x27;</span></span><br><span class="line">rm -f .current</span><br><span class="line">platformio run --environment spi</span><br><span class="line">************************************************************************************************************************************</span><br><span class="line">If you like PlatformIO, please:</span><br><span class="line">- follow us on Twitter to stay up-to-date on the latest project news &gt; https://twitter.com/PlatformIO_Org</span><br><span class="line">- star it on GitHub &gt; https://github.com/platformio/platformio</span><br><span class="line">- try PlatformIO IDE <span class="keyword">for</span> embedded development &gt; https://platformio.org/platformio-ide</span><br><span class="line">************************************************************************************************************************************</span><br><span class="line"></span><br><span class="line">Processing spi (platform: atmelavr; board: micro; framework: arduino)</span><br><span class="line">------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">Platform Manager: Installing atmelavr</span><br><span class="line">Unpacking  [<span class="comment">####################################]  100%</span></span><br><span class="line">Platform Manager: atmelavr @ 3.1.0 has been installed!</span><br><span class="line">The platform <span class="string">&#x27;atmelavr&#x27;</span> has been successfully installed!</span><br><span class="line">The rest of the packages will be installed later depending on your build environment.</span><br><span class="line">Tool Manager: Installing platformio/toolchain-atmelavr @ ~1.50400.0</span><br><span class="line">Downloading  [<span class="comment">####################################]  100%</span></span><br><span class="line">Unpacking  [<span class="comment">####################################]  100%</span></span><br><span class="line">Tool Manager: toolchain-atmelavr @ 1.50400.190710 has been installed!</span><br><span class="line">Tool Manager: Installing platformio/framework-arduino-avr @ ~5.1.0</span><br><span class="line">Downloading  [<span class="comment">####################################]  100%</span></span><br><span class="line">Unpacking  [<span class="comment">####################################]  100%</span></span><br><span class="line">Tool Manager: framework-arduino-avr @ 5.1.0 has been installed!</span><br><span class="line">Tool Manager: Installing platformio/tool-avrdude @ *</span><br><span class="line">Tool Manager: tool-avrdude @ 1.60300.200527 has been installed!</span><br><span class="line">Tool Manager: Installing platformio/tool-scons @ ~4.40001.0</span><br><span class="line">Unpacking  [<span class="comment">####################################]  100%</span></span><br><span class="line">Tool Manager: tool-scons @ 4.40001.0 has been installed!</span><br><span class="line">Verbose mode can be enabled via `-v, --verbose` option</span><br><span class="line">patch([], [])</span><br><span class="line">patch([], [])</span><br><span class="line">CONFIGURATION: https://docs.platformio.org/page/boards/atmelavr/micro.html</span><br><span class="line">PLATFORM: Atmel AVR (3.1.0) &gt; Arduino Micro</span><br><span class="line">HARDWARE: ATMEGA32U4 16MHz, 2.50KB RAM, 28KB Flash</span><br><span class="line">DEBUG: Current (simavr) On-board (simavr)</span><br><span class="line">PACKAGES:</span><br><span class="line"> - framework-arduino-avr 5.1.0</span><br><span class="line"> - tool-avrdude 1.60300.200527 (6.3.0)</span><br><span class="line"> - toolchain-atmelavr 1.50400.190710 (5.4.0)</span><br><span class="line">LDF: Library Dependency Finder -&gt; http://bit.ly/configure-pio-ldf</span><br><span class="line">LDF Modes: Finder ~ chain, Compatibility ~ soft</span><br><span class="line">Library Manager: Installing HID-Project @ 2.6.1</span><br><span class="line">Library Manager: HID-Project @ 2.6.1 has been installed!</span><br><span class="line">Library Manager: Installing git+https://github.com/Harvie/ps2dev<span class="comment">#v0.0.3</span></span><br><span class="line">git version 2.30.0</span><br><span class="line">Cloning into <span class="string">&#x27;/root/hid/.platformio/.cache/tmp/pkg-installing-84arveu0&#x27;</span>...</span><br><span class="line">Note: switching to <span class="string">&#x27;a043002178450772d72a58b0c42752a506fd4dea&#x27;</span>.</span><br><span class="line"></span><br><span class="line">You are <span class="keyword">in</span> <span class="string">&#x27;detached HEAD&#x27;</span> state. You can look around, make experimental</span><br><span class="line">changes and commit them, and you can discard any commits you make <span class="keyword">in</span> this</span><br><span class="line">state without impacting any branches by switching back to a branch.</span><br><span class="line"></span><br><span class="line">If you want to create a new branch to retain commits you create, you may</span><br><span class="line"><span class="keyword">do</span> so (now or later) by using -c with the switch <span class="built_in">command</span>. Example:</span><br><span class="line"></span><br><span class="line">  git switch -c &lt;new-branch-name&gt;</span><br><span class="line"></span><br><span class="line">Or undo this operation with:</span><br><span class="line"></span><br><span class="line">  git switch -</span><br><span class="line"></span><br><span class="line">Turn off this advice by setting config variable advice.detachedHead to <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">Library Manager: ps2dev @ 0.0.3+sha.a043002 has been installed!</span><br><span class="line">Library Manager: Installing digitalWriteFast @ 1.0.0</span><br><span class="line">Library Manager: digitalWriteFast @ 1.0.0 has been installed!</span><br><span class="line">Found 8 compatible libraries</span><br><span class="line">Scanning dependencies...</span><br><span class="line">Dependency Graph</span><br><span class="line">|-- &lt;HID-Project&gt; 2.6.1</span><br><span class="line">|   |-- &lt;HID&gt; 1.0</span><br><span class="line">|-- &lt;ps2dev&gt; 0.0.3+sha.a043002</span><br><span class="line">|-- &lt;digitalWriteFast&gt; 1.0.0</span><br><span class="line">|-- &lt;SPI&gt; 1.0</span><br><span class="line">Building <span class="keyword">in</span> release mode</span><br><span class="line">patch -p1 -d /root/hid/.platformio/packages/framework-arduino-avr &lt; patches/no-main.patch</span><br><span class="line">patching file cores/arduino/main.cpp</span><br><span class="line">&lt;lambda&gt;([], [])</span><br><span class="line">patch -p1 -d /root/hid/.platformio/packages/framework-arduino-avr &lt; patches/optional-usb-serial.patch</span><br><span class="line">patching file cores/arduino/PluggableUSB.cpp</span><br><span class="line">patching file cores/arduino/USBCore.cpp</span><br><span class="line">&lt;lambda&gt;([], [])</span><br><span class="line">patch -p1 -d /root/hid/.platformio/packages/framework-arduino-avr &lt; patches/get-plugged-endpoint.patch</span><br><span class="line">patching file cores/arduino/PluggableUSB.h</span><br><span class="line">&lt;lambda&gt;([], [])</span><br><span class="line">patch -p1 -d /root/hid/.pio/libdeps/spi/HID-Project &lt; patches/shut-up.patch</span><br><span class="line">patching file src/KeyboardLayouts/ImprovedKeylayouts.h</span><br><span class="line">&lt;lambda&gt;([], [])</span><br><span class="line">patch -p1 -d /root/hid/.pio/libdeps/spi/HID-Project &lt; patches/no-hid-singletones.patch</span><br><span class="line">patching file src/SingleReport/BootKeyboard.cpp</span><br><span class="line">patching file src/SingleReport/BootKeyboard.h</span><br><span class="line">patching file src/SingleReport/BootMouse.cpp</span><br><span class="line">patching file src/SingleReport/BootMouse.h</span><br><span class="line">patching file src/SingleReport/SingleAbsoluteMouse.cpp</span><br><span class="line">patching file src/SingleReport/SingleAbsoluteMouse.h</span><br><span class="line">&lt;lambda&gt;([], [])</span><br><span class="line">patch -p1 -d /root/hid/.pio/libdeps/spi/HID-Project &lt; patches/absmouse-win-fix.patch</span><br><span class="line">patching file src/SingleReport/SingleAbsoluteMouse.cpp</span><br><span class="line">&lt;lambda&gt;([], [])</span><br><span class="line">Compiling .pio/build/spi/src/main.cpp.o</span><br><span class="line">Compiling .pio/build/spi/src/spi.cpp.o</span><br><span class="line">Compiling .pio/build/spi/lib2d3/HID/HID.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/AbsoluteMouse.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/Consumer.cpp.o</span><br><span class="line">Archiving .pio/build/spi/lib2d3/libHID.a</span><br><span class="line">Indexing .pio/build/spi/lib2d3/libHID.a</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/Gamepad.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/ImprovedKeyboard.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/ImprovedMouse.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/NKROKeyboard.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/SurfaceDial.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/MultiReport/System.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/BootKeyboard.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/BootMouse.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/RawHID.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/SingleAbsoluteMouse.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/SingleConsumer.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/SingleGamepad.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/SingleNKROKeyboard.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/SingleReport/SingleSystem.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libd81/HID-Project/port/samd.cpp.o</span><br><span class="line">Compiling .pio/build/spi/libeaf/ps2dev/ps2dev.cpp.o</span><br><span class="line">Archiving .pio/build/spi/lib822/libdigitalWriteFast.a</span><br><span class="line">Indexing .pio/build/spi/lib822/libdigitalWriteFast.a</span><br><span class="line">Compiling .pio/build/spi/lib519/SPI/SPI.cpp.o</span><br><span class="line">.pio/libdeps/spi/ps2dev/src/ps2dev.cpp: In member <span class="keyword">function</span> <span class="string">&#x27;int PS2dev::keyboard_reply(unsigned char, unsigned char*)&#x27;</span>:</span><br><span class="line">.pio/libdeps/spi/ps2dev/src/ps2dev.cpp:243:17: warning: variable <span class="string">&#x27;enabled&#x27;</span> <span class="built_in">set</span> but not used [-Wunused-but-set-variable]</span><br><span class="line">   unsigned char enabled;</span><br><span class="line">                 ^</span><br><span class="line">Archiving .pio/build/spi/libd81/libHID-Project.a</span><br><span class="line">Archiving .pio/build/spi/libFrameworkArduinoVariant.a</span><br><span class="line">Indexing .pio/build/spi/libFrameworkArduinoVariant.a</span><br><span class="line">Indexing .pio/build/spi/libd81/libHID-Project.a</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/CDC.cpp.o</span><br><span class="line">Archiving .pio/build/spi/lib519/libSPI.a</span><br><span class="line">Archiving .pio/build/spi/libeaf/libps2dev.a</span><br><span class="line">Indexing .pio/build/spi/lib519/libSPI.a</span><br><span class="line">Indexing .pio/build/spi/libeaf/libps2dev.a</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/HardwareSerial.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/HardwareSerial0.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/HardwareSerial1.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/HardwareSerial2.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/HardwareSerial3.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/IPAddress.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/PluggableUSB.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/Print.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/Stream.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/Tone.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/USBCore.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/WInterrupts.c.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/WMath.cpp.o</span><br><span class="line">.platformio/packages/framework-arduino-avr/cores/arduino/USBCore.cpp: In <span class="keyword">function</span> <span class="string">&#x27;bool ClassInterfaceRequest(USBSetup&amp;)&#x27;</span>:</span><br><span class="line">.platformio/packages/framework-arduino-avr/cores/arduino/USBCore.cpp:378:5: warning: unused variable <span class="string">&#x27;i&#x27;</span> [-Wunused-variable]</span><br><span class="line">  u8 i = setup.wIndex;</span><br><span class="line">     ^</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/WString.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/abi.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/hooks.c.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/main.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/new.cpp.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/wiring.c.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/wiring_analog.c.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/wiring_digital.c.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/wiring_pulse.S.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/wiring_pulse.c.o</span><br><span class="line">Compiling .pio/build/spi/FrameworkArduino/wiring_shift.c.o</span><br><span class="line">Archiving .pio/build/spi/libFrameworkArduino.a</span><br><span class="line">Indexing .pio/build/spi/libFrameworkArduino.a</span><br><span class="line">Linking .pio/build/spi/firmware.elf</span><br><span class="line">Building .pio/build/spi/firmware.hex</span><br><span class="line">Checking size .pio/build/spi/firmware.elf</span><br><span class="line">Advanced Memory Usage is available via <span class="string">&quot;PlatformIO Home &gt; Project Inspect&quot;</span></span><br><span class="line">RAM:   [=         ]   9.9% (used 253 bytes from 2560 bytes)</span><br><span class="line">Flash: [===       ]  34.7% (used 9952 bytes from 28672 bytes)</span><br><span class="line">=================================================== [SUCCESS] Took 56.86 seconds ===================================================</span><br><span class="line"></span><br><span class="line">Environment    Status    Duration</span><br><span class="line">-------------  --------  ------------</span><br><span class="line">spi            SUCCESS   00:00:56.861</span><br><span class="line">=================================================== 1 succeeded <span class="keyword">in</span> 00:00:56.861 ===================================================</span><br><span class="line"></span><br><span class="line">************************************************************************************************************************************</span><br><span class="line">There is a new version 5.1.0 of PlatformIO available.</span><br><span class="line">Please upgrade it via `platformio upgrade` or `pip install -U platformio` <span class="built_in">command</span>.</span><br><span class="line">Changes: https://docs.platformio.org/en/latest/history.html</span><br><span class="line">************************************************************************************************************************************</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -n spi &gt; .current</span><br><span class="line">make[1]: Leaving directory <span class="string">&#x27;/root/hid&#x27;</span></span><br><span class="line">[root@pikvm hid]<span class="comment"># make install</span></span><br><span class="line">platformio run --environment spi --target upload</span><br><span class="line">Processing spi (platform: atmelavr; board: micro; framework: arduino)</span><br><span class="line">------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">Verbose mode can be enabled via `-v, --verbose` option</span><br><span class="line">CONFIGURATION: https://docs.platformio.org/page/boards/atmelavr/micro.html</span><br><span class="line">PLATFORM: Atmel AVR (3.1.0) &gt; Arduino Micro</span><br><span class="line">HARDWARE: ATMEGA32U4 16MHz, 2.50KB RAM, 28KB Flash</span><br><span class="line">DEBUG: Current (simavr) On-board (simavr)</span><br><span class="line">PACKAGES:</span><br><span class="line"> - framework-arduino-avr 5.1.0</span><br><span class="line"> - tool-avrdude 1.60300.200527 (6.3.0)</span><br><span class="line"> - toolchain-atmelavr 1.50400.190710 (5.4.0)</span><br><span class="line">LDF: Library Dependency Finder -&gt; http://bit.ly/configure-pio-ldf</span><br><span class="line">LDF Modes: Finder ~ chain, Compatibility ~ soft</span><br><span class="line">Found 8 compatible libraries</span><br><span class="line">Scanning dependencies...</span><br><span class="line">Dependency Graph</span><br><span class="line">|-- &lt;HID-Project&gt; 2.6.1</span><br><span class="line">|   |-- &lt;HID&gt; 1.0</span><br><span class="line">|-- &lt;ps2dev&gt; 0.0.3+sha.a043002</span><br><span class="line">|-- &lt;digitalWriteFast&gt; 1.0.0</span><br><span class="line">|-- &lt;SPI&gt; 1.0</span><br><span class="line">Building <span class="keyword">in</span> release mode</span><br><span class="line">Checking size .pio/build/spi/firmware.elf</span><br><span class="line">Advanced Memory Usage is available via <span class="string">&quot;PlatformIO Home &gt; Project Inspect&quot;</span></span><br><span class="line">RAM:   [=         ]   9.9% (used 253 bytes from 2560 bytes)</span><br><span class="line">Flash: [===       ]  34.7% (used 9952 bytes from 28672 bytes)</span><br><span class="line">Configuring upload protocol...</span><br><span class="line">AVAILABLE: custom</span><br><span class="line">CURRENT: upload_protocol = custom</span><br><span class="line">Uploading .pio/build/spi/firmware.hex</span><br><span class="line"></span><br><span class="line">avrdude: AVR device initialized and ready to accept instructions</span><br><span class="line"></span><br><span class="line">Reading | <span class="comment">################################################## | 100% 0.00s</span></span><br><span class="line"></span><br><span class="line">avrdude: Device signature = 0x1e9587 (probably m32u4)</span><br><span class="line">avrdude: NOTE: <span class="string">&quot;flash&quot;</span> memory has been specified, an erase cycle will be performed</span><br><span class="line">         To <span class="built_in">disable</span> this feature, specify the -D option.</span><br><span class="line">avrdude: erasing chip</span><br><span class="line">avrdude: reading input file <span class="string">&quot;.pio/build/spi/firmware.hex&quot;</span></span><br><span class="line">avrdude: writing flash (9952 bytes):</span><br><span class="line"></span><br><span class="line">Writing | <span class="comment">################################################## | 100% 2.78s</span></span><br><span class="line"></span><br><span class="line">avrdude: 9952 bytes of flash written</span><br><span class="line">avrdude: verifying flash memory against .pio/build/spi/firmware.hex:</span><br><span class="line">avrdude: load data flash data from input file .pio/build/spi/firmware.hex:</span><br><span class="line">avrdude: input file .pio/build/spi/firmware.hex contains 9952 bytes</span><br><span class="line">avrdude: reading on-chip flash data:</span><br><span class="line"></span><br><span class="line">Reading | <span class="comment">################################################## | 100% 2.33s</span></span><br><span class="line"></span><br><span class="line">avrdude: verifying ...</span><br><span class="line">avrdude: 9952 bytes of flash verified</span><br><span class="line"></span><br><span class="line">avrdude: safemode: Fuses OK (E:CB, H:D8, L:FF)</span><br><span class="line"></span><br><span class="line">avrdude <span class="keyword">done</span>.  Thank you.</span><br><span class="line"></span><br><span class="line">=================================================== [SUCCESS] Took 7.54 seconds ===================================================</span><br><span class="line"></span><br><span class="line">Environment    Status    Duration</span><br><span class="line">-------------  --------  ------------</span><br><span class="line">spi            SUCCESS   00:00:07.536</span><br><span class="line">=================================================== 1 succeeded <span class="keyword">in</span> 00:00:07.536 ===================================================</span><br><span class="line">[root@pikvm hid]<span class="comment"># reboot</span></span><br></pre></td></tr></table></figure>
+</details>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/03/02/pikvm/flashing_hid/" title="Pi-KVM" target="_blank" rel="external">http://example.com/2021/03/02/pikvm/flashing_hid/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/luxinhua" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/cat.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/luxinhua" target="_blank"><span class="text-dark">xhlu</span><small class="ml-1x">嵌入式开发</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/02/pikvm/Community_FAQ/" title="Pi-KVM"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/02/pikvm/api/" title="Pi-KVM"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 XinHua Lu
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

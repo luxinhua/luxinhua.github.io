@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Pi-KVM | 嵌入式</title>
+  <meta name="description" content="Community FAQCan this be used for gaming? Why not? ❗No:exclamation:, the max bus lanes the Pi provides, is not enough to support anything faster than 30 FPS. Your better off looking at other solutions">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pi-KVM">
+<meta property="og:url" content="http://example.com/2021/03/02/pikvm/Community_FAQ/index.html">
+<meta property="og:site_name" content="XINHUALU&#39;S BLOG">
+<meta property="og:description" content="Community FAQCan this be used for gaming? Why not? ❗No:exclamation:, the max bus lanes the Pi provides, is not enough to support anything faster than 30 FPS. Your better off looking at other solutions">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-29T03:25:46.477Z">
+<meta property="article:author" content="XinHua Lu">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/03/02/pikvm/Community_FAQ/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/luxinhua" target="_blank">
+          <img class="img-circle img-rotate" src="/images/cat.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xhlu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">嵌入式开发</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>个人站还在更新中 ！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pcie/">Pcie</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.477Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/00_bios_protect_mode_enable_flow/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/06_Biso_interface_update/" class="title">BiosInterFace update 的思路</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Pcie/">Pcie</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/01_PCie_summary/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/dev_utils/01_python_dev_lib_logger/" class="title">HEXO Hacker 主题中文说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T00:00:00.000Z" itemprop="datePublished">2021-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-pikvm/Community_FAQ" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pi-KVM
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/02/pikvm/Community_FAQ/" class="article-date">
+	  <time datetime="2021-03-02T00:00:00.000Z" itemprop="datePublished">2021-03-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Pi-KVM/">Pi-KVM</a>
+  </span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/02/pikvm/Community_FAQ/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Community-FAQ"><a href="#Community-FAQ" class="headerlink" title="Community FAQ"></a>Community FAQ</h1><h3 id="Can-this-be-used-for-gaming-Why-not"><a href="#Can-this-be-used-for-gaming-Why-not" class="headerlink" title="Can this be used for gaming? Why not?"></a>Can this be used for gaming? Why not?</h3><ul>
+<li>❗No:exclamation:, the max bus lanes the Pi provides, is not enough to support anything faster than 30 FPS. Your better off looking at other solutions for this.</li>
+<li>❗No:exclamation:, PiKVM does not capture and transmit audio at this time. The developers have indicated that this may be available for the v3 hat at some point in the future, but it is not a priority for development at this time.</li>
+</ul>
+<h3 id="Can-this-do-4K"><a href="#Can-this-do-4K" class="headerlink" title="Can this do 4K?"></a>Can this do 4K?</h3><ul>
+<li>For the CSI Bridge, ❗No:exclamation:. there is not enough bandwidth in the CSI bus for that much data. 1080p50 will max out the bandwidth</li>
+<li>For the USB capture devices: Technically yes, but they will downsample to something smaller to meet the usb2.0 bandwidth limitations, so the source may be 4k, but the stream will not.</li>
+</ul>
+<h3 id="Is-Pi-KVM-an-OS-or-its-own-Distro"><a href="#Is-Pi-KVM-an-OS-or-its-own-Distro" class="headerlink" title="Is Pi-KVM an OS or its own Distro?"></a>Is Pi-KVM an OS or its own Distro?</h3><ul>
+<li>Yes and No, Other than the some repacking and patches, its heavly based off an existing <a target="_blank" rel="noopener" href="https://archlinuxarm.org/">Arch Linux ARM</a>.</li>
+</ul>
+<h3 id="Why-are-you-using-Arch-Linux"><a href="#Why-are-you-using-Arch-Linux" class="headerlink" title="Why are you using Arch Linux?"></a>Why are you using Arch Linux?</h3><ul>
+<li>The developer was more familiar with Arch Linux so this was chosen as the base operating system. As a Linux distribution, it has more in common than not with other distributions.<br><br/><br/><br>As an appliance, users are not expected to interact with the host operating system often, if at all. There are some distribution-specific differences, by default networking is done using either systemd-networkd or netctl but NetworkManager can be used as a replacement if one prefers.</li>
+</ul>
+<h3 id="Can-I-power-the-Pi-via-POE"><a href="#Can-I-power-the-Pi-via-POE" class="headerlink" title="Can I power the Pi via POE?"></a>Can I power the Pi via POE?</h3><ul>
+<li>Yes! But you will still need to ensure you isolate the 5v connection between the Raspberry Pi and host PC to prevent backpower issues that can cause instability or damage to either the host PC or the Pi.</li>
+</ul>
+<h3 id="Do-I-need-a-power-splitter-Why-do-I-need-one"><a href="#Do-I-need-a-power-splitter-Why-do-I-need-one" class="headerlink" title="Do I need a power splitter? Why do I need one?"></a>Do I need a power splitter? Why do I need one?</h3><ul>
+<li>Yes for RPi4, No for ZeroW</li>
+<li>Yes, otherwise you could back power the pi and or the target</li>
+<li>You can get a Y cable from amazon and mod one of the leads - Please see getting started guide</li>
+<li>You can get a power splitter board from Tindi or PiShop (Links provided below)</li>
+<li>If you have the v3 HAT - This is built in</li>
+</ul>
+<h3 id="I-can’t-get-the-KVM-KB-to-work-on-my-ZeroW"><a href="#I-can’t-get-the-KVM-KB-to-work-on-my-ZeroW" class="headerlink" title="I can’t get the KVM KB to work on my ZeroW!"></a>I can’t get the KVM KB to work on my ZeroW!</h3><p>Make sure that you did NOT modify your config.txt file, this is the default: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># See &#x2F;boot&#x2F;overlays&#x2F;README for all available options</span><br><span class="line">initramfs initramfs-linux.img followkernel</span><br><span class="line">hdmi_force_hotplug&#x3D;1</span><br><span class="line">gpu_mem&#x3D;64</span><br><span class="line">enable_uart&#x3D;1</span><br><span class="line">dtoverlay&#x3D;tc358743,i2c_pins_28_29&#x3D;1</span><br><span class="line">dtoverlay&#x3D;disable-bt</span><br><span class="line">dtoverlay&#x3D;dwc2,dr_mode&#x3D;peripheral</span><br></pre></td></tr></table></figure>
+<p>Ensure that you have the cable(Needs to support both power/data) plugged into the right port, the one closest to the mini HDMI is the correct port</p>
+<h3 id="Can-I-use-a-KB-on-my-ZeroW"><a href="#Can-I-use-a-KB-on-my-ZeroW" class="headerlink" title="Can I use a KB on my ZeroW?"></a>Can I use a KB on my ZeroW?</h3><ul>
+<li>Yes but kb/mouse passthrough will not work. Its one or the other<ul>
+<li>Host mode - Comment out dtoverlay=dwc2</li>
+<li>Passthrough mode - Uncomment out dtoverlay=dwc2</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-you-have-the-pi-kvm-RPi4-connected-along-with-a-monitor"><a href="#Can-you-have-the-pi-kvm-RPi4-connected-along-with-a-monitor" class="headerlink" title="Can you have the pi-kvm(RPi4) connected along with a monitor?"></a>Can you have the pi-kvm(RPi4) connected along with a monitor?</h3><ul>
+<li><strong>A community member has had success with the following: <a target="_blank" rel="noopener" href="https://www.amazon.com/gp/product/B08DQWLXF1">https://www.amazon.com/gp/product/B08DQWLXF1</a></strong></li>
+<li>Some Alternitives<ul>
+<li>If you have two outputs, you may be able to use screen mirroring from the OS but not BIOS</li>
+<li>If you have one output or need access from both a local monitor or Pi-KVM at boot time, one of the following options may work:</li>
+<li>Passthrough HDMI capture devices (sometimes referred to as a loop capture device). The Elgato devices DO NOT WORK! Look for Linux OS support when choosing a device, the expected price range is about $35-$70 US.</li>
+<li>Depending on your capture device, an HDMI splitter may work but will need what is called an EDID (Extended Device ID) generator, the monitor and capture device both generate EDID so the splitter must produce its own separate EDID for the host.</li>
+<li>Look for HDMI splitters - although there have been reports that these are not stable<ul>
+<li>Please use the search function in Discord, some users have had sucess in getting this to work but your mileage may vary</li>
+</ul>
+</li>
+<li>The better solution is to capture the stream in a dir and then use VLC to stream to that capture on another computer. This will result in fps loss.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Wouldn’t-it-be-good-to-have-different-hostnames-for-your-multitude-of-pi-kvms"><a href="#Wouldn’t-it-be-good-to-have-different-hostnames-for-your-multitude-of-pi-kvms" class="headerlink" title="Wouldn’t it be good to have different hostnames for your multitude of pi-kvms?"></a>Wouldn’t it be good to have different hostnames for your multitude of pi-kvms?</h3><p>Yes! And it’s easy to do! Using a SSH session or the web terminal:</p>
+<ul>
+<li>Make sure you’re <code>root</code>, if you’re not root use the <code>su</code> command to become root</li>
+<li>Enter read write mode of the PiKVM by executing the <code>rw</code> command</li>
+<li>Execute: <code>hostnamectl set-hostname yournewhostname.domain</code></li>
+<li>Optional: Edit <code>/etc/kvmd/meta.yaml</code> to alter the displayed hostname in the web UI</li>
+<li>Reboot the pikvm</li>
+</ul>
+<h3 id="I-can’t-make-edits"><a href="#I-can’t-make-edits" class="headerlink" title="I can’t make edits?!?!?"></a>I can’t make edits?!?!?</h3><ul>
+<li>Did you issue a <code>rw</code> before updating/editing?</li>
+</ul>
+<h3 id="In-the-Web-Terminal-how-do-I-get-root"><a href="#In-the-Web-Terminal-how-do-I-get-root" class="headerlink" title="In the Web Terminal, how do I get root?"></a>In the Web Terminal, how do I get root?</h3><ul>
+<li>Type <code>su -</code></li>
+<li>Put <code>root</code> for the password</li>
+</ul>
+<h3 id="I-want-to-do-something-not-related-to-Pi-KVM"><a href="#I-want-to-do-something-not-related-to-Pi-KVM" class="headerlink" title="I want to do something not related to Pi-KVM"></a>I want to do something not related to Pi-KVM</h3><ul>
+<li>It’s recommended that you review Arch documents related to what you want to do, while there are several folks in discord who can help, there is no obligation…they do it for the feels. So if you don’t get an answer within the time frame you are looking for, it’s advised you start google searching for what you want.</li>
+</ul>
+<h3 id="Can-this-be-used-in-any-other-distro’s-like-Rasbian-Run-this-in-a-Docker"><a href="#Can-this-be-used-in-any-other-distro’s-like-Rasbian-Run-this-in-a-Docker" class="headerlink" title="Can this be used in any other distro’s like Rasbian? Run this in a Docker?"></a>Can this be used in any other distro’s like Rasbian? Run this in a Docker?</h3><ul>
+<li>Not at this time, maybe in the future</li>
+</ul>
+<h3 id="My-Pi-keeps-disconnecting-from-my-wireless-What-do-I-do"><a href="#My-Pi-keeps-disconnecting-from-my-wireless-What-do-I-do" class="headerlink" title="My Pi keeps disconnecting from my wireless! What do I do?"></a>My Pi keeps disconnecting from my wireless! What do I do?</h3><ul>
+<li>You can try the following: Edit “/etc/conf.d/wireless-regdom” and look for your region and uncomment it. Example: WIRELESS_REGDOM=”US”</li>
+</ul>
+<h3 id="I-want-a-static-IP"><a href="#I-want-a-static-IP" class="headerlink" title="I want a static IP!!"></a>I want a static IP!!</h3><ul>
+<li>You can configure systemd-networkd for a static address for ethernet NIC. Config file is /etc/systemd/network/eth0.network</li>
+<li>For wireless adapter, config file is /etc/netctl/wlan0-<wifiname></li>
+<li>See pikvm/wifi_config.md at master · pikvm/pikvm · GitHub for details on how to get basic wireless config with DHCP going.  Afterwards, you’ll need to edit the /etc/netctl/wlan0-<wifiname> file changing the IP=dhcp line with the following lines updated to reflect your network:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IP&#x3D;static</span><br><span class="line">Address&#x3D;(&#39;192.168.X.XXX&#x2F;24&#39;)</span><br><span class="line">Gateway&#x3D;(&#39;192.168.X.X&#39;)</span><br><span class="line">DNS&#x3D;(&quot;192.168.X.X 1.0.0.1 1.1.1.1&quot;)</span><br></pre></td></tr></table></figure></li>
+<li>You can also reserve the IP in your dhcp server (Quicker)</li>
+</ul>
+<h3 id="Why-do-I-keep-getting-a-different-IP"><a href="#Why-do-I-keep-getting-a-different-IP" class="headerlink" title="Why do I keep getting a different IP?"></a>Why do I keep getting a different IP?</h3><ul>
+<li>Add to, /etc/systemd/network/eth0.network<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[DHCP]</span><br><span class="line">ClientIdentifier&#x3D;mac</span><br></pre></td></tr></table></figure></li>
+<li>Reserve the DHCP ip in your server/router</li>
+<li>You can replace systemd-networkd with NetworkManager, this has proven to fix the IP issue with DHCP for some routers</li>
+</ul>
+<h3 id="HELP-I-can’t-find-the-IP-on-the-ZeroW-RPi4"><a href="#HELP-I-can’t-find-the-IP-on-the-ZeroW-RPi4" class="headerlink" title="HELP!! I can’t find the IP on the ZeroW/RPi4"></a>HELP!! I can’t find the IP on the ZeroW/RPi4</h3><ul>
+<li>Open a browser and type: pikvm, still doesnt work?</li>
+<li>Use the FING mobile app to scan your network, its free</li>
+<li>Install Angry IP scanner, tools/preferences/Display results in the results list/Select Alive hosts, modify IP range, hit start</li>
+<li>Using FF, navigate to <a target="_blank" rel="noopener" href="https://pikvm/">https://pikvm</a> (Depends on your network if this actually works, in most case’s will work))<ul>
+<li>Open web terminal and go to root, rw then nano /etc/issue</li>
+<li>add ‘IP: \4’</li>
+<li>Once you reboot, you will now see the IP in the upper left</li>
+<li>The below commands will verify that your Pi on on your network<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arp -a | grep below is a list of MAC&#39;s for Raspberry Pi</span><br><span class="line">	B8:27:EB:xx:xx:xx	B8-27-EB-xx-xx-xx	B827.EBxx.xxxx</span><br><span class="line">	DC:A6:32:xx:xx:xx	DC-A6-32-xx-xx-xx	DCA6.32xx.xxxx</span><br><span class="line">	E4:5F:01:xx:xx:xx	E4-5F-01-xx-xx-xx	E45F.01xx.xxxx</span><br><span class="line">Power shell: arp -a | findstr &#39;b8-27-eb&#39; (Replace with the above, all lower case)</span><br></pre></td></tr></table></figure>
+<h3 id="Help-I-ran-out-of-room-What-now"><a href="#Help-I-ran-out-of-room-What-now" class="headerlink" title="Help! I ran out of room! What now?"></a>Help! I ran out of room! What now?</h3></li>
+</ul>
+</li>
+<li>You’ve cached package updates you no longer need.</li>
+<li>Enter read/write mode by executing rw as root</li>
+<li>Execute the following as root to clear the package cache<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf &#x2F;var&#x2F;cache&#x2F;pacman&#x2F;pkg&#x2F;*</span><br></pre></td></tr></table></figure></li>
+<li>Exit read/write mode by executing ro as root</li>
+<li>You can also use gparted to resize partitions without losing data, although this may delete all of your data</li>
+</ul>
+<h3 id="Can-you-connect-a-camera-to-this-and-still-make-pikvm-functional"><a href="#Can-you-connect-a-camera-to-this-and-still-make-pikvm-functional" class="headerlink" title="Can you connect a camera to this and still make pikvm functional?"></a>Can you connect a camera to this and still make pikvm functional?</h3><ul>
+<li>Yes, any cheapo webcam can be used in place of the usb dongle, please use the usb image</li>
+</ul>
+<h3 id="I-have-a-question-that-is-not-answered-here-Now-what"><a href="#I-have-a-question-that-is-not-answered-here-Now-what" class="headerlink" title="I have a question that is not answered here!! Now what?"></a>I have a question that is not answered here!! Now what?</h3><ul>
+<li>Please look at all pins on Discord</li>
+<li>Please look in #news on Discord</li>
+</ul>
+<h3 id="I-want-the-v3-hat-Where-do-I-get-it"><a href="#I-want-the-v3-hat-Where-do-I-get-it" class="headerlink" title="I want the v3 hat!! Where do I get it??"></a>I want the v3 hat!! Where do I get it??</h3><ul>
+<li>At this time it is not available, due to the current pandemic the factories are running at a much slower rate</li>
+</ul>
+<h3 id="HELP-Something-isn’t-working"><a href="#HELP-Something-isn’t-working" class="headerlink" title="HELP!! Something isn’t working!!"></a>HELP!! Something isn’t working!!</h3><ul>
+<li>What was the last thing or most recent thing you did? Did you undo it?</li>
+<li>Did you hook this to anything else? If not why not?</li>
+<li>Did you try different cables?<h3 id="Can-you-use-an-iPad-on-PiKVM"><a href="#Can-you-use-an-iPad-on-PiKVM" class="headerlink" title="Can you use an iPad on PiKVM?"></a>Can you use an iPad on PiKVM?</h3></li>
+<li>Yes, with the correct hardware you can control an iPad</li>
+<li>Yes, activate VNC and use JUMP app(Full featured but more expensive), or bVNC(Not recommended, lack luster features but cheap). RealVNC does NOT work<h3 id="Can-I-use-RealVNC-to-connect-to-PiKVM"><a href="#Can-I-use-RealVNC-to-connect-to-PiKVM" class="headerlink" title="Can I use RealVNC to connect to PiKVM?"></a>Can I use RealVNC to connect to PiKVM?</h3></li>
+<li>No, RealVNC is not a real vnc so will not work</li>
+</ul>
+<h3 id="How-do-I-add-my-own-SSL-cert"><a href="#How-do-I-add-my-own-SSL-cert" class="headerlink" title="How do I add my own SSL cert?"></a>How do I add my own SSL cert?</h3><ul>
+<li>If you have a certificate(:exclamation:<strong>Making a cert falls outside the scope of PIKVM - Please reference Linux documentation</strong>:exclamation:), replace the public key in /etc/kvmd/nginx/ssl/server.crt and private key in /etc/kvmd/nginx/ssl/server.key and restart the kvmd-nginx service.</li>
+<li>It should look like the following:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;kvmd&#x2F;nginx</span><br><span class="line">cat ssl.conf (Expection of what&#39;s inside the file)</span><br><span class="line">ssl_protocols TLSv1.3 TLSv1.2 TLSv1.1 TLSv1;</span><br><span class="line">ssl_ciphers &quot;EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH&quot;;</span><br><span class="line">ssl_certificate &#x2F;etc&#x2F;kvmd&#x2F;nginx&#x2F;ssl&#x2F;server.crt;</span><br><span class="line">ssl_certificate_key &#x2F;etc&#x2F;kvmd&#x2F;nginx&#x2F;ssl&#x2F;server.key;</span><br><span class="line">add_header Strict-Transport-Security &quot;max-age&#x3D;31536000; includeSubDomains&quot; always;</span><br></pre></td></tr></table></figure>
+<h3 id="Things-to-do-after-initial-install"><a href="#Things-to-do-after-initial-install" class="headerlink" title="Things to do after initial install:"></a>Things to do after initial install:</h3><ul>
+<li><p>Fix date: ‘timedatectl list-timezones’ then ‘timedatectl set-timezone America/Los_Angeles’ (Change to your location)</p>
+</li>
+<li><p>Update Pi-KVM, follow #news on Discord for instructions</p>
+</li>
+<li><p>Enable Avahi-Daemon (A Zeroconf daemon) to allow finding the pikvm via mDNS queries as <code>pikvm.local</code></p>
+<ul>
+<li><code>pacman -S avahi nss-mdns</code> </li>
+<li><code>gtk3 python-dbus python-gobject</code> (You may or may not need this to make it work)</li>
+<li>Enable the Avahi daemon in order to make it persistent after reboot:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable avahi-daemon.service</span><br></pre></td></tr></table></figure></li>
+<li>Start the DBus (if not already running) &amp; Avahi daemons:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start dbus.service</span><br><span class="line">systemctl start avahi-daemon.service</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Setup a NFS share to give read/write storage on the read only pikvm</p>
+<ul>
+<li>Note: this does assume you already have an NFS server on your network and accessible to pikvm</li>
+<li>Source <a target="_blank" rel="noopener" href="https://linuxhint.com/install_configure_nfs/">https://linuxhint.com/install_configure_nfs/</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pacman -S nfs-utils</span><br><span class="line">showmount -e 192.168.1.XXX</span><br><span class="line">mount -t nfs 192.168.1.XXX:&#x2F;volume1&#x2F;Data &#x2F;mnt&#x2F;Data</span><br><span class="line">nano &#x2F;etc&#x2F;fstab</span><br></pre></td></tr></table></figure>
+Add To the bottom of the file<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.XXX:&#x2F;volume1&#x2F;Data &#x2F;mnt&#x2F;Data nfs      auto,rw,soft    0 0</span><br></pre></td></tr></table></figure>
+<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3></li>
+</ul>
+</li>
+<li><p>:exclamation:<strong>It is expected that you are aware of basic networking while working on this project and that you have read up on the project prior to going to Discord</strong>:exclamation:</p>
+<ul>
+<li>Do you know the IP?</li>
+<li>Can you ping the IP?</li>
+<li>Did you swap cables?</li>
+<li>Did you swap the eth port to a known working eth port?</li>
+<li>Do you have access to another router or switch?</li>
+<li>Did you change ports on the router/switch?</li>
+<li>RPi4 - Did you hook up a monitor? Once logged in, can you ping to your gateway? Other IP’s on the same network?</li>
+<li>Did you connect a monitor to the target? Does it work?</li>
+<li>Did you connect the PIKVM to the target directly? Does it work?</li>
+</ul>
+</li>
+<li><p>Reboot target</p>
+</li>
+<li><p>Try default image, do not update and test</p>
+</li>
+</ul>
+<p>-copy/paste into a file, call it pi-info.sh, chmod +x pi-info.sh, ./pi-info.sh <strong>Same script is located <a target="_blank" rel="noopener" href="https://pastebin.com/u/srepac">here</a></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">uptime</span><br><span class="line">TMPFILE&#x3D;&quot;&#x2F;tmp&#x2F;pacmanquery&quot;; &#x2F;bin&#x2F;rm -f $TMPFILE</span><br><span class="line">pacman -Q | awk &#39;&#123;print $2, $1&#125;&#39; &gt; $TMPFILE</span><br><span class="line">chmod go+w $TMPFILE</span><br><span class="line"></span><br><span class="line">pistat &amp;&amp; echo</span><br><span class="line"></span><br><span class="line">printf &quot;%-18s\t%s\n&quot; &quot;Version&quot; &quot;Package-Name&quot; &quot;----------------------&quot; &quot;-----------------------------&quot;</span><br><span class="line"></span><br><span class="line">PACKAGES&#x3D;&quot;firmware bootloader kvmd ustreamer nginx wpa wireless&quot;</span><br><span class="line">for PKG in $( echo $PACKAGES ); do</span><br><span class="line">        printf &quot;%-18s\t%s\n&quot; $(grep $PKG $TMPFILE | sed &#39;s&#x2F;-[1-9]&#x2F;&#x2F;g&#39;)</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>| grep tc35``` - CSI</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;br&#x2F;&gt;&lt;br&#x2F;&gt;</span><br><span class="line">&#96;&#96;&#96;dmesg | egrep &#39;1-1.[245]|uvc&#39;&#96;&#96;&#96; - USB</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;systemctl status kvmd&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;systemctl status kvmd-otg&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">- **hint:**  look at kvmd-platform line of the output... make sure it matches the image they expect for the capture device and platform</span><br><span class="line"></span><br><span class="line">- Keyboard&#x2F;Mouse icons orange? Try a different cable (ALLOT are power only), try a different usb port</span><br><span class="line"></span><br><span class="line">- Should see the following if everything is in place</span><br><span class="line">&#96;&#96;&#96;ls -l &#x2F;dev&#x2F;kvmd*</span><br><span class="line">lrwxrwxrwx 1 root root 5 Apr  5 21:33 &#x2F;dev&#x2F;kvmd-hid-keyboard -&gt; hidg0</span><br><span class="line">lrwxrwxrwx 1 root root 5 Apr  5 21:33 &#x2F;dev&#x2F;kvmd-hid-mouse -&gt; hidg1</span><br><span class="line">lrwxrwxrwx 1 root root 6 Mar 15 09:07 &#x2F;dev&#x2F;kvmd-video -&gt; video0</span><br></pre></td></tr></table></figure>
+<h3 id="Common-Commands-for-troubleshooting-Pi-KVM"><a href="#Common-Commands-for-troubleshooting-Pi-KVM" class="headerlink" title="Common Commands for troubleshooting Pi-KVM"></a>Common Commands for troubleshooting Pi-KVM</h3><ul>
+<li><code>journalctl -u kvmd</code></li>
+<li><code>journalctl -u kvmd-vnc</code></li>
+<li><code>journalctl -u kvmd-ipmi</code></li>
+</ul>
+<h3 id="Common-ARCH-commands"><a href="#Common-ARCH-commands" class="headerlink" title="Common ARCH commands"></a>Common ARCH commands</h3><ul>
+<li>search - <code>pacman -Ss &#39;the thing&#39;</code></li>
+<li>install - <code>pacman -S &#39;the thing&#39;</code></li>
+<li>remove - <code>pacman -Rscnd &#39;the thing&#39;</code></li>
+</ul>
+<h3 id="Common-wifi-commands"><a href="#Common-wifi-commands" class="headerlink" title="Common wifi commands"></a>Common wifi commands</h3><ul>
+<li><p> <code>iwconfig</code> manipulate the basic wireless parameters</p>
+</li>
+<li><p><code>iwlist</code>   allow’s you to initiate scanning and list frequencies, bit-rates, encryption keys…</p>
+</li>
+<li><p><code>iwspy</code>    displays per node link quality</p>
+</li>
+<li><p><code>iwpriv</code>   allow’s you to manipulate the Wireless Extensions specific to a driver (private)</p>
+</li>
+<li><p>Some examples</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iw dev wlan0 scan | egrep &quot;signal:|SSID:&quot; | sed -e &quot;s&#x2F;\tsignal: &#x2F;&#x2F;&quot; -e &quot;s&#x2F;\tSSID: &#x2F;&#x2F;&quot; | awk &#39;&#123;ORS &#x3D; (NR % 2 &#x3D;&#x3D; 0)? &quot;\n&quot; : &quot; &quot;; print&#125;&#39; | sort</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scan | egrep &quot;Cell|ESSID|Signal|Rates&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scan</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iw wlan0 info</span><br></pre></td></tr></table></figure>
+<h3 id="Bootup-power-issues"><a href="#Bootup-power-issues" class="headerlink" title="Bootup/power issues"></a>Bootup/power issues</h3></li>
+<li><p>PiKVM won’t boot past “rainbow” screen</p>
+<ul>
+<li>Are you plugged into the right HDMI port? Needs to be the one next to the power</li>
+<li>Have you reflashed your SD card?</li>
+</ul>
+</li>
+</ul>
+<h3 id="PiKVM-Complains-about-low-power-warnings"><a href="#PiKVM-Complains-about-low-power-warnings" class="headerlink" title="PiKVM Complains about low power warnings"></a>PiKVM Complains about low power warnings</h3><ul>
+<li>Are you using a <code>proper</code> power supply? Not one you hacked together</li>
+<li>Some USB power bricks advertise 5V @ 2.1A or higher, but can’t deliver consistent 5V.  Best to use rpi foundation recommended power supplies</li>
+</ul>
+<h3 id="USB-Video-Capture-Issues"><a href="#USB-Video-Capture-Issues" class="headerlink" title="USB Video Capture Issues"></a>USB Video Capture Issues</h3><ul>
+<li>Make sure this is a capture card and not an adapter (HDMI-&gt;USB)</li>
+</ul>
+<h3 id="HDMI-CSI-Capture-issues"><a href="#HDMI-CSI-Capture-issues" class="headerlink" title="HDMI-CSI Capture issues"></a>HDMI-CSI Capture issues</h3><ul>
+<li>Have you reset the Target PC?</li>
+<li>Are you sure it’s a bridge and not an extender? There is a difference</li>
+<li>Did you make sure it’s plugged into the right port? It needs to say Camera NOT Display</li>
+<li>Did you try another ribbon cable?</li>
+<li>Did you reseat the ribbon cable?</li>
+<li>Is the ribbon cable facing the right way? Needs to be towards the PCB (Green or Black)</li>
+</ul>
+<h3 id="Capturing-video-from-non-HDMI-sources"><a href="#Capturing-video-from-non-HDMI-sources" class="headerlink" title="Capturing video from non HDMI sources"></a>Capturing video from non HDMI sources</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="Keyboard-Mouse-Issues"><a href="#Keyboard-Mouse-Issues" class="headerlink" title="Keyboard/Mouse Issues"></a>Keyboard/Mouse Issues</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="OTG-Keyboard-Mouse-Connection"><a href="#OTG-Keyboard-Mouse-Connection" class="headerlink" title="OTG Keyboard/Mouse Connection"></a>OTG Keyboard/Mouse Connection</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="Arduino-Keyboard-Mouse-Connection-UART-wiring"><a href="#Arduino-Keyboard-Mouse-Connection-UART-wiring" class="headerlink" title="Arduino Keyboard Mouse Connection (UART wiring)"></a>Arduino Keyboard Mouse Connection (UART wiring)</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="Arduino-Keyboard-Mouse-Connection-SPI-Wiring"><a href="#Arduino-Keyboard-Mouse-Connection-SPI-Wiring" class="headerlink" title="Arduino Keyboard/Mouse Connection (SPI Wiring)"></a>Arduino Keyboard/Mouse Connection (SPI Wiring)</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="ATX-Control-Issues"><a href="#ATX-Control-Issues" class="headerlink" title="ATX Control Issues"></a>ATX Control Issues</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="HDMI-KVM-Interface-Issues"><a href="#HDMI-KVM-Interface-Issues" class="headerlink" title="HDMI KVM Interface Issues"></a>HDMI KVM Interface Issues</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="Connection-issues"><a href="#Connection-issues" class="headerlink" title="Connection issues"></a>Connection issues</h3><ul>
+<li>TBD</li>
+</ul>
+<h3 id="Misc-stuff"><a href="#Misc-stuff" class="headerlink" title="Misc stuff"></a>Misc stuff</h3><ul>
+<li><p>Fully working example of a Pi4 USB-HDMI KVM attached to AIMOS 4-port HDMI KVM switch (8 port is on AliExpress), with keyboard hotkey switching between inputs, and mass storage media emulation on a Pi Zero W <a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4">https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4</a></p>
+</li>
+<li><p>Useful scripts that enhance the Pi-KVM’s functionality <code>https://pastebin.com/u/srepac</code></p>
+<h3 id="Useful-links"><a href="#Useful-links" class="headerlink" title="Useful links"></a>Useful links</h3></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.tomshardware.com/how-to/kvm-over-ip-raspberry-pi">https://www.tomshardware.com/how-to/kvm-over-ip-raspberry-pi</a> - Very good article on PI-KVM setup</p>
+</li>
+<li><p>Pi-KVM Power/Data OTG splitter boards</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.pishop.us/product/usb-pwr-splitter/">https://www.pishop.us/product/usb-pwr-splitter/</a> (Look on Tindi for the same thing in the UK)</li>
+<li><a target="_blank" rel="noopener" href="https://www.pishop.us/product/usb-c-pwr-splitter/">https://www.pishop.us/product/usb-c-pwr-splitter/</a> (Look on Tindi for the same thing in the UK)</li>
+</ul>
+</li>
+<li><p>Current 3D cases that support the various Pi-KVM hardware configurations <a target="_blank" rel="noopener" href="https://www.thingiverse.com/search?q=pi-kvm&amp;type=things&amp;sort=relevant">https://www.thingiverse.com/search?q=pi-kvm&amp;type=things&amp;sort=relevant</a></p>
+</li>
+</ul>
+<p>As of March 2021, Out of Stock or hard to get, all have exceptionally LONG shipping dates - Could try AliExpress or get a usb2hdmi dongle from Amazon, please ask or search in Discord for the best known working one</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Ezcoo KVM - Goes out of stock frequently</span><br><span class="line">CSI2-HDMI bridge w&#x2F; TC358743XBG chip - Goes out of stock freqently </span><br><span class="line">Alternative names for the same devices:</span><br><span class="line">Tiamu	  	Sling	    	Yazan	    	Ningwang	Essenc	  	Geekworm</span><br><span class="line">Fauge	  	Haudang	  	AKAT	    	Docoop	    	Katigan	  	Lyusa (recommended by mdevaev)</span><br><span class="line">LNIMI	  	cherrypop	Lopbinte	Uang	      	Tuneway	  	Mustwell</span><br><span class="line">Facibom		Binchil	  	Cobeky	  	Ctzrzyt	    	Davitu	</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Community recommended USB capture <a target="_blank" rel="noopener" href="https://www.amazon.com/gp/product/B08FG54QPH">card</a></li>
+<li>Community recommended Loop device that allows <a target="_blank" rel="noopener" href="https://www.amazon.com/gp/product/B08DQWLXF1">Monitor+PiKVM</a></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/03/02/pikvm/Community_FAQ/" title="Pi-KVM" target="_blank" rel="external">http://example.com/2021/03/02/pikvm/Community_FAQ/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/luxinhua" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/cat.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/luxinhua" target="_blank"><span class="text-dark">xhlu</span><small class="ml-1x">嵌入式开发</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/02/c/c%E8%A7%92%E8%A7%92%E8%90%BD%E8%90%BD/" title="C 的角角落落"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/02/pikvm/flashing_hid/" title="Pi-KVM"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 XinHua Lu
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

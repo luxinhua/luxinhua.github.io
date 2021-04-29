@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Pi-KVM | 嵌入式</title>
+  <meta name="description" content="APIThis document describes the Pi-KVM API. Since the system consists of microservices, here is a common API with a common entry point provided by Nginx. The examples above use curl and websocat with t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pi-KVM">
+<meta property="og:url" content="http://example.com/2021/03/02/pikvm/api/index.html">
+<meta property="og:site_name" content="XINHUALU&#39;S BLOG">
+<meta property="og:description" content="APIThis document describes the Pi-KVM API. Since the system consists of microservices, here is a common API with a common entry point provided by Nginx. The examples above use curl and websocat with t">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-29T03:25:46.477Z">
+<meta property="article:author" content="XinHua Lu">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/03/02/pikvm/api/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/luxinhua" target="_blank">
+          <img class="img-circle img-rotate" src="/images/cat.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xhlu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">嵌入式开发</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>个人站还在更新中 ！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pcie/">Pcie</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.477Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/00_bios_protect_mode_enable_flow/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/06_Biso_interface_update/" class="title">BiosInterFace update 的思路</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Pcie/">Pcie</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/01_PCie_summary/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/dev_utils/01_python_dev_lib_logger/" class="title">HEXO Hacker 主题中文说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T00:00:00.000Z" itemprop="datePublished">2021-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-pikvm/api" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pi-KVM
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/02/pikvm/api/" class="article-date">
+	  <time datetime="2021-03-02T00:00:00.000Z" itemprop="datePublished">2021-03-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Pi-KVM/">Pi-KVM</a>
+  </span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/02/pikvm/api/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>This document describes the Pi-KVM API. Since the system consists of microservices, here is a common API with a common entry point provided by Nginx. The examples above use <code>curl</code> and <a target="_blank" rel="noopener" href="https://github.com/vi/websocat"><code>websocat</code></a> with the <code>-k</code> parameter to disable SSL certificate verification, since the self-signed certificateis used in the default installation.</p>
+<h2 id="Authorization-api-auth"><a href="#Authorization-api-auth" class="headerlink" title="Authorization: /api/auth"></a>Authorization: <code>/api/auth</code></h2><p>All APIs are restricted to authorization. To make requests, you either need to authorize each request individually,<br>or get a token and pass it as a cookie with each request.</p>
+<h3 id="Single-request-auth"><a href="#Single-request-auth" class="headerlink" title="Single request auth"></a>Single request auth</h3><p>There are two options here:</p>
+<ul>
+<li>Using X-headers. Just pass <code>X-KVMD-User</code> and <code>X-KVMD-Passwd</code> with the request:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -k -H X-KVMD-User:admin -H X-KVMD-Passwd:admin https:&#x2F;&#x2F;pikvm&#x2F;api&#x2F;auth&#x2F;check</span><br></pre></td></tr></table></figure></li>
+<li>Using HTTP Basic Auth. Please note: contrary to the standard, this method DOES NOT use the <code>WWW-Authenticate</code> header.<br>HTTP Basic Auth in this implementation is intended only for compatibility with other systems, such as <a href="prometheus.md">Prometheus</a>.  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -k --user admin:admin https:&#x2F;&#x2F;pikvm&#x2F;api&#x2F;auth&#x2F;check</span><br></pre></td></tr></table></figure>
+<h3 id="Session-based-cookie-auth"><a href="#Session-based-cookie-auth" class="headerlink" title="Session-based cookie auth"></a>Session-based cookie auth</h3></li>
+</ul>
+<ol>
+<li>Authorize and get token for the user using <code>POST /api/auth/login</code>: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -k -v -X POST --data user&#x3D;admin --data passwd&#x3D;admin https:&#x2F;&#x2F;pikvm&#x2F;api&#x2F;auth&#x2F;login</span><br><span class="line">...</span><br><span class="line">&lt; Set-Cookie: auth_token&#x3D;796cb83b11de4fcb749bc1bad14a91fb06dede84672b2f847fef1e988e6900de; Path&#x3D;&#x2F;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+ On success the cookie <code>auth_token</code> will be received with <code>200 OK</code>. On invalid user or password you will get <code>403 Forbidden</code>.</li>
+<li>The handle <code>GET /api/auth/check</code> can be used for check the auth status. Return of <code>200 OK</code> will signal that user is authenticated.<br>If the token or any of the single-request auth methods are missing, <code>401 Unauthorized</code> will be returned.<br>In case of incorrect credentials or token, <code>403 Forbidden</code> will be returned.</li>
+<li>The handle <code>POST /api/auth/logout</code> can be used to invalidate session token. The response codes will be similar to the previous handle.</li>
+</ol>
+<h2 id="The-main-web-socket-api-ws"><a href="#The-main-web-socket-api-ws" class="headerlink" title="The main web socket: /api/ws"></a>The main web socket: <code>/api/ws</code></h2><p>Most of the data during the user’s work with pikvm is transmitted over a web socket. This includes mouse events, keyboard input, change the state of the various subsystems (such as ATX and Mass Storage Drive). Each event type will be described in the corresponding paragraph for its component. When connecting via a web socket, the client receives current states as separate events. Then, as the states change, it will receive new events.</p>
+<p>In a normal situation, opening a socket session triggers the video streamer to start. The streamer works as long as there is at least one client connected via a web socket. After the last connection is closed and the client timeout expires, the streamer will also be terminated.</p>
+<p>It is possible create a session that will not start the streamer and will not be counted when counting clients to stop the streamer. To do this, use the URL parameter <code>stream=0</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ websocat -k wss:&#x2F;&#x2F;pikvm&#x2F;api&#x2F;ws?stream&#x3D;0 -H X-KVMD-User:admin -H X-KVMD-Passwd:admin</span><br></pre></td></tr></table></figure>
+<details>
+    <summary>Output with initial events</summary>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;gpio_model_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;scheme&quot;</span>: &#123;<span class="string">&quot;inputs&quot;</span>: &#123;<span class="string">&quot;led1&quot;</span>: &#123;<span class="string">&quot;hw&quot;</span>: &#123;<span class="string">&quot;driver&quot;</span>: <span class="string">&quot;__gpio__&quot;</span>, <span class="string">&quot;pin&quot;</span>: <span class="number">19</span>&#125;&#125;, <span class="string">&quot;led2&quot;</span>: &#123;<span class="string">&quot;hw&quot;</span>: &#123;<span class="string">&quot;driver&quot;</span>: <span class="string">&quot;__gpio__&quot;</span>, <span class="string">&quot;pin&quot;</span>: <span class="number">16</span>&#125;&#125;&#125;, <span class="string">&quot;outputs&quot;</span>: &#123;<span class="string">&quot;button1&quot;</span>: &#123;<span class="string">&quot;switch&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;pulse&quot;</span>: &#123;<span class="string">&quot;delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;min_delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;max_delay&quot;</span>: <span class="number">0.1</span>&#125;, <span class="string">&quot;hw&quot;</span>: &#123;<span class="string">&quot;driver&quot;</span>: <span class="string">&quot;__gpio__&quot;</span>, <span class="string">&quot;pin&quot;</span>: <span class="number">26</span>&#125;&#125;, <span class="string">&quot;button2&quot;</span>: &#123;<span class="string">&quot;switch&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;pulse&quot;</span>: &#123;<span class="string">&quot;delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;min_delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;max_delay&quot;</span>: <span class="number">0.1</span>&#125;, <span class="string">&quot;hw&quot;</span>: &#123;<span class="string">&quot;driver&quot;</span>: <span class="string">&quot;__gpio__&quot;</span>, <span class="string">&quot;pin&quot;</span>: <span class="number">20</span>&#125;&#125;, <span class="string">&quot;relay1&quot;</span>: &#123;<span class="string">&quot;switch&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;pulse&quot;</span>: &#123;<span class="string">&quot;delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;min_delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;max_delay&quot;</span>: <span class="number">0.1</span>&#125;, <span class="string">&quot;hw&quot;</span>: &#123;<span class="string">&quot;driver&quot;</span>: <span class="string">&quot;relay&quot;</span>, <span class="string">&quot;pin&quot;</span>: <span class="number">0</span>&#125;&#125;, <span class="string">&quot;relay2&quot;</span>: &#123;<span class="string">&quot;switch&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;pulse&quot;</span>: &#123;<span class="string">&quot;delay&quot;</span>: <span class="number">2.0</span>, <span class="string">&quot;min_delay&quot;</span>: <span class="number">0.1</span>, <span class="string">&quot;max_delay&quot;</span>: <span class="number">5.0</span>&#125;, <span class="string">&quot;hw&quot;</span>: &#123;<span class="string">&quot;driver&quot;</span>: <span class="string">&quot;relay&quot;</span>, <span class="string">&quot;pin&quot;</span>: <span class="number">1</span>&#125;&#125;&#125;&#125;, <span class="string">&quot;view&quot;</span>: &#123;<span class="string">&quot;header&quot;</span>: &#123;<span class="string">&quot;title&quot;</span>: <span class="string">&quot;Switches&quot;</span>&#125;, <span class="string">&quot;table&quot;</span>: [[&#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;label&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Generic GPIO leds&quot;</span>&#125;], <span class="literal">null</span>, [&#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;label&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Test 1:&quot;</span>&#125;, &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;input&quot;</span>, <span class="string">&quot;channel&quot;</span>: <span class="string">&quot;led1&quot;</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;green&quot;</span>&#125;, &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;output&quot;</span>, <span class="string">&quot;channel&quot;</span>: <span class="string">&quot;button1&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Click&quot;</span>&#125;], [&#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;label&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Test 2:&quot;</span>&#125;, &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;input&quot;</span>, <span class="string">&quot;channel&quot;</span>: <span class="string">&quot;led2&quot;</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;green&quot;</span>&#125;, &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;output&quot;</span>, <span class="string">&quot;channel&quot;</span>: <span class="string">&quot;button2&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Click&quot;</span>&#125;], <span class="literal">null</span>, [&#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;label&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;HID Relays /dev/hidraw0&quot;</span>&#125;], <span class="literal">null</span>, [&#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;label&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Relay #1:&quot;</span>&#125;, &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;output&quot;</span>, <span class="string">&quot;channel&quot;</span>: <span class="string">&quot;relay1&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Boop 0.1&quot;</span>&#125;], [&#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;label&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Relay #2:&quot;</span>&#125;, &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;output&quot;</span>, <span class="string">&quot;channel&quot;</span>: <span class="string">&quot;relay2&quot;</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;Boop 2.0&quot;</span>&#125;]]&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;info_extras_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;vnc&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;VNC&quot;</span>, <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Show VNC information&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;share/svg/vnc.svg&quot;</span>, <span class="string">&quot;path&quot;</span>: <span class="string">&quot;vnc&quot;</span>, <span class="string">&quot;keyboard_cap&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;daemon&quot;</span>: <span class="string">&quot;kvmd-vnc&quot;</span>, <span class="string">&quot;port&quot;</span>: <span class="number">5900</span>, <span class="string">&quot;place&quot;</span>: <span class="number">20</span>, <span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>&#125;, <span class="string">&quot;ipmi&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;IPMI&quot;</span>, <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Show IPMI information&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;share/svg/ipmi.svg&quot;</span>, <span class="string">&quot;path&quot;</span>: <span class="string">&quot;ipmi&quot;</span>, <span class="string">&quot;keyboard_cap&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;daemon&quot;</span>: <span class="string">&quot;kvmd-ipmi&quot;</span>, <span class="string">&quot;port&quot;</span>: <span class="number">623</span>, <span class="string">&quot;place&quot;</span>: <span class="number">21</span>, <span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;info_hw_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;platform&quot;</span>: &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;rpi&quot;</span>, <span class="string">&quot;base&quot;</span>: <span class="string">&quot;Virtual Raspberry Pi&quot;</span>&#125;, <span class="string">&quot;health&quot;</span>: &#123;<span class="string">&quot;temp&quot;</span>: &#123;<span class="string">&quot;cpu&quot;</span>: <span class="number">36.511</span>, <span class="string">&quot;gpu&quot;</span>: <span class="number">35.0</span>&#125;, <span class="string">&quot;throttling&quot;</span>: &#123;<span class="string">&quot;raw_flags&quot;</span>: <span class="number">0</span>, <span class="string">&quot;parsed_flags&quot;</span>: &#123;<span class="string">&quot;undervoltage&quot;</span>: &#123;<span class="string">&quot;now&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;past&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;freq_capped&quot;</span>: &#123;<span class="string">&quot;now&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;past&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;throttled&quot;</span>: &#123;<span class="string">&quot;now&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;past&quot;</span>: <span class="literal">false</span>&#125;&#125;&#125;&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;info_meta_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;server&quot;</span>: &#123;<span class="string">&quot;host&quot;</span>: <span class="string">&quot;localhost.localdomain&quot;</span>&#125;, <span class="string">&quot;kvm&quot;</span>: &#123;&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;info_system_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;kvmd&quot;</span>: &#123;<span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.102&quot;</span>&#125;, <span class="string">&quot;streamer&quot;</span>: &#123;<span class="string">&quot;app&quot;</span>: <span class="string">&quot;ustreamer&quot;</span>, <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.25&quot;</span>, <span class="string">&quot;features&quot;</span>: &#123;<span class="string">&quot;WITH_OMX&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;WITH_GPIO&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;WITH_PTHREAD_NP&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;WITH_SETPROCTITLE&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;HAS_PDEATHSIG&quot;</span>: <span class="literal">true</span>&#125;&#125;, <span class="string">&quot;kernel&quot;</span>: &#123;<span class="string">&quot;system&quot;</span>: <span class="string">&quot;Linux&quot;</span>, <span class="string">&quot;release&quot;</span>: <span class="string">&quot;5.8.10-arch1-1&quot;</span>, <span class="string">&quot;version&quot;</span>: <span class="string">&quot;#1 SMP PREEMPT Thu, 17 Sep 2020 18:01:06 +0000&quot;</span>, <span class="string">&quot;machine&quot;</span>: <span class="string">&quot;x86_64&quot;</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;wol_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;enabled&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;target&quot;</span>: &#123;<span class="string">&quot;ip&quot;</span>: <span class="string">&quot;255.255.255.255&quot;</span>, <span class="string">&quot;port&quot;</span>: <span class="number">9</span>, <span class="string">&quot;mac&quot;</span>: <span class="string">&quot;&quot;</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;gpio_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;inputs&quot;</span>: &#123;<span class="string">&quot;led1&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;state&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;led2&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;state&quot;</span>: <span class="literal">false</span>&#125;&#125;, <span class="string">&quot;outputs&quot;</span>: &#123;<span class="string">&quot;button1&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;state&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;button2&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;state&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;relay1&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;state&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;relay2&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;state&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>&#125;&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;hid_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;keyboard&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;leds&quot;</span>: &#123;<span class="string">&quot;caps&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;scroll&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;num&quot;</span>: <span class="literal">false</span>&#125;&#125;, <span class="string">&quot;mouse&quot;</span>: &#123;<span class="string">&quot;online&quot;</span>: <span class="literal">true</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;atx_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;leds&quot;</span>: &#123;<span class="string">&quot;power&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;hdd&quot;</span>: <span class="literal">false</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;msd_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;online&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;storage&quot;</span>: &#123;<span class="string">&quot;size&quot;</span>: <span class="number">234950152192</span>, <span class="string">&quot;free&quot;</span>: <span class="number">23514271744</span>, <span class="string">&quot;images&quot;</span>: &#123;&#125;, <span class="string">&quot;uploading&quot;</span>: <span class="literal">false</span>&#125;, <span class="string">&quot;drive&quot;</span>: &#123;<span class="string">&quot;image&quot;</span>: <span class="literal">null</span>, <span class="string">&quot;connected&quot;</span>: <span class="literal">false</span>, <span class="string">&quot;cdrom&quot;</span>: <span class="literal">true</span>&#125;, <span class="string">&quot;features&quot;</span>: &#123;<span class="string">&quot;multi&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;cdrom&quot;</span>: <span class="literal">true</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;streamer_state&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;<span class="string">&quot;limits&quot;</span>: &#123;<span class="string">&quot;max_fps&quot;</span>: <span class="number">40</span>&#125;, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;desired_fps&quot;</span>: <span class="number">30</span>, <span class="string">&quot;quality&quot;</span>: <span class="number">80</span>&#125;, <span class="string">&quot;snapshot&quot;</span>: &#123;<span class="string">&quot;saved&quot;</span>: <span class="literal">null</span>&#125;, <span class="string">&quot;streamer&quot;</span>: <span class="literal">null</span>, <span class="string">&quot;features&quot;</span>: &#123;<span class="string">&quot;quality&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;resolution&quot;</span>: <span class="literal">false</span>&#125;&#125;&#125;</span><br><span class="line">&#123;<span class="string">&quot;event_type&quot;</span>: <span class="string">&quot;loop&quot;</span>, <span class="string">&quot;event&quot;</span>: &#123;&#125;&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<p>After connecting the client receives a bundle of states of all KVMD subsystems. After the batch is completed, it sends a <code>loop</code> event, which means that the websocket has entered event loop mode. Now it will send new states and respond to client’s requests.</p>
+<p>Another type of event is <code>ping</code>, which can be sent by the client: <code>&#123;&quot;event_type&quot;: &quot;ping&quot;, &quot;event&quot;: &#123;&#125;&#125;</code>. If the server is running, it will respond with pong: <code>&#123;&quot;event_type&quot;: &quot;pong&quot;, &quot;event&quot;: &#123;&#125;&#125;</code>.</p>
+<h2 id="System-info-api-info"><a href="#System-info-api-info" class="headerlink" title="System info: /api/info"></a>System info: <code>/api/info</code></h2><p>On <code>GET</code> this handle will return general information about the Pi-KVM device. If you specify the <code>fields</code> query parameter, only the requested category will be selected, like <code>fields=system,hw</code>. By default all categories will be displayed:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -k -H X-KVMD-User:admin -H X-KVMD-Passwd:admin http:&#x2F;&#x2F;localhost:8080&#x2F;api&#x2F;info</span><br></pre></td></tr></table></figure>
+<details>
+    <summary>Example</summary>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;ok&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;result&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;extras&quot;</span>: &#123; <span class="comment">// Installed applications; null on internal error</span></span><br><span class="line">            <span class="string">&quot;ipmi&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;daemon&quot;</span>: <span class="string">&quot;kvmd-ipmi&quot;</span>,</span><br><span class="line">                <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Show IPMI information&quot;</span>,</span><br><span class="line">                <span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;share/svg/ipmi.svg&quot;</span>,</span><br><span class="line">                <span class="string">&quot;keyboard_cap&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;IPMI&quot;</span>,</span><br><span class="line">                <span class="string">&quot;path&quot;</span>: <span class="string">&quot;ipmi&quot;</span>,</span><br><span class="line">                <span class="string">&quot;place&quot;</span>: <span class="number">21</span>,</span><br><span class="line">                <span class="string">&quot;port&quot;</span>: <span class="number">623</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;vnc&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;daemon&quot;</span>: <span class="string">&quot;kvmd-vnc&quot;</span>,</span><br><span class="line">                <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Show VNC information&quot;</span>,</span><br><span class="line">                <span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;share/svg/vnc.svg&quot;</span>,</span><br><span class="line">                <span class="string">&quot;keyboard_cap&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;VNC&quot;</span>,</span><br><span class="line">                <span class="string">&quot;path&quot;</span>: <span class="string">&quot;vnc&quot;</span>,</span><br><span class="line">                <span class="string">&quot;place&quot;</span>: <span class="number">20</span>,</span><br><span class="line">                <span class="string">&quot;port&quot;</span>: <span class="number">5900</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;hw&quot;</span>: &#123; <span class="comment">// Hardware info</span></span><br><span class="line">            <span class="string">&quot;health&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;temp&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;cpu&quot;</span>: <span class="number">36.511</span>, <span class="comment">// /sys/class/thermal/thermal_zone0/temp / 1000; null on error</span></span><br><span class="line">                    <span class="string">&quot;gpu&quot;</span>: <span class="number">35.0</span>    <span class="comment">// vcgencmd measure_temp; null on error</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;throttling&quot;</span>: &#123; <span class="comment">// vcgencmd get_throttled; null on error</span></span><br><span class="line">                    <span class="string">&quot;parsed_flags&quot;</span>: &#123;</span><br><span class="line">                        <span class="string">&quot;freq_capped&quot;</span>: &#123;</span><br><span class="line">                            <span class="string">&quot;now&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                            <span class="string">&quot;past&quot;</span>: <span class="literal">false</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="string">&quot;throttled&quot;</span>: &#123;</span><br><span class="line">                            <span class="string">&quot;now&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                            <span class="string">&quot;past&quot;</span>: <span class="literal">false</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="string">&quot;undervoltage&quot;</span>: &#123;</span><br><span class="line">                            <span class="string">&quot;now&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                            <span class="string">&quot;past&quot;</span>: <span class="literal">false</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="string">&quot;raw_flags&quot;</span>: <span class="number">0</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;platform&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;base&quot;</span>: <span class="string">&quot;Raspberry Pi 4 Model B Rev 1.1&quot;</span>, <span class="comment">// /proc/device-tree/model; null on error</span></span><br><span class="line">                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;rpi&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;meta&quot;</span>: &#123;  <span class="comment">// /etc/kvmd/meta.yaml; null on error</span></span><br><span class="line">            <span class="string">&quot;kvm&quot;</span>: &#123;&#125;,</span><br><span class="line">            <span class="string">&quot;server&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;host&quot;</span>: <span class="string">&quot;localhost.localdomain&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;system&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;kernel&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;machine&quot;</span>: <span class="string">&quot;x86_64&quot;</span>,</span><br><span class="line">                <span class="string">&quot;release&quot;</span>: <span class="string">&quot;5.8.14-arch1-1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;system&quot;</span>: <span class="string">&quot;Linux&quot;</span>,</span><br><span class="line">                <span class="string">&quot;version&quot;</span>: <span class="string">&quot;#1 SMP PREEMPT Wed, 07 Oct 2020 23:59:46 +0000&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;kvmd&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;version&quot;</span>: <span class="string">&quot;2.1&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;streamer&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;app&quot;</span>: <span class="string">&quot;ustreamer&quot;</span>,</span><br><span class="line">                <span class="string">&quot;features&quot;</span>: &#123; <span class="comment">// &#123;&#125; on error</span></span><br><span class="line">                    <span class="string">&quot;HAS_PDEATHSIG&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">                    <span class="string">&quot;WITH_GPIO&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                    <span class="string">&quot;WITH_OMX&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">                    <span class="string">&quot;WITH_PTHREAD_NP&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">                    <span class="string">&quot;WITH_SETPROCTITLE&quot;</span>: <span class="literal">true</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;version&quot;</span>: <span class="string">&quot;2.1&quot;</span> <span class="comment">// &quot;&quot; on error</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<p>Each category is represented by its own event in the websocket (<code>info_hw_state</code>, <code>info_system_state</code>, etc). The event content has the same format as the category content in API.</p>
+<h2 id="System-log-api-log"><a href="#System-log-api-log" class="headerlink" title="System log: /api/log"></a>System log: <code>/api/log</code></h2><p>On <code>GET</code> this handle will display messages from all KVMD services as plain text. The <code>follow=1</code> request parameter turns the request into an infinite one and you will receive new log messages in real time. The seek parameter runs the log for the specified time in seconds. For example, <code>seek=3600</code> will show the log for the last hour. Both the <code>seek</code> and <code>follow</code> parameters can be used together.</p>
+<h2 id="Get-ATX-state-api-atx"><a href="#Get-ATX-state-api-atx" class="headerlink" title="Get ATX state: /api/atx"></a>Get ATX state: <code>/api/atx</code></h2><p>On <code>GET</code> it will show current ATX state.</p>
+<details>
+    <summary>Example</summary>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;ok&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;result&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;busy&quot;</span>: <span class="literal">false</span>, <span class="comment">// True if ATX is busy performing an operation and does not accept commands</span></span><br><span class="line">        <span class="string">&quot;enabled&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">&quot;leds&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;hdd&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;power&quot;</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="Set-ATX-PSU-state-api-atx-power"><a href="#Set-ATX-PSU-state-api-atx-power" class="headerlink" title="Set ATX PSU state: /api/atx/power"></a>Set ATX PSU state: <code>/api/atx/power</code></h2><p>On <code>POST</code> it will change ATX power supply state to desired.<br>Parameters:</p>
+<ul>
+<li><code>action</code> describes desired state:<ul>
+<li><code>on</code> - turned on (do nothing in case PSU is already on);</li>
+<li><code>off</code> - turned off (aka soft-off), emulates short-press on the power button;</li>
+<li><code>off_hard</code> - emulates long (5+ seconds) press on the power button;</li>
+<li><code>reset_hard</code>  emulates pressing reset button (hardware hot reset).</li>
+</ul>
+</li>
+<li><code>wait</code> - boolean. Says if call should return immediately or just after finishing operation.</li>
+</ul>
+<h2 id="Emulate-pressing-buttons-on-computer-case-api-atx-click"><a href="#Emulate-pressing-buttons-on-computer-case-api-atx-click" class="headerlink" title="Emulate pressing buttons on computer case: /api/atx/click"></a>Emulate pressing buttons on computer case: <code>/api/atx/click</code></h2><p>On <code>POST</code> send button press events to {front-}panel header (like you pressing buttins on your computer’s case).<br>Parameters:</p>
+<ul>
+<li><code>button</code> specifies the desired computer case button you would like to press. Currently supported options are: <code>power</code> — for short press on power button, <code>power_long</code> — for pressing POWER button for 4+ seconds (force OFF), <code>reset</code> — to initiate cold-reset</li>
+<li><code>wait</code> Boolean. Says if call should return immediately or just after finishing operation.</li>
+</ul>
+<h1 id="To-be-continued-gt"><a href="#To-be-continued-gt" class="headerlink" title="To be continued ===&gt;"></a>To be continued ===&gt;</h1><p>Unfortunately, the developer doesn’t have enough time to fully describe the API. You can find all existing APIs in the <a target="_blank" rel="noopener" href="https://github.com/pikvm/kvmd/tree/master/kvmd/apps/kvmd/api">KVMD source tree</a>. We would appreciate your help with documentation.</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/03/02/pikvm/api/" title="Pi-KVM" target="_blank" rel="external">http://example.com/2021/03/02/pikvm/api/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/luxinhua" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/cat.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/luxinhua" target="_blank"><span class="text-dark">xhlu</span><small class="ml-1x">嵌入式开发</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/02/pikvm/flashing_hid/" title="Pi-KVM"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/02/pikvm/arduino_hid/" title="Pi-KVM"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 XinHua Lu
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

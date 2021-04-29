@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Pi-KVM | 嵌入式</title>
+  <meta name="description" content="FAQ &amp; TroubleshootingAs a first step, we recommend carefully reading our documentation on GitHub. Most steps to successfully set up your Pi-KVM are already described there. If you run into any iss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pi-KVM">
+<meta property="og:url" content="http://example.com/2021/03/02/pikvm/faq/index.html">
+<meta property="og:site_name" content="XINHUALU&#39;S BLOG">
+<meta property="og:description" content="FAQ &amp; TroubleshootingAs a first step, we recommend carefully reading our documentation on GitHub. Most steps to successfully set up your Pi-KVM are already described there. If you run into any iss">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/03/02/pikvm/img/bios_glitch.png">
+<meta property="og:image" content="http://example.com/2021/03/02/pikvm/img/chrome.png">
+<meta property="article:published_time" content="2021-03-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-29T03:25:46.477Z">
+<meta property="article:author" content="XinHua Lu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/03/02/pikvm/img/bios_glitch.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/03/02/pikvm/faq/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/luxinhua" target="_blank">
+          <img class="img-circle img-rotate" src="/images/cat.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">xhlu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">嵌入式开发</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>个人站还在更新中 ！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pcie/">Pcie</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.477Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/00_bios_protect_mode_enable_flow/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/06_Biso_interface_update/" class="title">BiosInterFace update 的思路</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Pcie/">Pcie</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/29/bios/01_PCie_summary/" class="title">BIOS protect mode 总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-29T03:25:46.473Z" itemprop="datePublished">2021-04-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/dev_utils/01_python_dev_lib_logger/" class="title">HEXO Hacker 主题中文说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T00:00:00.000Z" itemprop="datePublished">2021-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-pikvm/faq" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pi-KVM
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/02/pikvm/faq/" class="article-date">
+	  <time datetime="2021-03-02T00:00:00.000Z" itemprop="datePublished">2021-03-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Pi-KVM/">Pi-KVM</a>
+  </span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/02/pikvm/faq/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="FAQ-amp-Troubleshooting"><a href="#FAQ-amp-Troubleshooting" class="headerlink" title="FAQ &amp; Troubleshooting"></a>FAQ &amp; Troubleshooting</h1><p>As a first step, we recommend carefully reading our documentation on <a target="_blank" rel="noopener" href="https://github.com/pikvm/pikvm">GitHub</a>. Most steps to successfully set up your Pi-KVM are already described there. If you run into any issues you can check this page which will list common errors. If that still doesn’t help you you’re welcome to raise an <a target="_blank" rel="noopener" href="https://github.com/pikvm/pikvm/issues">issue ticket</a> or <a target="_blank" rel="noopener" href="https://discord.gg/bpmXfz5">join our Discord</a> for further help.</p>
+<hr>
+<h1 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h1><ul>
+<li><a href="#common-questions">Common questions</a></li>
+<li><a href="#first-steps">First steps</a></li>
+<li><a href="#video-problems">Video problems</a></li>
+<li><a href="#usb-problems-keyboard-mouse-mass-storage-etc">USB problems (keyboard, mouse, mass storage)</a></li>
+<li><a href="#web-ui-problems">Web UI problems</a></li>
+<li><a href="#hardware-problems-wi-fi-atx-etc">Hardware problems (Wi-Fi, ATX, etc)</a></li>
+</ul>
+<hr>
+<h1 id="Common-questions"><a href="#Common-questions" class="headerlink" title="Common questions"></a>Common questions</h1><h3 id="Can-I-connect-multiple-servers-to-a-single-Pi-KVM"><a href="#Can-I-connect-multiple-servers-to-a-single-Pi-KVM" class="headerlink" title="Can I connect multiple servers to a single Pi-KVM?"></a>Can I connect multiple servers to a single Pi-KVM?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Yes, but it will require additional work to set up. See <a href="multiport.md">this page</a>.</details>
+
+</li>
+</ul>
+<h3 id="How-can-I-get-the-access-to-Pi-KVM-in-my-local-network-over-Internet"><a href="#How-can-I-get-the-access-to-Pi-KVM-in-my-local-network-over-Internet" class="headerlink" title="How can I get the access to Pi-KVM in my local network over Internet?"></a>How can I get the access to Pi-KVM in my local network over Internet?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>You can use port forwarding for port 443 on your router if it has an external IP address. In all other cases, you can use the excellent free VPN service <a href="tailscale.md">Tailscale</a>, which is configured on Pi-KVM with a <a href="tailscale.md">few simple commands</a>.</details>
+
+</li>
+</ul>
+<h3 id="Can-I-use-Pi-KVM-with-non-Raspberry-boards-Orange-Nano-etc"><a href="#Can-I-use-Pi-KVM-with-non-Raspberry-boards-Orange-Nano-etc" class="headerlink" title="Can I use Pi-KVM with non-Raspberry boards (Orange, Nano, etc)?"></a>Can I use Pi-KVM with non-Raspberry boards (Orange, Nano, etc)?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Yes, but you will have to prepare the operating system yourself. As for the Pi-KVM software, you will need to replace some config files (such as UDEV rules). If you are a developer or an experienced system administrator, you will not have any problems with this. In addition, we are open to patches. If you need help with this, please contact us via <a target="_blank" rel="noopener" href="https://discord.gg/bpmXfz5">Discord</a>.</details>
+
+</li>
+</ul>
+<hr>
+<h1 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h1><h3 id="What-is-the-default-password-How-do-I-change-it"><a href="#What-is-the-default-password-How-do-I-change-it" class="headerlink" title="What is the default password? How do I change it?"></a>What is the default password? How do I change it?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>There are two types of accounts: OS and Pi-KVM (web interface) accounts. The system account <code>root</code> can be used for SSH/UART access and has the password <code>root</code>. The web interface account is called <code>admin</code> and has the password <code>admin</code>. The Pi-KVM account cannot be used for SSH access and vice versa.</p>
+<p>To change passwords, use the following commands (under root):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su -  <span class="comment"># If you&#x27;re in the webterm</span></span><br><span class="line">rw  <span class="comment"># Switch filesystem to read-write mode</span></span><br><span class="line">passwd root  <span class="comment"># Change OS root password</span></span><br><span class="line">kvmd-htpasswd <span class="built_in">set</span> admin  <span class="comment"># Change web ui admin password</span></span><br><span class="line">ro  <span class="comment"># Back to read-only</span></span><br></pre></td></tr></table></figure>
+</details>
+
+</li>
+</ul>
+<h3 id="How-do-I-get-root-access-in-the-web-terminal"><a href="#How-do-I-get-root-access-in-the-web-terminal" class="headerlink" title="How do I get root access in the web terminal?"></a>How do I get root access in the web terminal?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>The web terminal works with the account <code>kvmd-webterm</code>. This is a regular user with no administrator privileges and. In addition, <code>sudo</code> and login are disabled for this user for security reasons. To get <code>root</code> access, you need to use the <code>su -</code> command (minus is important) and <strong>enter the root password</strong>.</details>
+
+</li>
+</ul>
+<h3 id="Where-is-the-Pi-KVM-configuration-located"><a href="#Where-is-the-Pi-KVM-configuration-located" class="headerlink" title="Where is the Pi-KVM configuration located?"></a>Where is the Pi-KVM configuration located?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>Almost all KVMD (the main daemon controlling Pi-KVM) configuration files located in <code>/etc/kvmd</code>. You can also find nginx configs and SSL certificates there. KVMD configs use <a href="config.md">YAML</a> syntax. The specific platform parameters can be found in the file <code>/etc/kvmd/main.yaml</code> and <strong>you should never edit it</strong>. Use <code>/etc/kvmd/override.yaml</code> to redefine the system parameters.</p>
+<p>Another files that are also not recommended for editing have read-only permissions. If you edit any of these files, you will need to manually make changes to them when you upgrade your system. You can view the current configuration and all available KVMD parameters using the command <code>kvmd -m</code>.</p>
+</details>
+
+</li>
+</ul>
+<h3 id="I-can’t-edit-any-file-on-Pi-KVM-Why-is-the-system-in-read-only-mode"><a href="#I-can’t-edit-any-file-on-Pi-KVM-Why-is-the-system-in-read-only-mode" class="headerlink" title="I can’t edit any file on Pi-KVM. Why is the system in read-only mode?"></a>I can’t edit any file on Pi-KVM. Why is the system in read-only mode?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>The Pi-KVM file system is always mounted in read-only mode. This measure prevents it from being damaged by a sudden power outage. To change the configuration you must first switch the filesystem to write mode using the command <code>rw</code> from root. After the changes, be sure to run the command <code>ro</code> to switch it back to read-only.</details>
+
+</li>
+</ul>
+<h3 id="How-do-I-update-Pi-KVM-with-the-latest-software"><a href="#How-do-I-update-Pi-KVM-with-the-latest-software" class="headerlink" title="How do I update Pi-KVM with the latest software?"></a>How do I update Pi-KVM with the latest software?</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>Pi-KVM OS is based on Arch Linux ARM and is fully updated from the repository by a regular package manager. Connect to your Pi-KVM via ssh and run:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rw</span><br><span class="line">pacman -Syu</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>:exclamation: Pacman saves all installed packages in a compressed format so that you can roll back to the old version if something goes wrong. After you’ve updated and made sure everything works, it makes sense to clear the package cache so that it doesn’t take up space on the SD card: <code>rw; rm -rf /var/cache/pacman/pkg; ro</code>.</p>
+</details>
+
+</li>
+</ul>
+<hr>
+<h1 id="Video-problems"><a href="#Video-problems" class="headerlink" title="Video problems"></a>Video problems</h1><h3 id="Pi-KVM-does-not-show-the-video-from-the-computer-at-all"><a href="#Pi-KVM-does-not-show-the-video-from-the-computer-at-all" class="headerlink" title="Pi-KVM does not show the video from the computer at all"></a>Pi-KVM does not show the video from the computer at all</h3><details>
+  <summary>Click to view</summary>
+  
+* Double-check that the video capture device is connected correctly. For the [CSI bridge](/README.md#for-the-hdmi-csi-bridge), this should be exactly the camera port, for the [USB dongle](/README.md#for-the-hdmi-usb-dongle), strictly the port indicated in the picture.
+* Some laptops do not output any signal until you switched the output (usually via the FN + and an F5 key on the keyboard).
+* Your computer may have turned on sleep mode for the monitor. Move the mouse and turn it off.
+</details>
+
+<h3 id="The-video-works-in-the-booted-OS-but-not-in-the-BIOS-UEFI"><a href="#The-video-works-in-the-booted-OS-but-not-in-the-BIOS-UEFI" class="headerlink" title="The video works in the booted OS, but not in the BIOS/UEFI"></a>The video works in the booted OS, but not in the BIOS/UEFI</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>The problem appears on Intel NUC, GA-H77-DS3H, and some other devices with using CSI bridge. All you need to do is <a href="edid.md">change the EDID data</a>. This is the information about supported resolutions that the CSI bridge reports to your computer.</details>
+
+</li>
+</ul>
+<h3 id="Glitchy-or-wrong-BIOS-UEFI-resolution"><a href="#Glitchy-or-wrong-BIOS-UEFI-resolution" class="headerlink" title="Glitchy or wrong BIOS/UEFI resolution"></a>Glitchy or wrong BIOS/UEFI resolution</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>On some motherboards, the BIOS may be displayed at a lower resolution, or with some rendering issues/glitches, specially on newer ASUS ones. Like this:</p>
+<img src="../img/bios_glitch.png" alt="ASUS BIOS glitch" width="400"/>
+
+<p>This can be solved by enabling the <strong>Compatibility Support Module (CSM)</strong> in your BIOS, usually under the <strong>Boot</strong> options.</p>
+<p>If you can’t or don’t want to enable the CSM, you can try connecting a DisplayPort monitor, or a <a target="_blank" rel="noopener" href="http://amazon.com/s?k=displayport+dummy+plug">dummy plug</a>. If you remove the DP cable/adapter the bug will reappear.</p>
+<p>If none of this works, try connecting the DP cable first, boot into the BIOS, disable the CSM and shutdown (do not restart) your PC. Then, boot into the BIOS and enable the CSM before shutting down your PC. Then connect the HDMI and turn your PC on again.</p>
+</details>
+
+</li>
+</ul>
+<h3 id="CSI-bridge-does-not-work-with-official-Raspberry-Pi-PoE-HAT"><a href="#CSI-bridge-does-not-work-with-official-Raspberry-Pi-PoE-HAT" class="headerlink" title="CSI bridge does not work with official Raspberry Pi PoE HAT"></a>CSI bridge does not work with official Raspberry Pi PoE HAT</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Details <a target="_blank" rel="noopener" href="https://github.com/pikvm/pikvm/issues/6">here</a>. The reason is that the <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/products/poe-hat">official HAT</a> has a built-in fan controller that conflicts with the TC358743 chip of the bridge. The solution is to disable the fan control and connect it to the power line so that it works continuously. To turn off the controller you need to add the line <code>disable_poe_fan=1</code> to <code>/boot/config.txt</code>.</details>
+
+</li>
+</ul>
+<h3 id="The-video-freezes-a-few-seconds-after-the-start-restarting-the-Web-UI-or-VNC-does-not-help"><a href="#The-video-freezes-a-few-seconds-after-the-start-restarting-the-Web-UI-or-VNC-does-not-help" class="headerlink" title="The video freezes a few seconds after the start, restarting the Web UI or VNC does not help"></a>The video freezes a few seconds after the start, restarting the Web UI or VNC does not help</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>The story is <a target="_blank" rel="noopener" href="https://github.com/raspberrypi/firmware/issues/1562">here</a>. Very-very rarely, Raspberry boards can have a hardware defect that causes some of the chip blocks to be unstable under normal power. The solution is to slightly increase the power supply, as in overclocking. Add <code>over_voltage=1</code> (or <code>over_voltage=2</code> if previous doesn’t help) to <code>/boot/config.txt</code> and perform <code>reboot</code>.</p>
+<p>To make sure that you are facing this particular problem, first perform a diagnostic:</p>
+<ul>
+<li>Boot the Pi-KVM without the specified options.</li>
+<li>Open Web-UI and wait for freezing.</li>
+<li>Click <strong>System -&gt; Reset Stream</strong>.</li>
+<li>Click <strong>System -&gt; Open log</strong> and make sure that the log contains messages like <code>H264: Can&#39;t wait for the VCOS semaphore</code>.</li>
+<li>Make sure that the last message from ustreamer was <code>H264: Configuring MMAL encoder</code> (not counting messages about connecting and disconnecting stream clients).</details>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="No-image-from-computer-with-Linux-Awesome-WM"><a href="#No-image-from-computer-with-Linux-Awesome-WM" class="headerlink" title="No image from computer with Linux + Awesome WM"></a>No image from computer with Linux + Awesome WM</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Sometimes Awesome WM on Linux can’t recognize a video output change on a cable. That is, if the cable was first inserted into the monitor, and then you reconnected it to Pi-KVM - it may happen that you will not see the image. It seems that the problem is Awesome WM, since for example with KDE, it is not reproducable. If you turn on your workstation with Pi-KVM already connected, everything will work fine.</details>
+
+</li>
+</ul>
+<hr>
+<h1 id="USB-problems-keyboard-mouse-mass-storage-etc"><a href="#USB-problems-keyboard-mouse-mass-storage-etc" class="headerlink" title="USB problems (keyboard, mouse, mass storage, etc)"></a>USB problems (keyboard, mouse, mass storage, etc)</h1><h3 id="My-computer-does-not-recognize-USB-of-Pi-KVM-v2-at-all"><a href="#My-computer-does-not-recognize-USB-of-Pi-KVM-v2-at-all" class="headerlink" title="My computer does not recognize USB of Pi-KVM v2+ at all"></a>My computer does not recognize USB of Pi-KVM v2+ at all</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Make sure that you have used the correct USB cable with DATA lines to connect the OTG port for the Raspberry to the computer. You may have decided to use a USB hub instead of a Y-cable and <strong>it won’t work</strong>. Use good cables and follow the instructions :)</li>
+<li>In very rare cases, some motherboards contain a buggy BIOS that does not understand the composite USB device because BIOS doesn’t implement the USB stack correctly. In this case, we can suggest the <a href="arduino_hid.md">Arduino HID emulator</a> from v0 platform with v2.</details>
+
+</li>
+</ul>
+<h3 id="BIOS-UEFI-does-not-recognize-USB-of-v2-but-computer-does"><a href="#BIOS-UEFI-does-not-recognize-USB-of-v2-but-computer-does" class="headerlink" title="BIOS/UEFI does not recognize USB of v2+, but computer does"></a>BIOS/UEFI does not recognize USB of v2+, but computer does</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>If you are using a USB hub or USB PCI controller, this may not be handled by your BIOS. Try to use another USB port. Some ports may have a built-in hub on the motherboard and a buggy BIOS that can’t handle it.</details>
+
+</li>
+</ul>
+<h3 id="The-keyboard-works-in-BIOS-UEFI-but-the-mouse-does-not"><a href="#The-keyboard-works-in-BIOS-UEFI-but-the-mouse-does-not" class="headerlink" title="The keyboard works in BIOS/UEFI, but the mouse does not"></a>The keyboard works in BIOS/UEFI, but the mouse does not</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>The BIOS does not support absolute mouse mode, which is preferred by Pi-KVM. In this case, <a href="mouse.md">you can enable relative positioning mode</a>.</details>
+
+</li>
+</ul>
+<h3 id="Mass-storage-drive-working-I-can-boot-an-image-from-Pi-KVM-v2-but-keyboard-mouse-does-not"><a href="#Mass-storage-drive-working-I-can-boot-an-image-from-Pi-KVM-v2-but-keyboard-mouse-does-not" class="headerlink" title="Mass storage drive working (I can boot an image from Pi-KVM v2+), but keyboard/mouse does not"></a>Mass storage drive working (I can boot an image from Pi-KVM v2+), but keyboard/mouse does not</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>In very rare cases, some motherboards contain a buggy BIOS that does not understand the composite USB device because BIOS doesn’t implement the USB stack correctly. In this case, we can suggest the <a href="arduino_hid.md">Arduino HID emulator</a> from v0 platform with v2+. Thus the Pi-KVM will be connected by two USB cables to the motherboard: one of them will be responsible for the keyboard and mouse, the other for everything else.</details>
+
+</li>
+</ul>
+<h3 id="I-can’t-get-into-UEFI-FileVault-when-booting-my-Mac-using-Pi-KVM-v2"><a href="#I-can’t-get-into-UEFI-FileVault-when-booting-my-Mac-using-Pi-KVM-v2" class="headerlink" title="I can’t get into UEFI/FileVault when booting my Mac using Pi-KVM v2+"></a>I can’t get into UEFI/FileVault when booting my Mac using Pi-KVM v2+</h3><details>
+  <summary>Click to view</summary>
+  
+* The problem is specific to early-model Macs and does not occur on ARM-based Macs (Apple M1 or so). UEFI does not initialize the keyboard of the composite device during boot, however, if you use the standard keyboard to get to the UEFI/FileVault menu, you will see that the keyboard, mouse, and mass storage will work fine. In this case, we can suggest the [Arduino HID emulator](arduino_hid.md) from v0 platform with v2+. Thus, the Pi-KVM will be connected by two USB cables to the Mac: one of them will be responsible for the keyboard and mouse, the other for everything else.
+</details>
+
+<h3 id="Big-mouse-latency-on-another-Raspberry-as-managed-server"><a href="#Big-mouse-latency-on-another-Raspberry-as-managed-server" class="headerlink" title="Big mouse latency on another Raspberry as managed server"></a>Big mouse latency on another Raspberry as managed server</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Unusual case: RPi4 is used as a Pi-KVM to control RPi3. In this case, the mouse delay may be several seconds. To fix it, just add line <code>usbhid.mousepoll=0</code> to <code>/boot/config.txt</code> to the server (i.e. RPI3 in our case) and reboot it.</details>
+
+</li>
+</ul>
+<hr>
+<h1 id="Web-UI-problems"><a href="#Web-UI-problems" class="headerlink" title="Web UI problems"></a>Web UI problems</h1><h3 id="Chrome-Certificate-Issue"><a href="#Chrome-Certificate-Issue" class="headerlink" title="Chrome Certificate Issue"></a>Chrome Certificate Issue</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>The latest versions of Chrome do not allow access to the page with a self signed certificate, so if you see the following screen when loading the pi-kvm website:</p>
+<img src="../img/chrome.png" alt="Chrome Blocking" width="400"/>
+</li>
+<li><p>You can proceed by typing <code>thisisunsafe</code> and Chrome will then load the page.</p>
+</details>
+
+</li>
+</ul>
+<h3 id="Pressing-ESC-in-full-screen-mode-causes-this-to-close"><a href="#Pressing-ESC-in-full-screen-mode-causes-this-to-close" class="headerlink" title="Pressing ESC in full screen mode causes this to close"></a>Pressing ESC in full screen mode causes this to close</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Your browser does not support <a target="_blank" rel="noopener" href="https://caniuse.com/mdn-api_keyboard_lock">keyboard lock</a>. Right now, only Chrome implements this.</details>
+
+</li>
+</ul>
+<h3 id="I-can’t-use-this-on-iOS-the-Web-UI-network-indicator-flashes-yellow"><a href="#I-can’t-use-this-on-iOS-the-Web-UI-network-indicator-flashes-yellow" class="headerlink" title="I can’t use this on iOS: the Web UI network indicator flashes yellow"></a>I can’t use this on iOS: the Web UI network indicator flashes yellow</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li><p>Safari on iOS contains an old bug that prevents a web application from connecting over a web socket if you use a self-signed certificate on the server (the default for Pi-KVM). There are two solutions:</p>
+<ul>
+<li><p>Install a valid SSL certificate for Pi-KVM host to <code>/etc/kvmd/nginx/ssl</code>.</p>
+</li>
+<li><p>Disable HTTPS at all in <code>/etc/kvmd/nginx/nginx.conf</code>. To do this, comment some lines <a target="_blank" rel="noopener" href="https://github.com/pikvm/kvmd/blob/master/configs/nginx/nginx.conf#L39">like in this file</a> and restart web server: <code>systemctl restart kvmd-nginx</code>.</p>
+<p>:exclamation: Don’t do this for insecure networks or the Internet. Your passwords and what you type on the keyboard will be transmitted in unencrypted form.</p>
+</details>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="The-Web-UI-doesn’t-work-properly-in-Firefox-while-it-works-fine-in-Chrome"><a href="#The-Web-UI-doesn’t-work-properly-in-Firefox-while-it-works-fine-in-Chrome" class="headerlink" title="The Web UI doesn’t work properly in Firefox while it works fine in Chrome"></a>The Web UI doesn’t work properly in Firefox while it works fine in Chrome</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>This might be related to your specific hardware combination or browser hardware acceleration. Try <a target="_blank" rel="noopener" href="https://support.mozilla.org/en-US/kb/hardware-acceleration-and-windowblinds-crash">disabling hardware acceleration in Firefox</a> or updating your GPU and chipset drivers.</details>
+
+</li>
+</ul>
+<h3 id="Unexpected-interruption-while-loading-the-image-for-Mass-storage-drive"><a href="#Unexpected-interruption-while-loading-the-image-for-Mass-storage-drive" class="headerlink" title="Unexpected interruption while loading the image for Mass storage drive"></a>Unexpected interruption while loading the image for Mass storage drive</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>If problems occur when uploading even a small disk image it may be due to unstable network operation or antivirus software. It is well known that Kaspersky antivirus cuts off Pi-KVM connections during uploading, so you should add the Pi-KVM website to Kaspersky’s list of exceptions or not filter web requests with the antivirus. Antivirus programs can also affect the performance of certain interface elements, for example the quality slider. For Kaspersky, the steps to add the network address of Pi-KVM’s website to the exclusion list is: <strong>Protection -&gt; Private browsing -&gt; Categories and exclusions -&gt; Exclusions</strong>.</details>
+
+</li>
+</ul>
+<h3 id="I-can’t-copy-clipboard-contents-from-the-server-the-machine-controlled-via-Pi-KVM-to-the-client"><a href="#I-can’t-copy-clipboard-contents-from-the-server-the-machine-controlled-via-Pi-KVM-to-the-client" class="headerlink" title="I can’t copy clipboard contents from the server (the machine controlled via Pi-KVM) to the client"></a>I can’t copy clipboard contents from the server (the machine controlled via Pi-KVM) to the client</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>The clipboard only works from the client to the server not vice versa. There is currently no way to do it.</details>
+
+</li>
+</ul>
+<hr>
+<h1 id="Hardware-problems-Wi-Fi-ATX-etc"><a href="#Hardware-problems-Wi-Fi-ATX-etc" class="headerlink" title="Hardware problems (Wi-Fi, ATX, etc)"></a>Hardware problems (Wi-Fi, ATX, etc)</h1><h3 id="No-Wi-Fi-on-Raspberry-Pi-Zero-W"><a href="#No-Wi-Fi-on-Raspberry-Pi-Zero-W" class="headerlink" title="No Wi-Fi on Raspberry Pi Zero W"></a>No Wi-Fi on Raspberry Pi Zero W</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Some Zeros contain a defective Wi-Fi chip. You can either return the device to the store, or try the <a target="_blank" rel="noopener" href="https://github.com/pikvm/pikvm/issues/137">software workaround</a>.</details>
+
+</li>
+</ul>
+<h3 id="LEDs-Switches-does-not-work-in-ATX-control"><a href="#LEDs-Switches-does-not-work-in-ATX-control" class="headerlink" title="LEDs/Switches does not work in ATX control"></a>LEDs/Switches does not work in ATX control</h3><details>
+  <summary>Click to view</summary>
+
+<ul>
+<li>Double check your wiring as per <a href="/README.md#setting-up-the-v2">the documentation</a>. Make sure you placed the relays (G3VM-61A1) in the correct orientation. The relays for switches (Power, Reset) have a different orientation than the ones for LEDs.</details>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/03/02/pikvm/faq/" title="Pi-KVM" target="_blank" rel="external">http://example.com/2021/03/02/pikvm/faq/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/luxinhua" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/cat.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/luxinhua" target="_blank"><span class="text-dark">xhlu</span><small class="ml-1x">嵌入式开发</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/02/pikvm/ezcoo/" title="Pi-KVM"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/02/pikvm/flashing_os/" title="Pi-KVM"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 XinHua Lu
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
