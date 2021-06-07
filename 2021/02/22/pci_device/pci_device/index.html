@@ -17,17 +17,17 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>PCI 设备访问 | 嵌入式</title>
-  <meta name="description" content="win 10 列出PCI设备 1wmic path win32_pnpentity where &quot;deviceid like &amp;#x27;%PCI%&amp;#x27;&quot; get name,deviceid">
+  <title>PCI 设备 | 嵌入式</title>
+  <meta name="description" content="win 10 列出PCI设备 1wmic path win32_pnpentity where &quot;deviceid like &amp;#x27;%PCI%&amp;#x27;&quot; get name,deviceid   base Pcie      256 bus          每条bus 挂 32 devcie              每个设备有 8 func">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PCI 设备访问">
+<meta property="og:title" content="PCI 设备">
 <meta property="og:url" content="http://example.com/2021/02/22/pci_device/pci_device/index.html">
 <meta property="og:site_name" content="XINHUALU&#39;S BLOG">
-<meta property="og:description" content="win 10 列出PCI设备 1wmic path win32_pnpentity where &quot;deviceid like &amp;#x27;%PCI%&amp;#x27;&quot; get name,deviceid">
+<meta property="og:description" content="win 10 列出PCI设备 1wmic path win32_pnpentity where &quot;deviceid like &amp;#x27;%PCI%&amp;#x27;&quot; get name,deviceid   base Pcie      256 bus          每条bus 挂 32 devcie              每个设备有 8 func">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/02/22/pci_device/pci_device/pci.png">
 <meta property="article:published_time" content="2021-02-22T00:00:00.000Z">
-<meta property="article:modified_time" content="2021-06-04T09:50:02.877Z">
+<meta property="article:modified_time" content="2021-06-07T01:51:46.293Z">
 <meta property="article:author" content="XinHua Lu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/02/22/pci_device/pci_device/pci.png">
@@ -210,7 +210,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pcie/">Pcie</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -220,7 +220,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
     </div>
   </div>
 
@@ -236,28 +236,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/bios/">bios</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/06/04/bios/06_Biso_interface_update/" class="title">BiosInterFace update 的思路</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-06-04T09:50:02.873Z" itemprop="datePublished">2021-06-04</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
                 
               </p>
               <p class="item-title">
-                <a href="/2021/06/04/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
+                <a href="/2021/06/07/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-06-04T09:50:02.873Z" itemprop="datePublished">2021-06-04</time>
+                <time datetime="2021-06-07T01:51:46.289Z" itemprop="datePublished">2021-06-07</time>
               </p>
             </div>
           </li>
@@ -269,25 +254,10 @@
                 <a class="category-link" href="/categories/bios/">bios</a>
               </p>
               <p class="item-title">
-                <a href="/2021/06/04/bios/00_bios_protect_mode_enable_flow/" class="title">BIOS protect mode 总结</a>
+                <a href="/2021/06/07/bios/06_Biso_interface_update/" class="title">BiosInterFace update 的思路</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-06-04T09:50:02.677Z" itemprop="datePublished">2021-06-04</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Pcie/">Pcie</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/06/04/bios/01_PCie_summary/" class="title">BIOS protect mode 总结</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-06-04T09:50:02.677Z" itemprop="datePublished">2021-06-04</time>
+                <time datetime="2021-06-07T01:51:46.289Z" itemprop="datePublished">2021-06-07</time>
               </p>
             </div>
           </li>
@@ -299,10 +269,40 @@
                 <a class="category-link" href="/categories/bios/">bios</a>
               </p>
               <p class="item-title">
-                <a href="/2021/06/04/bios/02_bios_flow/" class="title">BIOS 各种流程</a>
+                <a href="/2021/06/07/bios/00_bios_protect_mode_enable_flow/" class="title">BIOS protect mode 总结</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-06-04T09:50:02.677Z" itemprop="datePublished">2021-06-04</time>
+                <time datetime="2021-06-07T01:51:46.093Z" itemprop="datePublished">2021-06-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/bios/">bios</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/06/07/bios/02_bios_flow/" class="title">BIOS 各种流程</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-06-07T01:51:46.093Z" itemprop="datePublished">2021-06-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/dev_utils/01_python_dev_lib_logger/" class="title">HEXO Hacker 主题中文说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T00:00:00.000Z" itemprop="datePublished">2021-04-23</time>
               </p>
             </div>
           </li>
@@ -327,7 +327,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      PCI 设备访问
+      PCI 设备
     </h1>
   
 
@@ -359,6 +359,66 @@
 <h3 id="win-10-列出PCI设备"><a href="#win-10-列出PCI设备" class="headerlink" title="win 10 列出PCI设备"></a>win 10 列出PCI设备</h3><hr>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic path win32_pnpentity where <span class="string">&quot;deviceid like &#x27;%PCI%&#x27;&quot;</span> get name,deviceid</span><br></pre></td></tr></table></figure>
 <p><img src="pci.png"></p>
+<hr>
+<h3 id="base"><a href="#base" class="headerlink" title="base"></a>base</h3><hr>
+<pre><code>Pcie 
+    256 bus 
+        每条bus 挂 32 devcie 
+            每个设备有 8 func 
+                每个设备空间有 PCI 256Byte PCIE 4K 
+所以PCIE　总共大小是，　４K * 256 * 32 * 8 = 256 K Byte = 256 M 
+
+PCIE 配置空间也可以 mem map / IO map. 
+    IO map/访问： 
+        只能PCIE 前256Byte， 后面的要用MMap 访问
+        example (IO access): 
+            1 /*Access PCI Config Space in IO method*/
+            2 Address = BIT31|((BUS &amp; 0XFF)&lt;&lt; 16)|((DEV &amp; 0x1F)&lt;&lt;11)|((Fun &amp; 0x7) &lt;&lt; 8);
+            3 IoWrite32(0xCF8, address);                 //将要读取的地址写入到CF8
+            4 Date32 = IoRead32(0xcfc);                  //从CFC端口读出address的数据
+    mem map/访问: 
+        example:
+        1 /*Write date*/
+        2 MmioWrite32(PcieBaseAdd + Bus&lt;&lt;16 + Dev&lt;&lt;11 + Fun&lt;&lt;8 + offset, date); //PcieBaseAdd为PCIE在内存中的基地址
+        4 /*Read date*/ 
+        5 Value = MmioRead32(PcieBaseAdd + Bus&lt;&lt;16 + Dev&lt;&lt;11 + Fun&lt;&lt;8 + offset);
+</code></pre>
+<hr>
+<h3 id="配置空间（-普通设备-）位说明："><a href="#配置空间（-普通设备-）位说明：" class="headerlink" title="配置空间（ 普通设备 ）位说明："></a>配置空间（ 普通设备 ）位说明：</h3><hr>
+<hr>
+<h3 id="PCIe-桥-（-透明桥-）"><a href="#PCIe-桥-（-透明桥-）" class="headerlink" title="PCIe 桥 （ 透明桥 ）"></a>PCIe 桥 （ 透明桥 ）</h3><hr>
+<pre><code>连接在PCIe 接口上的一个设备，只是配置空间和普通PCIE 设备不同，桥设备只有在遍历设备时才配置，不需要专门的驱动，所以叫透明桥
+PCI桥的配置空间在前16个字节的格式和普通PCI设备并无区别，另外，桥还保留了普通设备的前两个BAR空间。所以从配置空间的0x18开始有了桥设备自身的配置格式
+</code></pre>
+<hr>
+<h3 id="各种地址类型："><a href="#各种地址类型：" class="headerlink" title="各种地址类型："></a>各种地址类型：</h3><hr>
+<pre><code>1. Pcie 空间： 
+   GnbLibPciRead 
+</code></pre>
+<hr>
+<h3 id="PCI-PCIe-空间分布，访问方式"><a href="#PCI-PCIe-空间分布，访问方式" class="headerlink" title="PCI/PCIe 空间分布，访问方式"></a>PCI/PCIe 空间分布，访问方式</h3><hr>
+<pre><code>PCI 
+0-255 PCI config space 
+0-63  PCI config space header 
+    2种类型的头有部分寄存器相同，叫 common header 
+    type 0  
+        其他设备，
+    type 1 
+        专门给桥用
+64-255 PCI capability list. 功能的链表， 入口在 header中的0x34偏移的一个寄存器中
+    每一个capability item 大小长度不一样，所以可以实现不同的功能。
+    但是所有的capability item , 在cap header 里有标准的描述头，方便设备扫描，穷举。
+    capability item 的类型也有范围限制。
+256-4095  extend config space    PCIE 引入
+    里面存整条 extend capability list, 第一个节点从256 （0x100）开始，
+    extend cambility list也有一个标准化的 extend cap header
+    extend cap header 与 cap header  ， 其中ID可以重名， 因为物理地址隔离，所以不怕重名。 
+PCI 访问方式：     
+    IO 指令：  index/data 方式 , IO 方式只能访问 0-255 这个方位的，后面的拓展只能通过MMIO 访问
+        0xCF8 写入地址，
+        0xCFC 读写数据
+    MMIO， 这就看系统怎么映射了，找到基地址，找到offset, 进行访问
+</code></pre>
 
       
     </div>
@@ -368,7 +428,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2021/02/22/pci_device/pci_device/" title="PCI 设备访问" target="_blank" rel="external">http://example.com/2021/02/22/pci_device/pci_device/</a>
+      <a href="http://example.com/2021/02/22/pci_device/pci_device/" title="PCI 设备" target="_blank" rel="external">http://example.com/2021/02/22/pci_device/pci_device/</a>
     </li>
     
     <li class="post-copyright-license">
