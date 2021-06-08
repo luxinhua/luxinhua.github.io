@@ -45,6 +45,10 @@
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
+    <loc>http://example.com/2021/02/07/markdown/03_language_markdown_ref/</loc>
+    <lastmod>2021-06-08</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/2021/02/22/pci_device/pci_device/</loc>
     <lastmod>2021-06-08</lastmod>
   </url>
@@ -173,15 +177,11 @@
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/02/07/markdown/03_language_markdown_ref/</loc>
+    <loc>http://example.com/2021/03/09/liveoverflow/%E9%95%9C%E5%83%8F%E5%8A%A0%E5%AF%86%E9%AA%8C%E8%AF%81%E4%BE%8B%E5%AD%90/</loc>
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
     <loc>http://example.com/2021/03/08/liveoverflow/c_example_param/</loc>
-    <lastmod>2021-06-08</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/2021/02/07/liveoverflow/hack_binary_example/</loc>
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
@@ -205,11 +205,11 @@
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/03/09/liveoverflow/%E9%95%9C%E5%83%8F%E5%8A%A0%E5%AF%86%E9%AA%8C%E8%AF%81%E4%BE%8B%E5%AD%90/</loc>
+    <loc>http://example.com/2021/04/23/dev_utils/03_python_dev_lib_%E8%BF%9B%E5%BA%A6/</loc>
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
-    <loc>http://example.com/2021/04/23/dev_utils/03_python_dev_lib_%E8%BF%9B%E5%BA%A6/</loc>
+    <loc>http://example.com/2021/02/07/liveoverflow/hack_binary_example/</loc>
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
@@ -222,6 +222,10 @@
   </url>
   <url>
     <loc>http://example.com/2021/04/23/dev_utils/00_python_dev_lib_git/</loc>
+    <lastmod>2021-06-08</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2021/06/08/c/dynamic_mem_alloc/</loc>
     <lastmod>2021-06-08</lastmod>
   </url>
   <url>
