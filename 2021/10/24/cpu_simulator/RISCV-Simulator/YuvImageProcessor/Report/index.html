@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>嵌入式</title>
+  <meta name="description" content="计算机组织与体系结构Lab 4面向特定应用的体系结构优化何昊 1600012742  一、使用SIMD指令对应用程序进行优化1. 程序需求及其实现本次要优化的应用程序功能是对YUV图像的淡入淡出进行处理。具体地说，先读入一个YUV文件，对其中的第一个图像，生成一个包含Alpha值从低到高的一组图像的YUV影片。对于每一个YUV像素，转换的公式如下  YUV2RGB转换$$R &#x3D; 1.164383">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XINHUALU&#39;S BLOG">
+<meta property="og:url" content="http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/index.html">
+<meta property="og:site_name" content="XINHUALU&#39;S BLOG">
+<meta property="og:description" content="计算机组织与体系结构Lab 4面向特定应用的体系结构优化何昊 1600012742  一、使用SIMD指令对应用程序进行优化1. 程序需求及其实现本次要优化的应用程序功能是对YUV图像的淡入淡出进行处理。具体地说，先读入一个YUV文件，对其中的第一个图像，生成一个包含Alpha值从低到高的一组图像的YUV影片。对于每一个YUV像素，转换的公式如下  YUV2RGB转换$$R &#x3D; 1.164383">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/result.png">
+<meta property="og:image" content="http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/result2.png">
+<meta property="article:published_time" content="2021-10-24T17:10:28.717Z">
+<meta property="article:modified_time" content="2021-10-24T17:10:28.717Z">
+<meta property="article:author" content="XinHua Lu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/result.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="XINHUALU&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/luxinhua" target="_blank">
+          <img class="img-circle img-rotate" src="/images/cat.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">StarLord</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">嵌入式开发</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>个人站还在更新中 ！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PCI/">PCI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Pi-KVM/">Pi-KVM</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Project-Yolo/">Project_Yolo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bios/">bios</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cmake/">cmake</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/liveoverflow/">liveoverflow</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/uefi/">uefi</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/24/idea/%E8%BF%9C%E6%8E%A7%E6%A8%A1%E5%9D%97/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T17:10:28.829Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/24/cpu_simulator/RISCV-Simulator/README/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T17:10:28.717Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/README/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T17:10:28.717Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T17:10:28.717Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/c/">c</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/24/c/c_fmt_va_arg/" class="title">可变参数的使用案例</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T17:10:28.713Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/" class="article-date">
+	  <time datetime="2021-10-24T17:10:28.717Z" itemprop="datePublished">2021-10-24</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="计算机组织与体系结构Lab-4"><a href="#计算机组织与体系结构Lab-4" class="headerlink" title="计算机组织与体系结构Lab 4"></a><center>计算机组织与体系结构Lab 4</center></h1><h2 id="面向特定应用的体系结构优化"><a href="#面向特定应用的体系结构优化" class="headerlink" title="面向特定应用的体系结构优化"></a><center>面向特定应用的体系结构优化</center></h2><center style="font-family: sans-serif;">何昊 1600012742</center>
+
+<h2 id="一、使用SIMD指令对应用程序进行优化"><a href="#一、使用SIMD指令对应用程序进行优化" class="headerlink" title="一、使用SIMD指令对应用程序进行优化"></a>一、使用SIMD指令对应用程序进行优化</h2><h3 id="1-程序需求及其实现"><a href="#1-程序需求及其实现" class="headerlink" title="1. 程序需求及其实现"></a>1. 程序需求及其实现</h3><p>本次要优化的应用程序功能是对YUV图像的淡入淡出进行处理。具体地说，先读入一个YUV文件，对其中的第一个图像，生成一个包含Alpha值从低到高的一组图像的YUV影片。对于每一个YUV像素，转换的公式如下</p>
+<ol>
+<li><p>YUV2RGB转换<br>$$<br>R = 1.164383 * (Y - 16) + 1.596027*(V - 128)\<br>B = 1.164383 * (Y - 16) + 2.017232*(U - 128)\<br>G = 1.164383 * (Y - 16) – 0.391762*(U - 128) – 0.812968*(V - 128)<br>$$</p>
+</li>
+<li><p>RGB格式下的Alpha Blending<br>$$<br>R’=A<em>R/256\<br>G’=A</em>G/256\<br>B’=A*B/256<br>$$</p>
+</li>
+<li><p>RGB2YUV转换<br>$$<br>Y= 0.256788<em>R’ + 0.504129</em>G’ + 0.097906<em>B’ + 16\<br>U= -0.148223</em>R’ - 0.290993<em>G’ + 0.439216</em>B’ + 128\<br>V= 0.439216<em>R’ - 0.367788</em>G’ - 0.071427*B’ + 128<br>$$</p>
+</li>
+</ol>
+<p>优化的目标是使用SIMD指令对程序中核心运算部分进行指令级并行优化，加快程序的运行速度。因此，对于图像的淡入淡出处理函数，我分别实现了浮点运算、整数运算、MMX、SSE2、AVX五个不同的版本。不同版本的核心源码参见附录，源程序文件参见<code>YuvImageProcessor.cpp</code>。</p>
+<p>显然，上述运算中，对于向量$(Y,U,V)$和向量$(R,G,B)$，(1)和(3)本质上是向量点积，(2)本质上是向量乘法，这些都可以使用SIMD指令并行化。下面简述各个版本的实现思路。</p>
+<ol>
+<li>浮点运算的实现相对比较简单，直接翻译YUV和RGB转换公式即可。</li>
+<li>由于大多数CPU的整数运算比浮点运算快，加之YUV与RGB之间的转换对精度要求不高，因此也是可以用整数运算实现的(<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1737726/how-to-perform-rgb-yuv-conversion-in-c-c)%E3%80%82">https://stackoverflow.com/questions/1737726/how-to-perform-rgb-yuv-conversion-in-c-c)。</a></li>
+<li>MMX指令集是比较老的SIMD指令集，只支持整数运算，因此只能用于并行化整数运算的版本。在实现中，使用了此外，由于MMX指令集的寄存器大小为64位，在转换过程中，点积运算后所得到的结果无法并行，因为如果用16位整数储存结果会导致溢出，无法得到正确的转换结果，这限制了算法的性能提升。</li>
+<li>SSE指令集可以对128位SIMD寄存器进行操作，也就是可以同时对4个32位浮点数进行运算，从而只需直接将计算翻译成SIMD指令即可。此外，SSE还提供了向量点积的计算指令和向量重排指令，从而减少了实现相同运算所需要的指令数。</li>
+<li>AVX指令集将SIMD寄存器的位数扩展到256位，那么潜在地就可以一条指令同时计算8个32位浮点数。那么，为了能够充分利用256位的寄存器，必须将算法修改成能一次性计算8个数据的版本。因此，我采用了类似循环转开的思路，每轮循环计算两个$(Y, U, V)$向量和$(R, G, B)$向量。</li>
+</ol>
+<h3 id="2-程序运行结果"><a href="#2-程序运行结果" class="headerlink" title="2. 程序运行结果"></a>2. 程序运行结果</h3><p>五种不同版本的淡入淡出函数对<code>dem1.yuv</code>的输出结果见下图。尽管5个不同的版本的计算方式不同，最后得到的数值也略有差异，但是从下图可见，淡入淡出的效果差异是几乎无法用肉眼分辨的。</p>
+<p><img src="result.png"></p>
+<p>对<code>dem2.yuv</code>的输出结果如下</p>
+<p><img src="result2.png"></p>
+<h3 id="3-性能统计结果"><a href="#3-性能统计结果" class="headerlink" title="3. 性能统计结果"></a>3. 性能统计结果</h3><p>下表中列出了基于不同指令集实现的同样算法对$1920\times 1080$大小的YUV图片进行淡入淡出转换并生成83张不同透明度的$1920\times 1080$的YUV图片的运行时间。对于每种算法，我们运行10遍求平均值以减少误差。运行时间的测量使用了C++ 11引入的高精度时钟API(<code>&lt;chrono&gt;</code>)。代码的运行环境为Mac OS Mojave，编译器为<code>Apple LLVM 10.0.1(clang-1001.0.46.4)</code>，优化级别为<code>-O2</code>，CPU型号为<code>Intel Core i5-6360U(Skylake), 2GHz</code>.</p>
+<table>
+<thead>
+<tr>
+<th>运行次数</th>
+<th>Basic FP</th>
+<th>Basic Int</th>
+<th>MMX</th>
+<th>SSE2</th>
+<th>AVX</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Round 1</td>
+<td>2572ms</td>
+<td>1677ms</td>
+<td>1535ms</td>
+<td>1016ms</td>
+<td>807ms</td>
+</tr>
+<tr>
+<td>Round 2</td>
+<td>2635ms</td>
+<td>1653ms</td>
+<td>1535ms</td>
+<td>1031ms</td>
+<td>811ms</td>
+</tr>
+<tr>
+<td>Round 3</td>
+<td>2683ms</td>
+<td>1692ms</td>
+<td>1593ms</td>
+<td>1036ms</td>
+<td>853ms</td>
+</tr>
+<tr>
+<td>Round 4</td>
+<td>2755ms</td>
+<td>1804ms</td>
+<td>1575ms</td>
+<td>1041ms</td>
+<td>851ms</td>
+</tr>
+<tr>
+<td>Round 5</td>
+<td>2723ms</td>
+<td>1714ms</td>
+<td>1573ms</td>
+<td>1042ms</td>
+<td>851ms</td>
+</tr>
+<tr>
+<td>Round 6</td>
+<td>2795ms</td>
+<td>1754ms</td>
+<td>1627ms</td>
+<td>1064ms</td>
+<td>854ms</td>
+</tr>
+<tr>
+<td>Round 7</td>
+<td>2751ms</td>
+<td>1741ms</td>
+<td>1626ms</td>
+<td>1069ms</td>
+<td>850ms</td>
+</tr>
+<tr>
+<td>Round 8</td>
+<td>2756ms</td>
+<td>1752ms</td>
+<td>1621ms</td>
+<td>1063ms</td>
+<td>872ms</td>
+</tr>
+<tr>
+<td>Round 9</td>
+<td>2684ms</td>
+<td>1737ms</td>
+<td>1613ms</td>
+<td>1067ms</td>
+<td>901ms</td>
+</tr>
+<tr>
+<td>Round 10</td>
+<td>2696ms</td>
+<td>1800ms</td>
+<td>1743ms</td>
+<td>1056ms</td>
+<td>853ms</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>2705ms</td>
+<td>1732ms</td>
+<td>1604ms</td>
+<td>1049ms</td>
+<td>850ms</td>
+</tr>
+</tbody></table>
+<p>由于Basic Int和MMX都是用同样的整数运算算法实现的，因此可以对其性能进行比较。使用MMX对整数运算进行并行优化的收益是很小的，这可能是因为：1. 部分关键的点积运算因为16bit整数溢出问题无法并行。2. 整数运算在现代体系结构中普遍使用了乱序执行和多发射流水线，一定程度地实现指令级并行。</p>
+<p>类似地，我们可以对Basic FP、SSE2和AVX作比较。SSE2对Basic FP实现了接近3x的性能提升，因为SSE将对$(Y,U,V)$和$(R,G,B)$向量的操作并行化了。但是，AVX的实现和SSE2相比的提升却不明显。这是由于当前算法无法以一种很好地方式利用到8个32位浮点数的并行操作。在AVX实现中，我使用了类似循环展开的方式，同时对两个$(Y,U,V)$和$(R,G,B)$向量进行计算操作，并且手动实现了8个浮点数的点积运算，而不是像SSE那样用一条指令实现点积运算，这些都会带来性能损失。</p>
+<p>总而言之，SIMD指令集对图像处理应用程序的优化还是非常显著的。采用AVX指令集的算法和Basic FP相比，性能提升了3.182倍。</p>
+<h2 id="二、设计自定义扩展指令对SIMD应用优化并分析"><a href="#二、设计自定义扩展指令对SIMD应用优化并分析" class="headerlink" title="二、设计自定义扩展指令对SIMD应用优化并分析"></a>二、设计自定义扩展指令对SIMD应用优化并分析</h2><h3 id="1-需要实现的指令集"><a href="#1-需要实现的指令集" class="headerlink" title="1. 需要实现的指令集"></a>1. 需要实现的指令集</h3><p>本实验的目标是设计若干32位宽的扩展指令，支持8个宽度为256位的SIMD指令专用寄存器，支持8/16/32位pack、unpack计算，支持加/减/乘法，支持饱和计算，支持必要的数据传输指令。</p>
+<h3 id="2-指令助记符及其功能"><a href="#2-指令助记符及其功能" class="headerlink" title="2. 指令助记符及其功能"></a>2. 指令助记符及其功能</h3><p>8个256位SIMD寄存器分别用v0, v2, …, v7表示。在下面的表格中，用<code>vn</code>表示一个SIMD寄存器，用<code>rn</code>表示任意一个64位通用寄存器。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lv vn, rx, ry</code></td>
+<td>将从地址<code>rn</code>开始的<code>ry</code>个字节读入<code>vn</code>(<code>ry</code>取值1到32)，其余部分填0</td>
+</tr>
+<tr>
+<td><code>sv vn, rx, ry</code></td>
+<td>将<code>vn</code>里的前<code>ry</code>个字节存入地址<code>rn</code>开始的<code>ry</code>个字节处(<code>ry</code>取值1到32)</td>
+</tr>
+<tr>
+<td><code>addvi32p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位整数相加</td>
+</tr>
+<tr>
+<td><code>addvi32ps vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位整数饱和相加</td>
+</tr>
+<tr>
+<td><code>addvi64p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位整数相加</td>
+</tr>
+<tr>
+<td><code>addvi64ps vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位整数饱和相加</td>
+</tr>
+<tr>
+<td><code>addvf32p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位浮点数相加</td>
+</tr>
+<tr>
+<td><code>addvf64p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位浮点数相加</td>
+</tr>
+<tr>
+<td><code>subvi32p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位整数相减</td>
+</tr>
+<tr>
+<td><code>subvi32ps vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位整数饱和相减</td>
+</tr>
+<tr>
+<td><code>subvi64p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位整数相减</td>
+</tr>
+<tr>
+<td><code>subvi64ps vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位整数饱和相减</td>
+</tr>
+<tr>
+<td><code>subvf32p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位浮点数相减</td>
+</tr>
+<tr>
+<td><code>subvf64p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位浮点数相减</td>
+</tr>
+<tr>
+<td><code>mulvi32p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位整数相乘</td>
+</tr>
+<tr>
+<td><code>mulvi32ps vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位整数饱和相乘</td>
+</tr>
+<tr>
+<td><code>mulvi64p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位整数相乘</td>
+</tr>
+<tr>
+<td><code>mulvi64ps vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位整数饱和相乘</td>
+</tr>
+<tr>
+<td><code>mulvf32p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 32位浮点数相乘</td>
+</tr>
+<tr>
+<td><code>mulvf64p vn, vx, vy</code></td>
+<td>将<code>vx</code>和<code>vy</code>寄存器内的值按packed 64位浮点数相乘</td>
+</tr>
+<tr>
+<td><code>unpckvf32hi vn, vx, vy</code></td>
+<td>对<code>vx</code>和<code>vy</code>寄存器内的高4个32位浮点数进行unpack操作，结果存于<code>vn</code></td>
+</tr>
+<tr>
+<td><code>unpckvf32lo vn, vx, vy</code></td>
+<td>对<code>vx</code>和<code>vy</code>寄存器内的低4个32位浮点数进行unpack操作，结果存于<code>vn</code></td>
+</tr>
+<tr>
+<td><code>unpckvf64hi vn, vx, vy</code></td>
+<td>对<code>vx</code>和<code>vy</code>寄存器内的高2个64位浮点数进行unpack操作，结果存于<code>vn</code></td>
+</tr>
+<tr>
+<td><code>unpckvf64lo vn, vx, vy</code></td>
+<td>对<code>vx</code>和<code>vy</code>寄存器内的低2个64位浮点数进行unpack操作，结果存于<code>vn</code></td>
+</tr>
+<tr>
+<td><code>sumvf64 vn, vx, rx</code></td>
+<td>将<code>vx</code>寄存器的4个64位浮点数求和，存于<code>vn</code>寄存器的第<code>rx</code>个位置(<code>rx</code>必须取0-3)</td>
+</tr>
+<tr>
+<td><code>maxvf64 vn, vx, vy</code></td>
+<td>将<code>vx</code>寄存器的4个64位浮点数和<code>vy</code>寄存器的4个64位浮点数比较，存较大值于<code>vn</code>的相应位置</td>
+</tr>
+<tr>
+<td><code>minvf64 vn, vx, vy</code></td>
+<td>将<code>vx</code>寄存器的4个64位浮点数和<code>vy</code>寄存器的4个64位浮点数比较，存较小值于<code>vn</code>的相应位置</td>
+</tr>
+</tbody></table>
+<p>上述指令已经符合前述要求，且足够实现前述的图像处理算法。可以很容易添加实现更多功能的SIMD指令。</p>
+<h3 id="3-指令编码"><a href="#3-指令编码" class="headerlink" title="3. 指令编码"></a>3. 指令编码</h3><p>上述所有指令都是三个操作数，其中通用寄存器需要5个位表示，SIMD寄存器需要5个位表示，但是为了方便解码起见，两类寄存器在指令里可以都占用5个位。为了尽可能与RISCV其他扩展指令集兼容和简化指令解码过程，本指令集内所有指令采用同一个opcode，寄存器的编码位置保持不变。这样还剩下7位+3位空余域，可以编码1024个指令，依然具有足够大的编码空间。其中，七位<code>funct7</code>用于编码某一类指令(例如加法指令或者减法指令)，而三位<code>funct3</code>用于编码当前指令是这一类指令中的哪一种。</p>
+<p>指令的编码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> funct7  rs2     rs1     funct3  rd     opcode</span><br><span class="line">|31 - 25|24 - 20|19 - 15|14 - 12|11 - 7|6  -  0| 对应指令</span><br><span class="line">|0000000|  ry   |  rx   |  000  |  vn  |1101111| lv vn, rx, ry</span><br><span class="line">|0000000|  ry   |  rx   |  001  |  vn  |1101111| sv vn, rx, ry</span><br><span class="line">|0000001|  vy   |  vx   |  000  |  vn  |1101111| addvi32p vn, vx, vy</span><br><span class="line">|0000001|  vy   |  vx   |  001  |  vn  |1101111| addvi32ps vn, vx, vy</span><br><span class="line">|0000001|  vy   |  vx   |  010  |  vn  |1101111| addvi64p vn, vx, vy</span><br><span class="line">|0000001|  vy   |  vx   |  011  |  vn  |1101111| addvi64s vn, vx, vy</span><br><span class="line">|0000001|  vy   |  vx   |  100  |  vn  |1101111| addvf32p vn, vx, vy</span><br><span class="line">|0000001|  vy   |  vx   |  101  |  vn  |1101111| addvf64p vn, vx, vy</span><br><span class="line">|0000010|  vy   |  vx   |  000  |  vn  |1101111| subvi32p vn, vx, vy</span><br><span class="line">|0000010|  vy   |  vx   |  001  |  vn  |1101111| subvi32ps vn, vx, vy</span><br><span class="line">|0000010|  vy   |  vx   |  010  |  vn  |1101111| subvi64p vn, vx, vy</span><br><span class="line">|0000010|  vy   |  vx   |  011  |  vn  |1101111| subvi64ps vn, vx, vy</span><br><span class="line">|0000010|  vy   |  vx   |  100  |  vn  |1101111| subvf32p vn, vx, vy</span><br><span class="line">|0000010|  vy   |  vx   |  101  |  vn  |1101111| subvf64p vn, vx, vy</span><br><span class="line">|0000011|  vy   |  vx   |  000  |  vn  |1101111| mulvi32p vn, vx, vy</span><br><span class="line">|0000011|  vy   |  vx   |  001  |  vn  |1101111| mulvi32ps vn, vx, vy</span><br><span class="line">|0000011|  vy   |  vx   |  010  |  vn  |1101111| mulvi64p vn, vx, vy</span><br><span class="line">|0000011|  vy   |  vx   |  011  |  vn  |1101111| mulvi64ps vn, vx, vy</span><br><span class="line">|0000011|  vy   |  vx   |  100  |  vn  |1101111| mulvf32p vn, vx, vy</span><br><span class="line">|0000011|  vy   |  vx   |  101  |  vn  |1101111| mulvf64p vn, vx, vy</span><br><span class="line">|0000100|  vy   |  vx   |  000  |  vn  |1101111| unpckvf32hi vn, vx, vy</span><br><span class="line">|0000100|  vy   |  vx   |  001  |  vn  |1101111| unpckvf32lo vn, vx, vy</span><br><span class="line">|0000100|  vy   |  vx   |  010  |  vn  |1101111| unpckvf64hi vn, vx, vy</span><br><span class="line">|0000100|  vy   |  vx   |  011  |  vn  |1101111| unpckvf64lo vn, vx, vy</span><br><span class="line">|0000101|  rx   |  vx   |  000  |  vn  |1101111| sumvf64 vn, vx, rx</span><br><span class="line">|0000110|  vy   |  vx   |  000  |  vn  |1101111| minvf64 vn, vx, vy</span><br><span class="line">|0000111|  vy   |  vx   |  000  |  vn  |1101111| maxvf64 vn, vx, vy</span><br></pre></td></tr></table></figure>
+<h3 id="4-重新编写的图像计算核心函数"><a href="#4-重新编写的图像计算核心函数" class="headerlink" title="4. 重新编写的图像计算核心函数"></a>4. 重新编写的图像计算核心函数</h3><p>下面写出的代码假设上述设计的指令集已经类似Intel Intrinsics那样在C语言内提供了封装对应指令的函数，函数名就是指令名，函数参数就是指令需要的参数，8个SIMD寄存器变量是全局变量，命名分别为v0, v1, …, v7。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processYuvRISCV</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> total = width * height;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Vec</span> &#123;</span></span><br><span class="line">    <span class="keyword">double</span> a[<span class="number">4</span>];</span><br><span class="line">  &#125; *data = <span class="keyword">new</span> Vec[total];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">      <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">      <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">      <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line">      <span class="keyword">double</span> zero[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">      <span class="keyword">double</span> max[<span class="number">4</span>] = &#123;<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>&#125;;</span><br><span class="line">      <span class="keyword">double</span> t0[<span class="number">4</span>] = &#123;(<span class="keyword">uint8_t</span>)yuv[offset], (<span class="keyword">uint8_t</span>)yuv[uIndex], </span><br><span class="line">                      (<span class="keyword">uint8_t</span>)yuv[vIndex], <span class="number">0.0</span>&#125;;</span><br><span class="line">      <span class="keyword">double</span> t1[<span class="number">4</span>] = &#123;<span class="number">16.0</span>, <span class="number">128.0</span>, <span class="number">128.0</span>, <span class="number">0.0</span>&#125;</span><br><span class="line">      <span class="keyword">double</span> t2[<span class="number">4</span>] = &#123;<span class="number">1.164383</span>, <span class="number">0.0</span>, <span class="number">1.596027</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">      <span class="keyword">double</span> t3[<span class="number">4</span>] = &#123;<span class="number">1.164383</span>, <span class="number">-0.391762</span>, <span class="number">-0.812968</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">      <span class="keyword">double</span> t4[<span class="number">4</span>] = &#123;<span class="number">1.164384</span>, <span class="number">2.017232</span>, <span class="number">0.0</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">      lv(v0, t0, <span class="number">32</span>);</span><br><span class="line">      lv(v1, t1, <span class="number">32</span>);</span><br><span class="line">      subvf64p(v1, v0, v1);</span><br><span class="line">      lv(v2, t2, <span class="number">32</span>);</span><br><span class="line">      lv(v3, t3, <span class="number">32</span>);</span><br><span class="line">      lv(v4, t4, <span class="number">32</span>);</span><br><span class="line">      mulvf64p(v2, v1, v2);</span><br><span class="line">      mulvf64p(v3, v1, v3);</span><br><span class="line">      mulvf64p(v4, v1, v4);</span><br><span class="line">      lv(v5, zero, <span class="number">32</span>);</span><br><span class="line">      sumvf64(v5, v2, <span class="number">0</span>);</span><br><span class="line">      sumvf64(v5, v3, <span class="number">1</span>);</span><br><span class="line">      sumvf64(v5, v4, <span class="number">2</span>);</span><br><span class="line">      lv(v6, max, <span class="number">32</span>);</span><br><span class="line">      lv(v7, zero, <span class="number">32</span>);</span><br><span class="line">      minvf64(v5, v5, v6);</span><br><span class="line">      maxvf64(v5, v5, v7);</span><br><span class="line">      sv(v5, data[offset].a, <span class="number">32</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> num = <span class="number">0</span>; num &lt; NUM_FRAMES; ++num) &#123;</span><br><span class="line">    <span class="keyword">int</span> a = num * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">        <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">        <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line">        <span class="keyword">double</span> t0[<span class="number">4</span>] = &#123;a / <span class="number">255</span>, a / <span class="number">255</span>, a / <span class="number">255</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">        <span class="keyword">double</span> yc[<span class="number">4</span>] = &#123;<span class="number">0.256788</span>, <span class="number">0.504129</span>, <span class="number">0.097906</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">        <span class="keyword">double</span> uc[<span class="number">4</span>] = &#123;<span class="number">-0.148223</span>, <span class="number">0.290993</span>, <span class="number">0.439126</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">        <span class="keyword">double</span> vc[<span class="number">4</span>] = &#123;<span class="number">0.439126</span>, <span class="number">-0.367788</span>, <span class="number">-0.071427</span>, <span class="number">0.0</span>&#125;;</span><br><span class="line">        <span class="keyword">double</span> t2[<span class="number">4</span>] = &#123;<span class="number">16</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">double</span> zero[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">double</span> t3[<span class="number">4</span>];</span><br><span class="line">        lv(v0, t0, <span class="number">32</span>);</span><br><span class="line">        lv(v1, data[offset].a, <span class="number">24</span>);</span><br><span class="line">        lv(v2, yc, <span class="number">32</span>);</span><br><span class="line">        lv(v3, uc, <span class="number">32</span>);</span><br><span class="line">        lv(v4, vc, <span class="number">32</span>);</span><br><span class="line">        mulvf64p(v2, v1, v2);</span><br><span class="line">        mulvf64p(v3, v1, v2);</span><br><span class="line">        mulvf64p(v4, v1, v2);</span><br><span class="line">        lv(v5, zero, <span class="number">32</span>);</span><br><span class="line">        sumvf64(v5, v2, <span class="number">0</span>);</span><br><span class="line">        sumvf64(v5, v3, <span class="number">1</span>);</span><br><span class="line">        sumvf64(v5, v4, <span class="number">2</span>);</span><br><span class="line">        lv(v6, t2, <span class="number">32</span>);</span><br><span class="line">        subvf64p(v5, v5, v6);</span><br><span class="line">        sv(v5, t3, <span class="number">32</span>);</span><br><span class="line">        result[num][offset] = (<span class="keyword">int</span>)t3[<span class="number">0</span>];</span><br><span class="line">        result[num][uIndex] = (<span class="keyword">int</span>)t3[<span class="number">1</span>];</span><br><span class="line">        result[num][vIndex] = (<span class="keyword">int</span>)t3[<span class="number">2</span>];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span>[] data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-性能分析"><a href="#5-性能分析" class="headerlink" title="5. 性能分析"></a>5. 性能分析</h3><p>由于无法确切得知使用SIMD计算能够减少使用的确切指令数，因此只能对其性能提升做估算。在上述程序中，使用的SIMD指令共有33条，每条SIMD指令同时对4个64位浮点数做操作。如果不使用SIMD实现，那么每条SIMD指令需要用4倍数量的指令来实现，那么对于每个像素点，使用SIMD指令可以潜在少执行$33*(4-1)=99$条指令。对于$1920\times 1080$大小的图像，共可以减少$99\times 1920\times 1080=2.0529\times 10^8$条指令。</p>
+<p>对于每个循环而言，循环体中不是所有指令都是SIMD指令，SIMD计算之外的开销对于两个版本的实现是一样的，因此理论性能提升幅度接近4倍，但会比4倍小。根据之前编写的X86 SIMD程序的经验，实际的提升幅度会在2-3倍之间。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="1-不同版本的核心源码"><a href="#1-不同版本的核心源码" class="headerlink" title="1. 不同版本的核心源码"></a>1. 不同版本的核心源码</h3><h4 id="1-浮点运算的实现"><a href="#1-浮点运算的实现" class="headerlink" title="(1) 浮点运算的实现"></a>(1) 浮点运算的实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processYuv</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> total = width * height;</span><br><span class="line">  Pixel *data = <span class="keyword">new</span> Pixel[total];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">      <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">      <span class="keyword">int</span> y = (<span class="keyword">uint8_t</span>)yuv[offset];</span><br><span class="line">      <span class="keyword">int</span> u = (<span class="keyword">uint8_t</span>)yuv[(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total];</span><br><span class="line">      <span class="keyword">int</span> v = (<span class="keyword">uint8_t</span>)yuv[(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>)];</span><br><span class="line">      <span class="keyword">int</span> r = <span class="number">1.164383</span> * (y - <span class="number">16</span>) + <span class="number">1.596027</span> * (v - <span class="number">128</span>);</span><br><span class="line">      <span class="keyword">int</span> g = <span class="number">1.164383</span> * (y - <span class="number">16</span>) - <span class="number">0.391762</span> * (u - <span class="number">128</span>) - <span class="number">0.812968</span> * (v - <span class="number">128</span>);</span><br><span class="line">      <span class="keyword">int</span> b = <span class="number">1.164383</span> * (y - <span class="number">16</span>) + <span class="number">2.017232</span> * (u - <span class="number">128</span>);</span><br><span class="line">      data[offset].r = clamp(r, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">      data[offset].g = clamp(g, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">      data[offset].b = clamp(b, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> num = <span class="number">0</span>; num &lt; NUM_FRAMES; ++num) &#123;</span><br><span class="line">    <span class="keyword">int</span> a = num * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">        <span class="keyword">int</span> r = data[offset].r * a / <span class="number">255.0</span>;</span><br><span class="line">        <span class="keyword">int</span> g = data[offset].g * a / <span class="number">255.0</span>;</span><br><span class="line">        <span class="keyword">int</span> b = data[offset].b * a / <span class="number">255.0</span>;</span><br><span class="line">        <span class="keyword">int</span> y = <span class="number">0.256788</span> * r + <span class="number">0.504129</span> * g + <span class="number">0.097906</span> * b + <span class="number">16</span>;</span><br><span class="line">        <span class="keyword">int</span> u = <span class="number">-0.148223</span> * r - <span class="number">0.290993</span> * g + <span class="number">0.439216</span> * b + <span class="number">128</span>;</span><br><span class="line">        <span class="keyword">int</span> v = <span class="number">0.439216</span> * r - <span class="number">0.367788</span> * g - <span class="number">0.071427</span> * b + <span class="number">128</span>;</span><br><span class="line">        result[num][offset] = y;</span><br><span class="line">        result[num][(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total] = u;</span><br><span class="line">        result[num][(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>)] = v;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span>[] data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-整数运算的实现"><a href="#2-整数运算的实现" class="headerlink" title="(2) 整数运算的实现"></a>(2) 整数运算的实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * YUV and RGB conversion in integer arithmetics</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CLIP(X) ( (X) &gt; 255 ? 255 : (X) &lt; 0 ? 0 : X)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// RGB -&gt; YUV</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RGB2Y(R, G, B) CLIP(( (  66 * (R) + 129 * (G) +  25 * (B) + 128) &gt;&gt; 8) +  16)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RGB2U(R, G, B) CLIP(( ( -38 * (R) -  74 * (G) + 112 * (B) + 128) &gt;&gt; 8) + 128)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RGB2V(R, G, B) CLIP(( ( 112 * (R) -  94 * (G) -  18 * (B) + 128) &gt;&gt; 8) + 128)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// YUV -&gt; RGB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> C(Y) ( (Y) - 16  )</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> D(U) ( (U) - 128 )</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> E(V) ( (V) - 128 )</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YUV2R(Y, U, V) CLIP(( 298 * C(Y)              + 409 * E(V) + 128) &gt;&gt; 8)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YUV2G(Y, U, V) CLIP(( 298 * C(Y) - 100 * D(U) - 208 * E(V) + 128) &gt;&gt; 8)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YUV2B(Y, U, V) CLIP(( 298 * C(Y) + 516 * D(U)              + 128) &gt;&gt; 8)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processYuvInt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> total = width * height;</span><br><span class="line">  Pixel *data = <span class="keyword">new</span> Pixel[total];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">      <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">      <span class="keyword">uint8_t</span> y = (<span class="keyword">uint8_t</span>)yuv[offset];</span><br><span class="line">      <span class="keyword">uint8_t</span> u = (<span class="keyword">uint8_t</span>)yuv[(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total];</span><br><span class="line">      <span class="keyword">uint8_t</span> v = (<span class="keyword">uint8_t</span>)yuv[(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>)];</span><br><span class="line">      data[offset].r = YUV2R(y, u, v);</span><br><span class="line">      data[offset].g = YUV2G(y, u, v);</span><br><span class="line">      data[offset].b = YUV2B(y, u, v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> num = <span class="number">0</span>; num &lt; NUM_FRAMES; ++num) &#123;</span><br><span class="line">    <span class="keyword">int</span> a = num * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">        <span class="keyword">int32_t</span> r = data[offset].r * a / <span class="number">255</span>;</span><br><span class="line">        <span class="keyword">int32_t</span> g = data[offset].g * a / <span class="number">255</span>;</span><br><span class="line">        <span class="keyword">int32_t</span> b = data[offset].b * a / <span class="number">255</span>;</span><br><span class="line">        result[num][offset] = (<span class="keyword">char</span>)RGB2Y(r, g, b);</span><br><span class="line">        result[num][(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total] = (<span class="keyword">char</span>)RGB2U(r, g, b);</span><br><span class="line">        result[num][(i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>)] = (<span class="keyword">char</span>)RGB2V(r, g, b);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span>[] data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-X86-MMX指令集的实现"><a href="#3-X86-MMX指令集的实现" class="headerlink" title="(3) X86 MMX指令集的实现"></a>(3) X86 MMX指令集的实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processYuvMMX</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> total = width * height;</span><br><span class="line">  <span class="class"><span class="keyword">union</span> <span class="title">Vec</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> a[<span class="number">4</span>];</span><br><span class="line">    __m64 val;</span><br><span class="line">  &#125; *data = <span class="keyword">new</span> Vec[total];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">      <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">      <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">      <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line">      <span class="keyword">uint8_t</span> y = (<span class="keyword">uint8_t</span>)yuv[offset];</span><br><span class="line">      <span class="keyword">uint8_t</span> u = (<span class="keyword">uint8_t</span>)yuv[uIndex];</span><br><span class="line">      <span class="keyword">uint8_t</span> v = (<span class="keyword">uint8_t</span>)yuv[vIndex];</span><br><span class="line">      __m64 c1 = _mm_set_pi16(<span class="number">0</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">16</span>);</span><br><span class="line">      __m64 c2 = _mm_set_pi16(<span class="number">0</span>, <span class="number">409</span>, <span class="number">0</span>, <span class="number">298</span>);</span><br><span class="line">      __m64 c3 = _mm_set_pi16(<span class="number">0</span>, <span class="number">-208</span>, <span class="number">-100</span>, <span class="number">298</span>);</span><br><span class="line">      __m64 c4 = _mm_set_pi16(<span class="number">0</span>, <span class="number">0</span>, <span class="number">516</span>, <span class="number">298</span>);</span><br><span class="line">      __m64 t0 = _mm_sub_pi16(_mm_set_pi16(<span class="number">0</span>, v, u, y), c1);</span><br><span class="line">      __m64 t1 = _mm_madd_pi16(t0, c2);</span><br><span class="line">      __m64 t2 = _mm_madd_pi16(t0, c3);</span><br><span class="line">      __m64 t3 = _mm_madd_pi16(t0, c4);</span><br><span class="line">      <span class="keyword">int</span> t4 = CLIP(((_mm_cvtsi64_si32(t3) + <span class="keyword">int</span>(_mm_cvtm64_si64(t3)&gt;&gt;<span class="number">32</span>)) + <span class="number">128</span>) &gt;&gt; <span class="number">8</span>);</span><br><span class="line">      <span class="keyword">int</span> t5 = CLIP(((_mm_cvtsi64_si32(t2) + <span class="keyword">int</span>(_mm_cvtm64_si64(t2)&gt;&gt;<span class="number">32</span>)) + <span class="number">128</span>) &gt;&gt; <span class="number">8</span>);</span><br><span class="line">      <span class="keyword">int</span> t6 = CLIP(((_mm_cvtsi64_si32(t1) + <span class="keyword">int</span>(_mm_cvtm64_si64(t1)&gt;&gt;<span class="number">32</span>)) + <span class="number">128</span>) &gt;&gt; <span class="number">8</span>);</span><br><span class="line">      data[offset].val = _mm_set_pi16(<span class="number">0</span>, t4, t5, t6);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> num = <span class="number">0</span>; num &lt; NUM_FRAMES; ++num) &#123;</span><br><span class="line">    <span class="keyword">int</span> a = num * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">        <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">        <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line">        __m64 rgb = _mm_srl_pi16(_mm_mullo_pi16(data[offset].val, _mm_set1_pi16(a)), _mm_set_pi32(<span class="number">0</span>, <span class="number">8</span>));</span><br><span class="line">        __m64 c1 = _mm_set_pi16(<span class="number">0</span>, <span class="number">25</span>, <span class="number">129</span>, <span class="number">66</span>);</span><br><span class="line">        __m64 c2 = _mm_set_pi16(<span class="number">0</span>, <span class="number">112</span>, <span class="number">-74</span>, <span class="number">-38</span>);</span><br><span class="line">        __m64 c3 = _mm_set_pi16(<span class="number">0</span>, <span class="number">-18</span>, <span class="number">-94</span>, <span class="number">112</span>);</span><br><span class="line">        __m64 t1 = _mm_madd_pi16(rgb, c1);</span><br><span class="line">        __m64 t2 = _mm_madd_pi16(rgb, c2);</span><br><span class="line">        __m64 t3 = _mm_madd_pi16(rgb, c3);</span><br><span class="line">        <span class="keyword">int</span> t4 = (((_mm_cvtsi64_si32(t1) + <span class="keyword">int</span>(_mm_cvtm64_si64(t1)&gt;&gt;<span class="number">32</span>)) + <span class="number">128</span>) &gt;&gt; <span class="number">8</span>) + <span class="number">16</span>;</span><br><span class="line">        <span class="keyword">int</span> t5 = (((_mm_cvtsi64_si32(t2) + <span class="keyword">int</span>(_mm_cvtm64_si64(t2)&gt;&gt;<span class="number">32</span>)) + <span class="number">128</span>) &gt;&gt; <span class="number">8</span>) + <span class="number">128</span>;</span><br><span class="line">        <span class="keyword">int</span> t6 = (((_mm_cvtsi64_si32(t3) + <span class="keyword">int</span>(_mm_cvtm64_si64(t3)&gt;&gt;<span class="number">32</span>)) + <span class="number">128</span>) &gt;&gt; <span class="number">8</span>) + <span class="number">128</span>;</span><br><span class="line"></span><br><span class="line">        result[num][offset] = t4;</span><br><span class="line">        result[num][uIndex] = t5;</span><br><span class="line">        result[num][vIndex] = t6;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span>[] data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-X86-SSE2指令集的实现"><a href="#4-X86-SSE2指令集的实现" class="headerlink" title="(4) X86 SSE2指令集的实现"></a>(4) X86 SSE2指令集的实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processYuvSSE2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> total = width * height;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Vec</span> &#123;</span></span><br><span class="line">    <span class="keyword">float</span> a[<span class="number">4</span>];</span><br><span class="line">  &#125; *data = <span class="keyword">new</span> Vec[total];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">      <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">      <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">      <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">      __m128 t0 = _mm_set_ps(<span class="number">0.0f</span>, (<span class="keyword">uint8_t</span>)yuv[vIndex], (<span class="keyword">uint8_t</span>)yuv[uIndex],</span><br><span class="line">                             (<span class="keyword">uint8_t</span>)yuv[offset]);</span><br><span class="line">      __m128 t1 = _mm_sub_ps(t0, _mm_set_ps(<span class="number">0.0f</span>, <span class="number">128.0f</span>, <span class="number">128.0f</span>, <span class="number">16.0f</span>));</span><br><span class="line">      __m128 t2 = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">1.596027f</span>, <span class="number">0.0f</span>, <span class="number">1.164383f</span>);</span><br><span class="line">      __m128 t3 = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">-0.812968f</span>, <span class="number">-0.391762f</span>, <span class="number">1.164383f</span>);</span><br><span class="line">      __m128 t4 = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">2.017232f</span>, <span class="number">1.164383f</span>);</span><br><span class="line">      __m128 t5 = _mm_dp_ps(t1, t2, <span class="number">0b11110001</span>);</span><br><span class="line">      __m128 t6 = _mm_dp_ps(t1, t3, <span class="number">0b11110010</span>);</span><br><span class="line">      __m128 t7 = _mm_dp_ps(t1, t4, <span class="number">0b11110100</span>);</span><br><span class="line">      __m128 rgb = _mm_add_ps(_mm_add_ps(t5, t6), t7);</span><br><span class="line">      __m128 zero = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">      __m128 max = _mm_set_ps(<span class="number">255.0f</span>, <span class="number">255.0f</span>, <span class="number">255.0f</span>, <span class="number">255.0f</span>);</span><br><span class="line">      rgb = _mm_max_ps(rgb, zero);</span><br><span class="line">      rgb = _mm_min_ps(rgb, max);</span><br><span class="line">      _mm_store_ps(data[offset].a, rgb);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> num = <span class="number">0</span>; num &lt; NUM_FRAMES; ++num) &#123;</span><br><span class="line">    <span class="keyword">int</span> a = num * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; ++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">        <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">        <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">        __m128 t0 = _mm_set_ps(<span class="number">0.0f</span>, a, a, a);</span><br><span class="line">        __m128 t1 = _mm_div_ps(t0, _mm_set_ps(<span class="number">255.0f</span>, <span class="number">255.0f</span>, <span class="number">255.0f</span>, <span class="number">255.0f</span>));</span><br><span class="line">        __m128 rgb = _mm_mul_ps(t1, _mm_load_ps(data[offset].a));</span><br><span class="line">        __m128 yc = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">0.097906f</span>, <span class="number">0.504129f</span>, <span class="number">0.256788f</span>);</span><br><span class="line">        __m128 uc = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">0.439126f</span>, <span class="number">-0.290993f</span>, <span class="number">-0.148223f</span>);</span><br><span class="line">        __m128 vc = _mm_set_ps(<span class="number">0.0f</span>, <span class="number">-0.071427f</span>, <span class="number">-0.367788f</span>, <span class="number">0.439216f</span>);</span><br><span class="line">        __m128 y = _mm_dp_ps(rgb, yc, <span class="number">0b11110001</span>);</span><br><span class="line">        __m128 u = _mm_dp_ps(rgb, uc, <span class="number">0b11110010</span>);</span><br><span class="line">        __m128 v = _mm_dp_ps(rgb, vc, <span class="number">0b11110100</span>);</span><br><span class="line">        __m128 t2 = _mm_add_ps(_mm_add_ps(y, _mm_add_ps(u, v)),</span><br><span class="line">                               _mm_set_ps(<span class="number">0.0f</span>, <span class="number">128.0f</span>, <span class="number">128.0f</span>, <span class="number">16.0f</span>));</span><br><span class="line">        __m128i t2i = _mm_cvtps_epi32(t2);</span><br><span class="line"></span><br><span class="line">        result[num][offset] = _mm_extract_epi32(t2i, <span class="number">0</span>);</span><br><span class="line">        result[num][uIndex] = _mm_extract_epi32(t2i, <span class="number">1</span>);</span><br><span class="line">        result[num][vIndex] = _mm_extract_epi32(t2i, <span class="number">2</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span>[] data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-X86-AVX指令集的实现"><a href="#5-X86-AVX指令集的实现" class="headerlink" title="(5) X86 AVX指令集的实现"></a>(5) X86 AVX指令集的实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processYuvAVX</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> total = width * height;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Vec</span> &#123;</span></span><br><span class="line">    <span class="keyword">float</span> a[<span class="number">8</span>];</span><br><span class="line">  &#125; *data = <span class="keyword">new</span> Vec[total / <span class="number">2</span>];</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; j += <span class="number">2</span>) &#123;</span><br><span class="line">      <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">      <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">      <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">      __m256 zero = _mm256_set1_ps(<span class="number">0.0f</span>);</span><br><span class="line">      __m256 max = _mm256_set1_ps(<span class="number">255.0f</span>);</span><br><span class="line">      __m256 t0 =</span><br><span class="line">          _mm256_set_ps(<span class="number">0.0f</span>, (<span class="keyword">uint8_t</span>)yuv[vIndex], (<span class="keyword">uint8_t</span>)yuv[uIndex],</span><br><span class="line">                        (<span class="keyword">uint8_t</span>)yuv[offset + <span class="number">1</span>], <span class="number">0.0f</span>, (<span class="keyword">uint8_t</span>)yuv[vIndex],</span><br><span class="line">                        (<span class="keyword">uint8_t</span>)yuv[uIndex], (<span class="keyword">uint8_t</span>)yuv[offset]);</span><br><span class="line">      __m256 t1 = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">128.0f</span>, <span class="number">128.0f</span>, <span class="number">16.0f</span>, <span class="number">0.0f</span>, <span class="number">128.0f</span>, <span class="number">128.0f</span>, <span class="number">16.0f</span>);</span><br><span class="line">      __m256 t2 = _mm256_sub_ps(t0, t1);</span><br><span class="line">      __m256 t3 = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">1.596027f</span>, <span class="number">0.0f</span>, <span class="number">1.164383f</span>, <span class="number">0.0f</span>, <span class="number">1.596027f</span>, <span class="number">0.0f</span>, <span class="number">1.164383f</span>);</span><br><span class="line">      __m256 t4 = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">-0.812968f</span>, <span class="number">-0.391762f</span>, <span class="number">1.164383f</span>, <span class="number">0.0f</span>, <span class="number">-0.812968f</span>, <span class="number">-0.391762f</span>, <span class="number">1.164383f</span>);</span><br><span class="line">      __m256 t5 = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">2.017232f</span>, <span class="number">1.164383f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">2.017232f</span>, <span class="number">1.164383f</span>);</span><br><span class="line">      __m256 sum1 = _mm256_hadd_ps(_mm256_hadd_ps(_mm256_mul_ps(t2, t3), zero), zero);</span><br><span class="line">      __m256 sum2 = _mm256_hadd_ps(_mm256_hadd_ps(_mm256_mul_ps(t2, t4), zero), zero);</span><br><span class="line">      __m256 sum3 = _mm256_hadd_ps(_mm256_hadd_ps(_mm256_mul_ps(t2, t5), zero), zero);</span><br><span class="line">      sum2 = _mm256_permute_ps(sum2, <span class="number">0b11100001</span>);</span><br><span class="line">      sum3 = _mm256_permute_ps(sum3, <span class="number">0b11000110</span>);</span><br><span class="line">      __m256 rgb = _mm256_add_ps(_mm256_add_ps(sum1, sum2), sum3);</span><br><span class="line">      rgb = _mm256_max_ps(rgb, zero);</span><br><span class="line">      rgb = _mm256_min_ps(rgb, max);</span><br><span class="line">      _mm256_store_ps(data[offset/<span class="number">2</span>].a, rgb);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> num = <span class="number">0</span>; num &lt; NUM_FRAMES; ++num) &#123;</span><br><span class="line">    <span class="keyword">int</span> a = num * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; ++i) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; j += <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> offset = i * width + j;</span><br><span class="line">        <span class="keyword">int</span> uIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total;</span><br><span class="line">        <span class="keyword">int</span> vIndex = (i / <span class="number">2</span>) * (width / <span class="number">2</span>) + (j / <span class="number">2</span>) + total + (total / <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">        __m256 zero = _mm256_set1_ps(<span class="number">0.0f</span>);</span><br><span class="line">        __m256 t0 = _mm256_set_ps(<span class="number">0.0f</span>, a, a, a, <span class="number">0.0f</span>, a, a, a);</span><br><span class="line">        __m256 t1 = _mm256_div_ps(t0, _mm256_set1_ps(<span class="number">255.0f</span>));</span><br><span class="line">        __m256 rgb = _mm256_mul_ps(t1, _mm256_load_ps(data[offset/<span class="number">2</span>].a));</span><br><span class="line">        __m256 yc = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">0.097906f</span>, <span class="number">0.504129f</span>, <span class="number">0.256788f</span>, <span class="number">0.0f</span>, <span class="number">0.097906f</span>, <span class="number">0.504129f</span>, <span class="number">0.256788f</span>);</span><br><span class="line">        __m256 uc = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">0.439126f</span>, <span class="number">-0.290993f</span>, <span class="number">-0.148223f</span>, <span class="number">0.0f</span>, <span class="number">0.439126f</span>, <span class="number">-0.290993f</span>, <span class="number">-0.148223f</span>);</span><br><span class="line">        __m256 vc = _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">-0.071427f</span>, <span class="number">-0.367788f</span>, <span class="number">0.439216f</span>, <span class="number">0.0f</span>, <span class="number">-0.071427f</span>, <span class="number">-0.367788f</span>, <span class="number">0.439216f</span>);</span><br><span class="line">        __m256 sum1 = _mm256_hadd_ps(_mm256_hadd_ps(_mm256_mul_ps(rgb, yc), zero), zero);</span><br><span class="line">        __m256 sum2 = _mm256_hadd_ps(_mm256_hadd_ps(_mm256_mul_ps(rgb, uc), zero), zero);</span><br><span class="line">        __m256 sum3 = _mm256_hadd_ps(_mm256_hadd_ps(_mm256_mul_ps(rgb, vc), zero), zero);</span><br><span class="line">        sum2 = _mm256_permute_ps(sum2, <span class="number">0b11100001</span>);</span><br><span class="line">        sum3 = _mm256_permute_ps(sum3, <span class="number">0b11000110</span>);</span><br><span class="line">        __m256 t2 = _mm256_add_ps(_mm256_add_ps(sum1, sum2), sum3);</span><br><span class="line">        t2 = _mm256_add_ps(t2,</span><br><span class="line">                           _mm256_set_ps(<span class="number">0.0f</span>, <span class="number">128.0f</span>, <span class="number">128.0f</span>, <span class="number">16.0f</span>, <span class="number">0.0f</span>, <span class="number">128.0f</span>, <span class="number">128.0f</span>, <span class="number">16.0f</span>));</span><br><span class="line">        __m256i t2i = _mm256_cvtps_epi32(t2);</span><br><span class="line"></span><br><span class="line">        result[num][offset] = _mm256_extract_epi32(t2i, <span class="number">0</span>);</span><br><span class="line">        result[num][uIndex] = _mm256_extract_epi32(t2i, <span class="number">1</span>);</span><br><span class="line">        result[num][vIndex] = _mm256_extract_epi32(t2i, <span class="number">2</span>);</span><br><span class="line">        result[num][offset + <span class="number">1</span>] = _mm256_extract_epi32(t2i, <span class="number">4</span>);   </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span>[] data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/" title="" target="_blank" rel="external">http://example.com/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/Report/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/luxinhua" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/cat.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/luxinhua" target="_blank"><span class="text-dark">StarLord</span><small class="ml-1x">嵌入式开发</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/10/24/cpu_simulator/RISCV-Simulator/YuvImageProcessor/README/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/10/24/c/c_fmt_va_arg/" title="可变参数的使用案例"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 XinHua Lu
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
